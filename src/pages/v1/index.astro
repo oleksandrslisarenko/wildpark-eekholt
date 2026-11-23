@@ -58,7 +58,7 @@ const tiles = [
         </a>
         <ul class="ev-list">
           {rest.map((e) => { const d = dayLabel(e.next); return (
-            <li><a href="/v1/veranstaltungen/"><span class="d">{d.day}<small>{d.mon} {d.wd}</small></span><div><h3>{e.title}</h3><p>{cleanTime(e.time)}. {e.text.split('. ')[0]}.</p></div></a></li>
+            <li><a href="/v1/veranstaltungen/"><span class="d">{d.day}<small>{d.mon} {d.wd}</small></span><div><h3>{e.title}</h3><p><span>{cleanTime(e.time)}.</span> <span>{(e.text.match(/^.*?[.!?](?=\s|$)/) || [e.text])[0]}</span></p></div></a></li>
           ); })}
           <li><p class="pnote">Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p></li>
         </ul>

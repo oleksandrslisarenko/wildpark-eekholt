@@ -7,7 +7,7 @@
   --mist: #EEF0E2;
   --forest: #00724D;
   --stone: #5B5D52;
-  --f: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --f: 'Schibsted Grotesk Variable', 'Golos Text Variable', system-ui, sans-serif;
   --wrap: min(1360px, 100% - 2 * var(--gut));
   --gut: clamp(16px, 4vw, 48px);
   --ease: cubic-bezier(.2, .7, .1, 1);
@@ -323,4 +323,15 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Русская версия */
+:lang(ru) .slots li[data-state="now"]::before { content: 'сейчас'; }
+:lang(ru) .slots li[data-state="upcoming"]::before { content: 'дальше'; }
+:lang(ru) .hours article.current::after { content: 'сейчас'; }
+:lang(ru) .mainnav a, :lang(ru) .mainnav .soon { white-space: nowrap; padding-inline: 9px; font-size: 15px; }
+@media (max-width: 1320px) {
+  :lang(ru) .mainnav, :lang(ru) .tools > .btn.plate, :lang(ru) .tools .lang { display: none; }
+  :lang(ru) .burger { display: grid; place-content: center; gap: 6px; width: 44px; height: 44px; border: 0; background: var(--lime); cursor: pointer; }
+  :lang(ru) .burger span:not(.sr) { width: 20px; height: 2px; background: var(--ink); }
 }

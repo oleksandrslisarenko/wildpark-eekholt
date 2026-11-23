@@ -8,7 +8,7 @@
   --bark: #8A6E5A;
   --line: #C7CDB8;
   --serif: 'Literata Variable', Georgia, serif;
-  --sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --sans: 'Hanken Grotesk Variable', 'Golos Text Variable', system-ui, sans-serif;
   --wrap: min(1280px, 100% - 2 * var(--gut));
   --gut: clamp(18px, 4vw, 56px);
   --ease: cubic-bezier(.22, .61, .2, 1);
@@ -271,3 +271,11 @@ form[data-state="error"] .msg { color: #9B2C10; }
 
 [data-reveal] { }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .ring .draw { stroke-dashoffset: 0; } .ruler .rng { transform: none; } }
+
+/* Русская версия */
+:lang(ru) .daylog li[data-state="now"] span::after { content: ' · прямо сейчас'; }
+:lang(ru) .daylog li[data-state="upcoming"] span::after { content: ' · дальше'; }
+:lang(ru) .seasons .cur .note::after { content: ' · действует сейчас'; }
+:lang(ru) .top nav ul { gap: 4px 16px; }
+:lang(ru) .top nav a, :lang(ru) .top nav .soon { white-space: nowrap; font-size: 15px; }
+@media (max-width: 1360px) { :lang(ru) .top { grid-template-columns: auto 1fr; } :lang(ru) .top nav, :lang(ru) .tools .lang { display: none; } :lang(ru) .menu { display: inline-block; } :lang(ru) .tools { justify-content: end; } }

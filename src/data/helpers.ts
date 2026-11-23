@@ -35,5 +35,5 @@ export const eventPhoto: Record<string, string> = {
   'Eekholter Weihnachtsmarkt': 'weihnachtsmarkt',
   'Adventliche Fackelwanderung': 'fackelwanderung',
   'Novemberleuchten mit Laternenpfad': 'laternenpfad',
-  'Dunkel-Munkel-Nächte': 'dunkel-munkel',
+  'Dunkel-Munkel-Nacht „Feuer & Flamme“': 'dunkel-munkel',
 };

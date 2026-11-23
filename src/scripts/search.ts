@@ -4,6 +4,7 @@ export function wireSearch(variant: string) {
   const input = dlg?.querySelector<HTMLInputElement>('input[type=search]');
   const list = dlg?.querySelector<HTMLElement>('[data-results]');
   if (!dlg || !input || !list) return;
+  const ru = document.documentElement.lang === 'ru';
   document.querySelectorAll('[data-search]').forEach((b) => b.addEventListener('click', () => { dlg.showModal(); input.focus(); }));
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   let pf: any; let t: number | undefined;
@@ -18,9 +19,10 @@ export function wireSearch(variant: string) {
         const items = await Promise.all(r.results.slice(0, 8).map((x: any) => x.data()));
         list.innerHTML = items.length
           ? items.map((d: any) => `<li><a href="${d.url}"><strong>${d.meta.title || ''}</strong><span>${d.excerpt}</span></a></li>`).join('')
+          : ru ? `<li class="empty">По запросу «${q.replace(/</g, '')}» ничего не найдено. Попробуйте другое слово, например «волк» или «цены».</li>`
           : `<li class="empty">Keine Treffer für „${q.replace(/</g, '')}“. Versuchen Sie ein anderes Wort, zum Beispiel Wolf oder Preise.</li>`;
       } catch {
-        list.innerHTML = '<li class="empty">Die Suche ist in der lokalen Vorschau nicht verfügbar.</li>';
+        list.innerHTML = ru ? '<li class="empty">В локальном просмотре поиск недоступен.</li>' : '<li class="empty">Die Suche ist in der lokalen Vorschau nicht verfügbar.</li>';
       }
     }, 180);
   });

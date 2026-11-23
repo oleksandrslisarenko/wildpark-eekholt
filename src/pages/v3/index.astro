@@ -48,7 +48,7 @@ const zoo = [
       <div class="evcards">
         {ev.map((e) => { const d = dayLabel(e.next); const c = cats[catOf(e.title)]; return (
           <a class={`ec ${c.color}`} href="/v3/veranstaltungen/">
-            <div class="top-b"><div class="day">{d.day}.<small>{d.monLong}</small></div><div class="cat">{c.label}</div></div>
+            <div class="top-b"><div class="day" data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.day}.<small>{d.monLong}</small></div><div class="cat">{c.label}</div></div>
             <img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 640) : e.img} alt="" loading="lazy" />
             <div class="body"><h3>{e.title}</h3><p>{cleanTime(e.time)}</p></div>
           </a>

@@ -286,3 +286,10 @@ p { margin: 0 0 1em; }
 .empty-note { padding: 24px; background: var(--warm); border-radius: var(--r); }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Русская версия */
+:lang(ru) .pill::before { content: 'открыто '; }
+:lang(ru) .pill[data-state="closed"]::before { content: 'откроемся '; }
+:lang(ru) .pill[data-state="soon"]::before { content: 'откроемся '; }
+:lang(ru) .chips li[data-state="now"]::after { content: ' · сейчас'; }
+:lang(ru) .oh article.cur::after { content: 'действует сейчас'; }

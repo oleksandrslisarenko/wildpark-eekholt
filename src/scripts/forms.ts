@@ -2,6 +2,7 @@
 const ENDPOINT = 'https://formsubmit.co/ajax/slisarenko.alex@gmail.com';
 
 export function wireForms(root: ParentNode = document) {
+  const ru = document.documentElement.lang === 'ru';
   root.querySelectorAll<HTMLFormElement>('form[data-send]').forEach((form) => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -14,15 +15,15 @@ export function wireForms(root: ParentNode = document) {
       try {
         const r = await fetch(ENDPOINT, {
           method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ ...data, _subject: `Wildpark Eekholt: ${form.dataset.send}`, _template: 'table', _captcha: 'false' }),
+          body: JSON.stringify({ ...data, Sprache: ru ? 'RU' : 'DE', Seite: location.pathname, _subject: `Wildpark Eekholt: ${form.dataset.send}`, _template: 'table', _captcha: 'false' }),
         });
         if (!r.ok) throw new Error(String(r.status));
         form.dataset.state = 'done';
-        if (out) out.textContent = form.dataset.ok || 'Vielen Dank! Ihre Nachricht ist bei uns angekommen.';
+        if (out) out.textContent = form.dataset.ok || (ru ? 'Спасибо! Ваше сообщение получено.' : 'Vielen Dank! Ihre Nachricht ist bei uns angekommen.');
         form.reset();
       } catch {
         form.dataset.state = 'error';
-        if (out) out.textContent = 'Senden hat nicht geklappt. Bitte versuchen Sie es noch einmal oder rufen Sie uns an: 04327 9923-0.';
+        if (out) out.textContent = ru ? 'Не удалось отправить. Попробуйте ещё раз или позвоните нам: 04327 9923-0.' : 'Senden hat nicht geklappt. Bitte versuchen Sie es noch einmal oder rufen Sie uns an: 04327 9923-0.';
       } finally { btn && (btn.disabled = false); }
     });
   });
