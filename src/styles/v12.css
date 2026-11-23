@@ -667,3 +667,77 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 :lang(ru) .v12 .slots li[data-state="past"]::before, :lang(ru) .slots li[data-state="past"]::before { content: 'сегодня уже было'; }
 :lang(ru) .v12 .hours article.current::after, :lang(ru) .hours article.current::after { content: 'действует сейчас'; }
 :lang(ru) .feedcard[data-state="upcoming"] .when::after, :lang(ru) .feedcard[data-state="now"] .when::after { content: ' · сегодня следующее'; }
+
+/* ===== Runde 2 ===== */
+/* Kopf: Sprachwahl und Shop-Button gleich hoch */
+.v12 .langdd > button, .v12 .tix { height: 44px; padding-block: 0; box-sizing: border-box; }
+.v12 .tix { padding-inline: 18px; }
+/* Hero im Goldenen Schnitt, Tier-Icons auf dem Foto */
+.h12 { grid-template-columns: 1fr 1.618fr; }
+.h12-plate { padding: clamp(40px, 5vw, 80px) clamp(24px, 3.4vw, 56px) 40px; }
+.h12-plate h1 { font-size: clamp(38px, 3.9vw, 64px); }
+.h12-eagle { right: clamp(-130px, -8vw, -80px); width: clamp(170px, 17vw, 260px); }
+.h12-stage .h12-nav { position: absolute; left: 24px; bottom: 26px; z-index: 4; margin: 0; }
+.h12-stage .h12-nav button { background: rgba(255,255,255,.88); border-color: #fff; backdrop-filter: blur(4px); }
+.h12-stage .h12-nav button:hover { background: #fff; }
+.h12-stage .h12-nav button[aria-current="true"] { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+.h12-stage .h12-nav button .bar { background: #fff; height: 4px; bottom: -10px; }
+.h12-stage .h12-nav .all { background: var(--ink); box-shadow: 0 0 0 2px #fff; }
+.h12-slide figcaption { bottom: auto; top: 14px; }
+@media (max-width: 900px) { .h12-stage .h12-nav { left: 12px; bottom: 16px; } .h12-slide figcaption { top: 10px; right: 10px; left: auto; } }
+/* Heute im Park: größere Icons */
+.v12 .slots li .ico { --is: 46px; }
+/* Veranstaltungen: Datum als Streifen auf dem Foto */
+.ev3 figure { position: relative; }
+.ev3 .date { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; background: var(--lime); color: var(--ink); padding: 12px 16px; font-size: 18px; }
+.ev3 .date b { font-weight: 750; }
+.ev3 .date span { font-weight: 600; font-size: 16px; }
+.ev3 .body { border-top: 0; padding-top: 16px; }
+/* Laufband: größer, langsamer, ohne Linie unten */
+.ticker { border-bottom: 0; border-top: 0; }
+.ticker ul { animation-duration: 210s; gap: 18px; }
+.ticker a { width: 84px; height: 84px; }
+.ticker a .ico { --is: 64px; }
+/* Kartenbereich hell */
+.mapsec { background: #F4F5EC; color: var(--ink); }
+.mapsec .head h2 { color: var(--ink); }
+.mapsec .head p { color: var(--stone); }
+.mapbox12 { box-shadow: 0 0 0 2px var(--ink); background: #fff; }
+.mapview { background: #F4F5EC; }
+.legend { background: #fff; }
+.pin { transform-box: fill-box; transform-origin: center; transition: transform .25s var(--ease); }
+.poi:hover .pin, .poi:focus-visible .pin, .poi.sel .pin { transform: scale(1.9); }
+.poi:hover > .pin > circle:first-child, .poi.sel > .pin > circle:first-child { r: 22; }
+.mapinfo { color: var(--ink); }
+.mapinfo > div { display: flex; gap: 14px; align-items: flex-start; }
+.mapinfo .ico { --is: 44px; }
+.mapinfo strong { color: var(--ink); }
+.mapinfo a { color: var(--ink); }
+/* Handgezeichnete Icons (Set h) */
+.ico-h { color: var(--ink); }
+.ph12 .scene { --is: 100%; width: 100%; height: auto; color: #fff; }
+.ph12 .scene svg { height: auto; }
+.ph12 .illu { justify-self: end; width: min(520px, 100%); animation: rise 1s var(--ease) both .2s; }
+.blockhead .ico-h { --is: 52px; }
+.ptable th .ico-h { --is: 30px; }
+.rules12 .ico-h { --is: 58px; }
+.fact .ico-h { --is: 52px; }
+.pdfcard .ico-h { --is: 56px; }
+.pdfcard:hover .ico-h { color: var(--lime); }
+/* Jahreskarten leichter */
+.annual12 { gap: 28px; }
+.annual12 .card { box-shadow: 0 10px 22px -14px rgba(0,0,0,.35); }
+.annual12 .meta { display: block; padding-top: 16px; }
+.annual12 .meta h3 { font-size: 18px; font-weight: 650; display: flex; align-items: center; gap: 8px; }
+.annual12 .meta h3 i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.annual12 .meta span { margin: 2px 0 0 18px; font-size: 14px; }
+.annual12 .meta .price { display: block; margin: 10px 0 0 18px; font-size: 22px; font-weight: 500; letter-spacing: -.01em; }
+.annual12 .buy { margin: 10px 0 0 18px; border: 0; font-weight: 600; font-size: 14px; color: var(--forest); display: inline-flex; align-items: center; }
+.annual12 a:hover .buy { text-decoration: underline; }
+:root { --jk-orange: #F07F1F; --jk-blue: #334A9A; --jk-red: #BE2A0C; --jk-purple: #A169A8; }
+@media (max-width: 900px) {
+  .h12 { grid-template-columns: 1fr; }
+  .h12-stage { aspect-ratio: 1 / 0.95; order: -1; }
+  .h12-eagle { top: -64px; bottom: auto; right: 10px; width: 150px; }
+  .ph12 .illu { justify-self: center; width: min(340px, 100%); }
+}

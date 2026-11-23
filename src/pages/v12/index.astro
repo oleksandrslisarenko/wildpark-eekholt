@@ -25,7 +25,8 @@ const tiles = [
 ];
 // Laufband: alle Tiere mit Icon, zweimal hintereinander für die Endlosschleife
 const icons = aIcons as Record<string, string>;
-const band = [...animals].sort(() => 0.5 - Math.random()).map((a) => ({ name: a.name, icon: icons[a.slug] }));
+const seen = new Set<string>();
+const band = [...animals].sort(() => 0.5 - Math.random()).filter((a) => { const i = icons[a.slug]; if (seen.has(i)) return false; seen.add(i); return true; }).map((a) => ({ name: a.name, icon: icons[a.slug] }));
 const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
 ---
 <L title="Wildpark Eekholt – Naturerlebnisse im Norden Hamburgs" active="">
@@ -38,15 +39,14 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
         <a class="btn ink" href="/v12/besuch/">Preise und Öffnungszeiten</a>
         <span class="live" data-live="status">Täglich geöffnet</span>
       </div>
+    </div>
+    <div class="h12-stage" aria-roledescription="Karussell" aria-label="Tiere im Wildpark">
       <div class="h12-nav">
-        <p>Wen möchten Sie sehen?</p>
         <ul>
           {slides.map((s, i) => <li><button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><Icon name={s.icon} /><span class="bar"></span></button></li>)}
           <li><a class="all" href="/v12/tier/">Alle Tiere</a></li>
         </ul>
       </div>
-    </div>
-    <div class="h12-stage" aria-roledescription="Karussell" aria-label="Tiere im Wildpark">
       {slides.map((s, i) => s.layers ? (
         <figure class={`h12-slide layers ${i === 0 ? 'on' : ''}`} data-slide={i} data-parallax>
           <img class="bg" src="/img/owl-bg-1400.webp" srcset="/img/owl-bg-800.webp 800w, /img/owl-bg-1400.webp 1400w" sizes="50vw" alt="" fetchpriority="high" />
@@ -83,9 +83,8 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       <div class="ev3">
         {ev.map((e) => { const d = dayLabel(e.next); return (
           <a href="/v12/veranstaltungen/">
-            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /></figure>
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="date"><b>{d.wd} {d.day}. {d.monLong}</b><span>{cleanTime(e.time)}</span></span></figure>
             <div class="body">
-              <span class="date">{d.wd} {d.day}. {d.monLong} · {cleanTime(e.time)}</span>
               <h3>{e.title}</h3>
               <p>{e.text}</p>
             </div>
@@ -150,10 +149,10 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       </div>
       <ParkMap base="/v12" />
       <div class="mapinfo">
-        <div><strong>Fürs Navi</strong>{contact.navi}</div>
-        <div><strong>Parken</strong>Kostenlos direkt am Park, auch für Busse</div>
-        <div><strong>Ohne Auto</strong>Mit Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt und kostenloses Laden</div>
-        <div><strong>Lageplan zum Ausdrucken</strong><a href="#" style="color:#fff">Lageplan als PDF</a></div>
+        <div><Icon name="navi" set="h" /><div><strong>Fürs Navi</strong>{contact.navi}</div></div>
+        <div><Icon name="auto" set="h" /><div><strong>Parken</strong>Kostenlos direkt am Park, auch für Busse</div></div>
+        <div><Icon name="bus" set="h" /><div><strong>Ohne Auto</strong>Mit Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt und kostenloses Laden</div></div>
+        <div><Icon name="pdf" set="h" /><div><strong>Lageplan zum Ausdrucken</strong><a href="#">Lageplan als PDF</a></div></div>
       </div>
     </div>
   </section>
@@ -206,10 +205,8 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       btns.forEach((b, k) => { b.setAttribute('aria-current', String(k === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
       restart();
     }
-    function restart() { clearTimeout(timer); if (!reduce && !hero.classList.contains('paused')) timer = window.setTimeout(() => go(cur + 1), DUR); }
+    function restart() { clearTimeout(timer); if (!reduce) timer = window.setTimeout(() => go(cur + 1), DUR); }
     btns.forEach((b, k) => b.addEventListener('click', () => go(k)));
-    hero.addEventListener('mouseenter', () => { hero.classList.add('paused'); clearTimeout(timer); });
-    hero.addEventListener('mouseleave', () => { hero.classList.remove('paused'); restart(); });
     restart();
     const layer = hero.querySelector<HTMLElement>('[data-parallax]');
     if (layer && !reduce) {

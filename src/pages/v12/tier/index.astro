@@ -50,14 +50,14 @@ const mon = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
     <div class="wrap">
       <div class="head"><h2>Steckbrief</h2><p>Der Wolf in Zahlen, wie er in Schleswig-Holstein lebt.</p></div>
       <div class="facts12" data-reveal>
-        <div class="fact"><Icon name="lineal" set="d" /><h3>Länge</h3><div class="v">100–160 cm</div><span class="bar" aria-hidden="true"><i style={bar(100, 160, 200)}></i></span></div>
-        <div class="fact"><Icon name="gewicht" set="d" /><h3>Gewicht</h3><div class="v">15–50 kg</div><span class="bar" aria-hidden="true"><i style={bar(15, 50, 60)}></i></span></div>
-        <div class="fact"><Icon name="sanduhr" set="d" /><h3>Lebensalter</h3><div class="v">10–20 Jahre</div><span class="bar" aria-hidden="true"><i style={bar(10, 20, 25)}></i></span></div>
-        <div class="fact"><Icon name="herz" set="d" /><h3>Geschlechtsreife</h3><div class="v">1–3 Jahre</div></div>
-        <div class="fact wide"><Icon name="fleisch" set="d" /><h3>Nahrung</h3><div class="v">Alte, kranke und junge Huftiere, Nager wie der Biber, Haustiere, Früchte und Obst</div></div>
-        <div class="fact"><Icon name="kalender" set="d" /><h3>Tragzeit</h3><div class="v">61–63 Tage</div><span class="s">Paarung im Januar und Februar</span></div>
-        <div class="fact"><Icon name="pfote" set="d" /><h3>Welpen</h3><div class="v">4 bis 7</div><span class="s">300–500 g, geboren im März oder April, entwöhnt mit 7–9 Wochen</span></div>
-        <div class="fact full"><Icon name="baeume" set="d" /><h3>Das Wolfsjahr</h3>
+        <div class="fact"><Icon name="lineal" set="h" /><h3>Länge</h3><div class="v">100–160 cm</div><span class="bar" aria-hidden="true"><i style={bar(100, 160, 200)}></i></span></div>
+        <div class="fact"><Icon name="kiste" set="h" /><h3>Gewicht</h3><div class="v">15–50 kg</div><span class="bar" aria-hidden="true"><i style={bar(15, 50, 60)}></i></span></div>
+        <div class="fact"><Icon name="uhr" set="h" /><h3>Lebensalter</h3><div class="v">10–20 Jahre</div><span class="bar" aria-hidden="true"><i style={bar(10, 20, 25)}></i></span></div>
+        <div class="fact"><Icon name="herz" set="h" /><h3>Geschlechtsreife</h3><div class="v">1–3 Jahre</div></div>
+        <div class="fact wide"><Icon name="besteck" set="h" /><h3>Nahrung</h3><div class="v">Alte, kranke und junge Huftiere, Nager wie der Biber, Haustiere, Früchte und Obst</div></div>
+        <div class="fact"><Icon name="kalender" set="h" /><h3>Tragzeit</h3><div class="v">61–63 Tage</div><span class="s">Paarung im Januar und Februar</span></div>
+        <div class="fact"><Icon name="pfote" set="h" /><h3>Welpen</h3><div class="v">4 bis 7</div><span class="s">300–500 g, geboren im März oder April, entwöhnt mit 7–9 Wochen</span></div>
+        <div class="fact full"><Icon name="blatt" set="h" /><h3>Das Wolfsjahr</h3>
           <div class="cyc" aria-label="Paarung Januar und Februar, Geburt März und April">{mon.map((x, i) => <span class={i < 2 ? 'pair' : i < 4 ? 'birth' : ''}>{x}</span>)}</div>
           <div class="cyc-leg"><span><i style="background:var(--ink)"></i>Paarung</span><span><i style="background:var(--lime)"></i>Geburt der Welpen</span></div>
         </div>

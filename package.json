@@ -19,7 +19,10 @@
     "astro": "^7.4.13"
   },
   "devDependencies": {
+    "@iconify-json/doodle-icons": "^1.2.0",
+    "@iconify-json/streamline-freehand": "^1.2.1",
     "@tabler/icons": "^3.52.0",
+    "doodle-icons": "^1.1.0",
     "node-html-parser": "^9.0.7",
     "pagefind": "^1.6.0",
     "roughjs": "^4.6.6"

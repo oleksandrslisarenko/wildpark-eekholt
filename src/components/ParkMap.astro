@@ -12,8 +12,7 @@ const VB = '40 0 1660 1160';
 <div class="mapbox12" data-map>
   <div class="mapview" data-mapview>
     <div class="mapzoom"><button type="button" data-zoom="in" aria-label="Hineinzoomen">+</button><button type="button" data-zoom="out" aria-label="Herauszoomen">–</button></div>
-    <svg viewBox={VB} data-vb={VB} role="img" aria-labelledby="map-t">
-      <title id="map-t">Lageplan des Wildparks mit Tieren, Infopunkten, Grillplätzen und Service</title>
+    <svg viewBox={VB} data-vb={VB} role="img" aria-label="Lageplan des Wildparks mit Tieren, Infopunkten, Grillplätzen und Service">
       <path class="road" d="M330 358 L940 300 L1046 232" />
       <path class="road" d="M520 1225 C560 1060 640 990 760 958 L1565 850" />
       <path class="park" d={shapes.park} />
@@ -29,9 +28,11 @@ const VB = '40 0 1660 1160';
           <g class="poi" tabindex="0" role="button" data-cat={p.cat} data-feed={p.feed || ''} data-x={p.x} data-y={p.y}
              data-name={p.name} data-note={p.note || ''} data-catlabel={c.label} data-href={p.slug ? `${base}/tier/` : ''}
              aria-label={p.name} transform={`translate(${p.x} ${p.y})`}>
-            <circle r="22" fill={c.color} />
-            <svg class="gl" x="-16" y="-16" width="32" height="32" viewBox="0 0 72 72" set:html={inner(p.icon)} />
-            {p.feed && <circle class="feed" cx="17" cy="-17" r="8" />}
+            <g class="pin">
+              <circle r="22" fill={c.color} />
+              <svg class="gl" x="-16" y="-16" width="32" height="32" viewBox="0 0 72 72" set:html={inner(p.icon)} />
+              {p.feed && <circle class="feed" cx="17" cy="-17" r="8" />}
+            </g>
           </g>
         );
       })}
@@ -94,7 +95,8 @@ const VB = '40 0 1660 1160';
     }
     function hide() { card.hidden = true; sel?.classList.remove('sel'); sel = null; }
     pois.forEach((p) => {
-      p.addEventListener('click', (e) => { e.stopPropagation(); sel === p ? hide() : show(p); });
+      p.addEventListener('mouseenter', () => { if (p.parentNode!.lastElementChild !== p) p.parentNode!.appendChild(p); });
+            p.addEventListener('click', (e) => { e.stopPropagation(); sel === p ? hide() : show(p); });
       p.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(p); } });
     });
     card.querySelector('[data-close]')!.addEventListener('click', hide);

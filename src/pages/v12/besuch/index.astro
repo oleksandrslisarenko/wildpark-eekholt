@@ -8,8 +8,8 @@ const m = TODAY.getMonth() + 1;
 const cur = m >= 3 && m <= 10 ? 'sommer' : 'winter';
 const ordered = [...seasons].sort((a, b) => (a.id === cur ? -1 : b.id === cur ? 1 : 0));
 const feedIcon: Record<string, string> = { 'Fischotter': 'otter', 'Baummarder': 'marder', 'Füchse, Dachse und Steinmarder': 'fuchs', 'Störche': 'storch', 'Wolf': 'wolf' };
-const ruleIcons = ['hund', 'pfote', 'rad', 'wagen'];
-const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.startsWith('Grillhütte') || l.startsWith('Doppelte') ? 'zelt' : l.startsWith('Grillplatz') ? 'grill' : l.startsWith('Zusatzpavillon') ? 'zelt' : 'feuer';
+const ruleIcons = ['hund', 'pfote', 'verbot', 'karre'];
+const extraIcon = (l: string) => l.startsWith('Führung') ? 'flagge' : l.startsWith('Grillhütte') || l.startsWith('Doppelte') ? 'haus' : l.startsWith('Grillplatz') ? 'feuer' : l.startsWith('Zusatzpavillon') ? 'schirm' : 'flamme';
 ---
 <L title="Preise und Öffnungszeiten – Wildpark Eekholt" description="Eintrittspreise, Jahreskarten, Gruppenpreise und Einlasszeiten des Wildpark Eekholt. Täglich und ganzjährig geöffnet." active="besuch">
   <section class="ph12">
@@ -20,9 +20,7 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
         <p>Täglich und ganzjährig geöffnet, auch an Feiertagen. Nach dem letzten Einlass können Sie bis zur Dunkelheit bleiben und den Park durch das Drehtor verlassen.</p>
         <p class="live" data-live="status" style="margin-top:18px">Täglich geöffnet</p>
       </div>
-      <figure class="paper" aria-hidden="true">
-        <Icon name="szene-besuch" set="d" cls="scene" size={480} />
-      </figure>
+      <div class="illu" aria-hidden="true"><Icon name="szene-besuch" set="h" cls="scene" /></div>
     </div>
   </section>
 
@@ -43,14 +41,9 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
 
   <section class="sec mist">
     <div class="wrap">
-      <div class="photostrip">
-        <figure><img src={img('bachlauf-kinder', 1200)} alt="Kinder spielen im Bach" loading="lazy" /><figcaption>Spielen am Bach</figcaption></figure>
-        <figure><img src={img('fuetterung', 640)} alt="Wild an der Osterau" loading="lazy" /><figcaption>Unterwegs im Park</figcaption></figure>
-        <figure><img src={img('eule-kinder', 640)} alt="Kinder lernen eine Eule kennen" loading="lazy" /><figcaption>Gruppen und Schulklassen</figcaption></figure>
-      </div>
       <div class="pgrid">
         <div>
-          <div class="blockhead"><Icon name="ticket" set="d" /><h2>Tageskarten</h2></div>
+          <div class="blockhead"><Icon name="ticket" set="h" /><h2>Tageskarten</h2></div>
           <table class="ptable">
             <caption class="hidden">Tageskarten</caption>
             <tbody>{prices.single.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}</tbody>
@@ -58,7 +51,7 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
           <div class="family"><div><b>{prices.family.label}</b><br /><span>{prices.family.note}</span></div><strong>{fmt(prices.family.price)}</strong></div>
         </div>
         <div>
-          <div class="blockhead"><Icon name="gruppe" set="d" /><h2>Gruppen ab 20 Personen</h2></div>
+          <div class="blockhead"><Icon name="gruppe" set="h" /><h2>Gruppen ab 20 Personen</h2></div>
           <table class="ptable">
             <caption class="hidden">Gruppen ab 20 Personen</caption>
             <tbody>{prices.groups.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}</tbody>
@@ -76,7 +69,11 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
         {prices.annual.map((a) => (
           <a href={a.href} rel="noopener" target="_blank">
             <div class="card"><img src={`/img/jk-${a.img}.webp`} alt={`Jahreskarte 2027 ${a.label}`} loading="lazy" /></div>
-            <div class="meta"><h3>{a.label}<span>{a.note || 'ab 16 Jahren'}</span></h3><strong>{fmt(a.price)}</strong></div>
+            <div class="meta">
+              <h3><i style={`background:var(--jk-${a.color})`}></i>{a.label}</h3>
+              <span>{a.note || 'ab 16 Jahren'}</span>
+              <b class="price">{fmt(a.price)}</b>
+            </div>
             <span class="buy">Im Onlineshop bestellen <Ext /></span>
           </a>
         ))}
@@ -87,13 +84,13 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
   <section class="sec mist">
     <div class="wrap pgrid">
       <div>
-        <div class="blockhead"><Icon name="schule" set="d" /><h2>Schulklassen und Kitas</h2></div>
+        <div class="blockhead"><Icon name="buch" set="h" /><h2>Schulklassen und Kitas</h2></div>
         <table class="ptable"><caption class="hidden">Schulklassen und Kitas</caption><tbody>{prices.schools.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}</tbody></table>
         <p class="pnote">{prices.schoolsNote}</p>
       </div>
       <div>
-        <div class="blockhead"><Icon name="grill" set="d" /><h2>Führungen, Geburtstage, Grillen</h2></div>
-        <table class="ptable"><caption class="hidden">Führungen, Geburtstage, Grillen</caption><tbody>{prices.extras.map((p) => <tr><th><Icon name={extraIcon(p.label)} set="d" />{p.label}</th><td>{fmt(p.price)}{p.extra && <small>{p.extra}</small>}</td></tr>)}</tbody></table>
+        <div class="blockhead"><Icon name="feuer" set="h" /><h2>Führungen, Geburtstage, Grillen</h2></div>
+        <table class="ptable"><caption class="hidden">Führungen, Geburtstage, Grillen</caption><tbody>{prices.extras.map((p) => <tr><th><Icon name={extraIcon(p.label)} set="h" />{p.label}</th><td>{fmt(p.price)}{p.extra && <small>{p.extra}</small>}</td></tr>)}</tbody></table>
         <p class="pnote">Grillplätze und Führungen bitte vorher anmelden: <a href={contact.phoneHref}>{contact.phone}</a>, {contact.office}.</p>
       </div>
     </div>
@@ -102,12 +99,12 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
   <section class="sec">
     <div class="wrap pgrid">
       <div>
-        <div class="blockhead"><Icon name="fisch" set="d" /><h2>Fütterungen</h2></div>
+        <div class="blockhead"><Icon name="teller" set="h" /><h2>Fütterungen</h2></div>
         <table class="ptable"><caption class="hidden">Fütterungen</caption><tbody>{feedings.map((f) => <tr data-slot={f.time} data-kind="feed"><th><span class="anim"><Icon name={feedIcon[f.what] || 'pfote'} />{f.what}</span></th><td>{f.time} Uhr</td></tr>)}</tbody></table>
         <p class="pnote">Abweichungen sind möglich. Die Tafel am Eingang zeigt die Fütterungen des Tages.</p>
       </div>
       <div>
-        <div class="blockhead"><Icon name="feder" set="d" /><h2>Flugvorführungen</h2></div>
+        <div class="blockhead"><Icon name="vogel" set="h" /><h2>Flugvorführungen</h2></div>
         <p style="font-size:24px;font-weight:700">{flights.times.join(' · ')} Uhr</p>
         <p>{flights.season}, auf der Flugwiese mit Sitzplätzen. {flights.note} Nächster Start: 14. März 2027.</p>
         <figure style="margin:20px 0 0"><img src={img('flugwiese', 640)} alt="Flugvorführung auf der Flugwiese" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover" /></figure>
@@ -118,7 +115,7 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'familie' : l.starts
   <section class="sec mist">
     <div class="wrap">
       <div class="head"><h2>Gut zu wissen</h2></div>
-      <ul class="rules12">{prices.rules.map((r, i) => <li><Icon name={ruleIcons[i]} set="d" />{r}</li>)}</ul>
+      <ul class="rules12">{prices.rules.map((r, i) => <li><Icon name={ruleIcons[i]} set="h" />{r}</li>)}</ul>
     </div>
   </section>
 </L>
