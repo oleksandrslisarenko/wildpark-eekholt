@@ -15,6 +15,7 @@ export const contact = {
   coords: { lat: 53.9486, lng: 10.03 },
   facebook: 'https://www.facebook.com/WildparkEekholt',
   shop: 'https://www.eekholt-shop.de',
+  shopJk: 'https://www.eekholt-shop.de/Jahreskarten/',
   paten: 'https://www.eekholt-patenschaften.de',
   spende: 'https://www.gooding.de/donation/foerderungsverein-wildpark-eekholt-e-v-22682',
 };
@@ -47,10 +48,10 @@ export const prices = {
   ],
   family: { label: 'Familien-Tageskarte', note: 'Eltern mit eigenen Kindern bis 16 Jahre', price: 49.5 },
   annual: [
-    { label: 'Kinder', note: '4 bis 16 Jahre', price: 33.5, color: 'orange' },
-    { label: 'Erwachsene', note: '', price: 48.5, color: 'blue' },
-    { label: 'Familien', note: 'Eltern mit Kindern von 4 bis 16 Jahren', price: 102.5, color: 'red' },
-    { label: 'Großeltern', note: 'Großeltern mit Enkeln von 4 bis 16 Jahren', price: 102.5, color: 'purple' },
+    { label: 'Kinder', note: '4 bis 16 Jahre', price: 33.5, color: 'orange', img: 'kinder', href: 'https://www.eekholt-shop.de/Jahreskarten/Kinderjahreskarte-11-15-19-24-29-33-40-45-57-69-76.html' },
+    { label: 'Erwachsene', note: '', price: 48.5, color: 'blue', img: 'erwachsene', href: 'https://www.eekholt-shop.de/Jahreskarten/Einzeljahreskarte-12-16-20-23-30-34-41-46-58-67-74.html' },
+    { label: 'Familien', note: 'Eltern mit Kindern von 4 bis 16 Jahren', price: 102.5, color: 'red', img: 'familien', href: 'https://www.eekholt-shop.de/Jahreskarten/Familienjahreskarte-13-17-21-25-31-35-42-47-59-68-78.html' },
+    { label: 'Großeltern', note: 'Großeltern mit Enkeln von 4 bis 16 Jahren', price: 102.5, color: 'purple', img: 'grosseltern', href: 'https://www.eekholt-shop.de/Jahreskarten/Grosselternjahreskarte-14-18-22-26-32-36-43-48-60-70-80.html' },
   ],
   annualNote: 'Jahreskarten 2027 gelten vom 01.12.2026 bis 31.12.2027 (12+1 Aktion). Bestellung im Onlineshop oder im Eingangsbereich. Lieferzeit 5–7 Werktage.',
   groups: [

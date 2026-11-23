@@ -1,0 +1,58 @@
+---
+import L from '../../../layouts/V12.astro';
+import Icon from '../../../components/Icon.astro';
+import { events, img } from '../../../data/site';
+import { MONTHS_LONG, TODAY, lastDate, cleanTime, eventPhoto } from '../../../data/helpers';
+const iso = TODAY.toISOString().slice(0, 10);
+const coming = events.filter((e) => (lastDate(e) || '') >= iso);
+const past = events.filter((e) => (lastDate(e) || '') < iso);
+const byMonth = MONTHS_LONG.map((name, i) => ({ name, items: past.filter((e) => e.m === i + 1) })).filter((g) => g.items.length).reverse();
+const dateText = (d: string) => d.replace(/ und /g, ', ').replace(/Vsl\. /, 'voraussichtl. ');
+const short = (e: typeof events[number]) => (e.dates[0] || '').slice(8, 10) + '.' + (e.dates[0] || '').slice(5, 7) + '.';
+---
+<L title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026: Wolfsnächte, Eulentag, Dunkel-Munkel-Nächte, Weihnachtsmarkt und mehr. Im Eintritt enthalten." active="veranstaltungen">
+  <section class="plain-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/v12/">Start</a><span>Veranstaltungen</span></p>
+      <h1>Veranstaltungen</h1>
+      <p>28 Termine übers Jahr, von der Winterwanderung bis zur Wildweihnacht. Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:48px">
+    <div class="wrap evlayout">
+      <div>
+        <h2 class="month-h" style="padding-top:0">Demnächst · {coming.length} Termine</h2>
+        <ul class="evs">
+          {coming.map((e) => (
+            <li>
+              <div class="when"><strong>{dateText(e.date).split(/, (?=[A-Z])/).map((d) => <span class="d">{d}</span>)}</strong><span>{cleanTime(e.time)}</span></div>
+              <div><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 640) : e.img} alt="" loading="lazy" /></div>
+              <div>
+                {e.title.includes('Weihnacht') || e.title.includes('Fackel') ? <span class="tag">Advent</span> : null}
+                <h3>{e.title}</h3>
+                <p>{e.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <aside class="evside">
+        <a class="pdfcard" href="#">
+          <Icon name="kalender" set="d" />
+          <strong>Jahreskalender 2026</strong>
+          <span>Alle Termine auf einer Seite, als PDF zum Ausdrucken</span>
+        </a>
+        <div class="archive">
+          <h2>Bereits vorbei</h2>
+          <p>{past.length} Termine in diesem Jahr</p>
+          {byMonth.map((g, i) => (
+            <details open={i === 0}>
+              <summary>{g.name}<span>{g.items.length}</span></summary>
+              <ul>{g.items.map((e) => <li><time>{short(e)}</time><span>{e.title}</span></li>)}</ul>
+            </details>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </section>
+</L>

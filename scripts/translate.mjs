@@ -9,7 +9,7 @@ import { parse } from 'node-html-parser';
 const DIST = 'dist';
 const extract = process.argv.includes('--extract');
 const dict = existsSync('i18n/ru.json') ? JSON.parse(readFileSync('i18n/ru.json', 'utf8')) : {};
-const ATTRS = ['alt', 'title', 'placeholder', 'aria-label', 'data-ok', 'data-send'];
+const ATTRS = ['alt', 'title', 'placeholder', 'aria-label', 'data-ok', 'data-send', 'data-name', 'data-note', 'data-catlabel', 'data-feed'];
 const SKIP = new Set(['script', 'style', 'noscript', 'svg']);
 
 function walk(dir, out = []) {
@@ -71,8 +71,15 @@ function translateNode(node, file) {
   if (node.nodeType === 3) { node.rawText = escapeText(tr(decode(node.rawText), file)); return; }
   if (node.nodeType !== 1) return;
   const tag = (node.rawTagName || '').toLowerCase();
+  if (tag === 'svg') {
+    // Karte: Punkte (Attribute), Titel und Beschriftungen übersetzen, Rest der Grafik nicht anfassen
+    node.querySelectorAll('g.poi').forEach((g) => { for (const a of ATTRS) { const v = g.getAttribute(a); if (v && hasLetters(v)) g.setAttribute(a, tr(v, file).trim()); } });
+    node.querySelectorAll('title, text').forEach((t) => { if (hasLetters(t.text)) t.set_content(escapeText(tr(decode(t.text), file).trim())); });
+    return;
+  }
   if (SKIP.has(tag)) return;
   if (node.getAttribute && node.getAttribute('lang') === 'de' && tag === 'span') return; // Sprachumschalter
+  if (node.getAttribute && node.hasAttribute && node.hasAttribute('data-langdd')) return;
   for (const a of ATTRS) {
     const v = node.getAttribute?.(a);
     if (v && hasLetters(v)) node.setAttribute(a, tr(v, file).trim());
@@ -104,6 +111,11 @@ for (const file of walk(DIST)) {
     const path = ul.getAttribute('data-path');
     ul.set_content(`<li><a href="${path}" hreflang="de" lang="de" title="Deutsch">DE</a></li><li><span aria-current="true" title="Русский" lang="ru">RU</span></li><li><span class="off" aria-disabled="true" title="English – скоро">EN</span></li><li><span class="off" aria-disabled="true" title="Dansk – скоро">DA</span></li>`);
     ul.setAttribute('aria-label', 'Язык');
+  });
+  // Sprach-Dropdown (Entwurf 1.2)
+  root.querySelectorAll('[data-langdd]').forEach((dd) => {
+    const path = dd.getAttribute('data-path');
+    dd.set_content(`<button type="button" aria-haspopup="true" aria-expanded="false" aria-label="Выбрать язык, сейчас русский">RU<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><ul role="menu"><li role="none"><a role="menuitem" href="${path}" hreflang="de" lang="de">DE <small>Deutsch</small></a></li><li role="none"><span role="menuitem" aria-current="true">RU <small>Русский</small></span></li><li role="none"><span role="menuitem" class="off" aria-disabled="true">EN <small>English</small></span></li><li role="none"><span role="menuitem" class="off" aria-disabled="true">DA <small>Dansk</small></span></li></ul>`);
   });
   // Tag + Monat im Genitiv ("28 ноября")
   root.querySelectorAll('[data-i18n-daymonth]').forEach((el) => {

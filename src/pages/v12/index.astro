@@ -1,0 +1,226 @@
+---
+import L from '../../layouts/V12.astro';
+import Icon from '../../components/Icon.astro';
+import Ext from '../../components/Ext.astro';
+import ParkMap from '../../components/ParkMap.astro';
+import { img, srcset, highlights, prices, fmt, contact, animals, animalPhotos } from '../../data/site';
+import { upcoming, dayLabel, cleanTime, slotsToday, eventPhoto, flightSeason } from '../../data/helpers';
+import aIcons from '../../data/animalIcons.json';
+const ev = upcoming(3);
+const slides = [
+  { id: 'eule', icon: 'eule', name: 'Bartkauz', label: 'Eulen', layers: true },
+  { id: 'wolf', icon: 'wolf', name: 'Wölfe', label: 'Wolf', src: 'slide-woelfe' },
+  { id: 'otter', icon: 'otter', name: 'Kanadischer Fischotter', label: 'Fischotter', src: 'slide-otter' },
+  { id: 'katze', icon: 'katze', name: 'Junge Wildkatzen', label: 'Wildkatze', src: 'slide-katzen' },
+  { id: 'hirsch', icon: 'hirsch', name: 'Weißes Rotwild', label: 'Weißes Rotwild', src: 'slide-rotwild' },
+];
+const tiles = [
+  { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true },
+  { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis' },
+  { slug: 'weisses_rotwild', name: 'Weißes Rotwild', latin: 'Cervus elaphus' },
+  { slug: 'wildkatze', name: 'Wildkatze', latin: 'Felis silvestris' },
+  { slug: 'storch', name: 'Weißstorch', latin: 'Ciconia ciconia' },
+  { slug: 'uhu', name: 'Uhu', latin: 'Bubo bubo' },
+  { slug: 'fuchs', name: 'Waldkauz', latin: 'Strix aluco', photo: 'waldkauz' },
+];
+// Laufband: alle Tiere mit Icon, zweimal hintereinander für die Endlosschleife
+const icons = aIcons as Record<string, string>;
+const band = [...animals].sort(() => 0.5 - Math.random()).map((a) => ({ name: a.name, icon: icons[a.slug] }));
+const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
+---
+<L title="Wildpark Eekholt – Naturerlebnisse im Norden Hamburgs" active="">
+  <section class="h12" data-hero>
+    <div class="h12-plate">
+      <img class="h12-eagle" src="/img/eagle.svg" alt="" />
+      <h1>700 heimische Wildtiere auf 67 Hektar Natur</h1>
+      <p class="lede">Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg. Täglich und ganzjährig geöffnet.</p>
+      <div class="row">
+        <a class="btn ink" href="/v12/besuch/">Preise und Öffnungszeiten</a>
+        <span class="live" data-live="status">Täglich geöffnet</span>
+      </div>
+      <div class="h12-nav">
+        <p>Wen möchten Sie sehen?</p>
+        <ul>
+          {slides.map((s, i) => <li><button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><Icon name={s.icon} /><span class="bar"></span></button></li>)}
+          <li><a class="all" href="/v12/tier/">Alle Tiere</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="h12-stage" aria-roledescription="Karussell" aria-label="Tiere im Wildpark">
+      {slides.map((s, i) => s.layers ? (
+        <figure class={`h12-slide layers ${i === 0 ? 'on' : ''}`} data-slide={i} data-parallax>
+          <img class="bg" src="/img/owl-bg-1400.webp" srcset="/img/owl-bg-800.webp 800w, /img/owl-bg-1400.webp 1400w" sizes="50vw" alt="" fetchpriority="high" />
+          <img class="fg" src="/img/owl-fg-1400.webp" srcset="/img/owl-fg-800.webp 800w, /img/owl-fg-1400.webp 1400w" sizes="50vw" alt="Bartkauz im Wildpark Eekholt" />
+          <figcaption>{s.name} · Foto: Wildpark Eekholt</figcaption>
+        </figure>
+      ) : (
+        <figure class="h12-slide" data-slide={i}>
+          <img src={img(s.src!, 1200)} srcset={srcset(s.src!)} sizes="50vw" alt={s.name} loading="lazy" />
+          <figcaption>{s.name} · Foto: Wildpark Eekholt</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="today" aria-labelledby="today-h">
+    <div class="wrap">
+      <div>
+        <h2 id="today-h">Heute im Park</h2>
+        <p class="sub">{flightSeason() ? 'Fütterungen und Flugvorführungen' : `Öffentliche Fütterungen. Flugvorführungen wieder ab 14. März 2027.`}</p>
+      </div>
+      <ol class="slots">
+        {slotsToday().map((s) => <li data-slot={s.time} data-kind={s.kind}><Icon name={feedIcon[s.time] || 'adler'} /><time>{s.time}</time><span>{s.what}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2>Als Nächstes im Wildpark</h2>
+        <a class="more" href="/v12/veranstaltungen/">Alle 28 Termine 2026</a>
+      </div>
+      <div class="ev3">
+        {ev.map((e) => { const d = dayLabel(e.next); return (
+          <a href="/v12/veranstaltungen/">
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /></figure>
+            <div class="body">
+              <span class="date">{d.wd} {d.day}. {d.monLong} · {cleanTime(e.time)}</span>
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
+            </div>
+          </a>
+        ); })}
+      </div>
+      <p class="pnote">Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head">
+        <h2>Über 100 Arten, fast alle von hier</h2>
+        <p>Wolf, Fischotter, Wildkatze, Seeadler: Tiere, die in Schleswig-Holstein leben oder lebten. 33 davon stellen sich mit Steckbrief vor.</p>
+      </div>
+      <div class="zoo12">
+        {tiles.map((t) => (
+          <a class={t.big ? 'big' : ''} href="/v12/tier/">
+            <img src={img(t.photo || animalPhotos[t.slug], t.big ? 1200 : 640)} alt={t.name} loading="lazy" />
+            <span class="name">{t.name}<small>{t.latin}</small></span>
+          </a>
+        ))}
+      </div>
+      <div class="ticker" aria-label="Alle Tiere des Parks">
+        <ul>
+          {[...band, ...band].map((b, i) => (
+            <li aria-hidden={i >= band.length ? 'true' : undefined}><a href="/v12/tier/" tabindex={i >= band.length ? -1 : undefined} aria-label={b.name}><Icon name={b.icon} /><span class="tip">{b.name}</span></a></li>
+          ))}
+        </ul>
+      </div>
+      <p><a class="more" href="/v12/tier/">Alle Tiere von A bis Z</a></p>
+    </div>
+  </section>
+
+  <section class="trio">
+    <article>
+      <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
+      <h2>Eekholter Wolfsmeile</h2>
+      <p>{highlights.wolfsmeile}</p>
+      <a class="btn plate" href="#">Zur Wolfsmeile</a>
+    </article>
+    <article>
+      <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
+      <h2>Vogelpflegestation</h2>
+      <p>{highlights.pflegestation}</p>
+      <p class="tel">{highlights.pflegeTel}</p>
+    </article>
+    <article>
+      <img src={img('wildkatzen', 1200)} alt="Junge Wildkatzen auf einem Baumstamm" loading="lazy" />
+      <h2>Tierpatenschaften</h2>
+      <p>{highlights.paten} Firmen können ebenfalls Pate werden.</p>
+      <a class="btn plate" href={contact.paten} rel="noopener" target="_blank">Pate werden <Ext /></a>
+    </article>
+  </section>
+
+  <section class="mapsec">
+    <div class="wrap">
+      <div class="head">
+        <h2>Der Park auf einen Blick</h2>
+        <p>67 Hektar, zwei Rundwege: der kleine dauert etwa eine Stunde, der große zweieinhalb. Filtern Sie nach Tieren, Fütterungen, Grillplätzen oder Service.</p>
+      </div>
+      <ParkMap base="/v12" />
+      <div class="mapinfo">
+        <div><strong>Fürs Navi</strong>{contact.navi}</div>
+        <div><strong>Parken</strong>Kostenlos direkt am Park, auch für Busse</div>
+        <div><strong>Ohne Auto</strong>Mit Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt und kostenloses Laden</div>
+        <div><strong>Lageplan zum Ausdrucken</strong><a href="#" style="color:#fff">Lageplan als PDF</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2>Eintritt</h2>
+        <a class="more" href="/v12/besuch/">Alle Preise, Gruppen und Grillplätze</a>
+      </div>
+      <div class="price-strip">
+        <div><strong>{fmt(prices.single[0].price)}</strong><span>Erwachsene</span></div>
+        <div><strong>{fmt(prices.single[2].price)}</strong><span>Kinder 4–16 Jahre</span></div>
+        <div><strong>{fmt(prices.family.price)}</strong><span>Familien-Tageskarte</span></div>
+        <div><strong>frei</strong><span>Kinder unter 4 Jahren</span></div>
+      </div>
+      <div class="cards13">
+        <img src="/img/jahreskarten-2027.webp" alt="Die vier Jahreskarten 2027: Erwachsene, Familien, Großeltern, Kinder" loading="lazy" />
+        <div>
+          <h3>Jahreskarte 2027: 13 Monate zum Preis von 12</h3>
+          <p>{prices.annualNote}</p>
+          <a class="btn plate" href={contact.shopJk} rel="noopener" target="_blank">Im Onlineshop bestellen <Ext /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head"><h2>Für wen planen Sie?</h2></div>
+      <div class="paths">
+        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><div><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></div></a>
+        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><div><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></div></a>
+        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><div><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></div></a>
+        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><div><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></div></a>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Karussell mit Tier-Icons + Parallaxe beim Bartkauz
+    const hero = document.querySelector<HTMLElement>('[data-hero]')!;
+    const slides = [...hero.querySelectorAll<HTMLElement>('[data-slide]')];
+    const btns = [...hero.querySelectorAll<HTMLButtonElement>('[data-go]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0, timer: number | undefined;
+    const DUR = 6000;
+    function go(i: number) {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle('on', k === cur); if (k === cur) s.querySelectorAll('img').forEach((im) => (im.loading = 'eager')); });
+      btns.forEach((b, k) => { b.setAttribute('aria-current', String(k === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+      restart();
+    }
+    function restart() { clearTimeout(timer); if (!reduce && !hero.classList.contains('paused')) timer = window.setTimeout(() => go(cur + 1), DUR); }
+    btns.forEach((b, k) => b.addEventListener('click', () => go(k)));
+    hero.addEventListener('mouseenter', () => { hero.classList.add('paused'); clearTimeout(timer); });
+    hero.addEventListener('mouseleave', () => { hero.classList.remove('paused'); restart(); });
+    restart();
+    const layer = hero.querySelector<HTMLElement>('[data-parallax]');
+    if (layer && !reduce) {
+      const bg = layer.querySelector<HTMLElement>('.bg')!, fg = layer.querySelector<HTMLElement>('.fg')!;
+      hero.addEventListener('mousemove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
+        fg.style.transform = `translate(${dx * -18}px, ${dy * -12}px)`;
+        bg.style.transform = `translate(${dx * 8}px, ${dy * 6}px) scale(1.02)`;
+      });
+      hero.addEventListener('mouseleave', () => { fg.style.transform = ''; bg.style.transform = ''; });
+    }
+  </script>
+</L>

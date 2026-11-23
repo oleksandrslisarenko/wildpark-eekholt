@@ -1,0 +1,124 @@
+---
+// Interaktiver Lageplan: Formen aus dem offiziellen Lageplan (PDF) vektorisiert, Punkte aus dessen Legende.
+import shapes from '../data/mapshapes.json';
+import { pois, cats } from '../data/mappois';
+const { base = '/v12' } = Astro.props;
+const icons = import.meta.glob('../icons/a/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const inner = (n: string) => (icons[`../icons/a/${n}.svg`] || '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+const catOf = Object.fromEntries(cats.map((c) => [c.id, c]));
+const count = (id: string) => pois.filter((p) => p.cat === id).length;
+const VB = '40 0 1660 1160';
+---
+<div class="mapbox12" data-map>
+  <div class="mapview" data-mapview>
+    <div class="mapzoom"><button type="button" data-zoom="in" aria-label="Hineinzoomen">+</button><button type="button" data-zoom="out" aria-label="Herauszoomen">–</button></div>
+    <svg viewBox={VB} data-vb={VB} role="img" aria-labelledby="map-t">
+      <title id="map-t">Lageplan des Wildparks mit Tieren, Infopunkten, Grillplätzen und Service</title>
+      <path class="road" d="M330 358 L940 300 L1046 232" />
+      <path class="road" d="M520 1225 C560 1060 640 990 760 958 L1565 850" />
+      <path class="park" d={shapes.park} />
+      <path class="moor" d={shapes.moor} />
+      <path class="water" d={shapes.water} />
+      <path class="paths" d={shapes.paths} />
+      <text class="lbl water" x="480" y="612">Osterau</text>
+      <text class="lbl" x="985" y="248">Moor und Heide</text>
+      <text class="lbl" x="740" y="1030" style="font-size:30px;fill:#1C1C1A">Eingang</text>
+      {pois.map((p) => {
+        const c = catOf[p.cat];
+        return (
+          <g class="poi" tabindex="0" role="button" data-cat={p.cat} data-feed={p.feed || ''} data-x={p.x} data-y={p.y}
+             data-name={p.name} data-note={p.note || ''} data-catlabel={c.label} data-href={p.slug ? `${base}/tier/` : ''}
+             aria-label={p.name} transform={`translate(${p.x} ${p.y})`}>
+            <circle r="22" fill={c.color} />
+            <svg class="gl" x="-16" y="-16" width="32" height="32" viewBox="0 0 72 72" set:html={inner(p.icon)} />
+            {p.feed && <circle class="feed" cx="17" cy="-17" r="8" />}
+          </g>
+        );
+      })}
+    </svg>
+    <div class="mapcard" data-mapcard hidden role="dialog" aria-live="polite">
+      <button class="x" type="button" aria-label="Schließen" data-close>✕</button>
+      <span class="cat" data-c></span>
+      <h3 data-n></h3>
+      <span class="feedtime" data-f hidden></span>
+      <p data-o></p>
+      <a data-l href="#" hidden>Zum Steckbrief</a>
+    </div>
+  </div>
+  <aside class="legend" aria-label="Legende und Filter">
+    <h3>Was möchten Sie sehen?</h3>
+    {cats.map((c) => <button type="button" data-filter={c.id} aria-pressed="true"><i style={`background:${c.color}`}></i><span>{c.label}</span><b>{count(c.id)}</b></button>)}
+    <button type="button" class="feedtoggle" data-feedonly aria-pressed="false"><i style="background:#C8C901;box-shadow:0 0 0 2px #1C1C1A inset"></i><span>Nur Fütterungen</span><b>{pois.filter((p) => p.feed).length}</b></button>
+    <p class="tip">Tippen Sie auf einen Punkt für Details. Mit + und – zoomen, die Karte lässt sich verschieben.</p>
+  </aside>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach((box) => {
+    const view = box.querySelector<HTMLElement>('[data-mapview]')!;
+    const svg = view.querySelector('svg')!;
+    const card = box.querySelector<HTMLElement>('[data-mapcard]')!;
+    const pois = [...box.querySelectorAll<SVGGElement>('.poi')];
+    const filters = [...box.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const feedBtn = box.querySelector<HTMLButtonElement>('[data-feedonly]')!;
+    const [vx, vy, vw, vh] = svg.dataset.vb!.split(' ').map(Number);
+    let vb = { x: vx, y: vy, w: vw, h: vh };
+    const setVB = () => { svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); place(); };
+    let sel: SVGGElement | null = null;
+
+    function apply() {
+      const on = new Set(filters.filter((b) => b.getAttribute('aria-pressed') === 'true').map((b) => b.dataset.filter));
+      const feedOnly = feedBtn.getAttribute('aria-pressed') === 'true';
+      pois.forEach((p) => p.classList.toggle('dim', feedOnly ? !p.dataset.feed : !on.has(p.dataset.cat)));
+      if (sel && sel.classList.contains('dim')) hide();
+    }
+    filters.forEach((b) => b.addEventListener('click', () => { b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); feedBtn.setAttribute('aria-pressed', 'false'); apply(); }));
+    feedBtn.addEventListener('click', () => { feedBtn.setAttribute('aria-pressed', String(feedBtn.getAttribute('aria-pressed') !== 'true')); apply(); });
+
+    function place() {
+      if (!sel || card.hidden) return;
+      const r = svg.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      const x = r.left - vr.left + view.scrollLeft + ((+sel.dataset.x! - vb.x) / vb.w) * r.width;
+      const y = r.top - vr.top + ((+sel.dataset.y! - vb.y) / vb.h) * r.height;
+      card.style.left = `${Math.min(Math.max(x, 140), view.scrollWidth - 140)}px`;
+      card.style.top = `${Math.max(y, 240)}px`;
+    }
+    function show(p: SVGGElement) {
+      sel?.classList.remove('sel'); sel = p; p.classList.add('sel');
+      card.querySelector('[data-c]')!.textContent = p.dataset.catlabel!;
+      card.querySelector('[data-n]')!.textContent = p.dataset.name!;
+      const o = card.querySelector<HTMLElement>('[data-o]')!; o.textContent = p.dataset.note || ''; o.hidden = !p.dataset.note;
+      const f = card.querySelector<HTMLElement>('[data-f]')!; f.hidden = !p.dataset.feed;
+      f.textContent = (document.documentElement.lang === 'ru' ? 'Кормление: ' : 'Fütterung: ') + (p.dataset.feed || '');
+      const l = card.querySelector<HTMLAnchorElement>('[data-l]')!; l.hidden = !p.dataset.href; if (p.dataset.href) l.href = p.dataset.href;
+      card.hidden = false; place();
+    }
+    function hide() { card.hidden = true; sel?.classList.remove('sel'); sel = null; }
+    pois.forEach((p) => {
+      p.addEventListener('click', (e) => { e.stopPropagation(); sel === p ? hide() : show(p); });
+      p.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(p); } });
+    });
+    card.querySelector('[data-close]')!.addEventListener('click', hide);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+
+    // Zoom und Verschieben
+    const zoom = (f: number, cx = vb.x + vb.w / 2, cy = vb.y + vb.h / 2) => {
+      const nw = Math.min(vw, Math.max(vw / 4, vb.w * f)), nh = nw * (vh / vw);
+      vb = { x: Math.min(Math.max(cx - (cx - vb.x) * (nw / vb.w), vx), vx + vw - nw), y: Math.min(Math.max(cy - (cy - vb.y) * (nh / vb.h), vy), vy + vh - nh), w: nw, h: nh };
+      setVB();
+    };
+    box.querySelector('[data-zoom="in"]')!.addEventListener('click', () => zoom(0.7));
+    box.querySelector('[data-zoom="out"]')!.addEventListener('click', () => zoom(1 / 0.7));
+    let drag: { x: number; y: number; bx: number; by: number } | null = null;
+    svg.addEventListener('pointerdown', (e) => { if ((e.target as Element).closest('.poi') || vb.w >= vw) return; drag = { x: e.clientX, y: e.clientY, bx: vb.x, by: vb.y }; svg.setPointerCapture(e.pointerId); });
+    svg.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const r = svg.getBoundingClientRect(), k = vb.w / r.width;
+      vb.x = Math.min(Math.max(drag.bx - (e.clientX - drag.x) * k, vx), vx + vw - vb.w);
+      vb.y = Math.min(Math.max(drag.by - (e.clientY - drag.y) * k, vy), vy + vh - vb.h);
+      setVB();
+    });
+    svg.addEventListener('pointerup', () => { drag = null; });
+    svg.addEventListener('click', () => hide());
+    window.addEventListener('resize', place);
+  });
+</script>

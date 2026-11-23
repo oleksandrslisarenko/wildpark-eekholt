@@ -1,0 +1,13 @@
+---
+// Sprachauswahl als Dropdown. Die RU-Variante setzt scripts/translate.mjs.
+const path = Astro.url.pathname;
+---
+<div class="langdd" data-langdd data-path={path}>
+  <button type="button" aria-haspopup="true" aria-expanded="false" aria-label="Sprache wählen, aktuell Deutsch">DE<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <ul role="menu">
+    <li role="none"><span role="menuitem" aria-current="true">DE <small>Deutsch</small></span></li>
+    <li role="none"><a role="menuitem" href={`/ru${path}`} hreflang="ru" lang="ru">RU <small>Русский</small></a></li>
+    <li role="none"><span role="menuitem" class="off" aria-disabled="true">EN <small>English</small></span></li>
+    <li role="none"><span role="menuitem" class="off" aria-disabled="true">DA <small>Dansk</small></span></li>
+  </ul>
+</div>
