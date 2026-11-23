@@ -42,7 +42,7 @@ const pages = [['', 'Startseite'], ['tier/', 'Tierseite (Wolf)'], ['besuch/', 'P
         <div>
           <h2><span>{x.n}.</span> {x.name}</h2>
           <p>{x.text}</p>
-          <ul>{pages.map(([p, l]) => <li><a href={`${x.href}${p}`}>{l}</a></li>)}</ul>
+          <ul>{pages.map(([p, l]) => <li><a href={`${x.href}${p}`} target="_blank" rel="noopener">{l}</a></li>)}</ul>
         </div>
       </section>
     ))}
