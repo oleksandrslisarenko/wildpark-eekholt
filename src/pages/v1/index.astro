@@ -1,0 +1,155 @@
+---
+import L from '../../layouts/V1.astro';
+import { img, srcset, intro, highlights, prices, fmt, contact, facts, flights, animals, animalPhotos } from '../../data/site';
+import { upcoming, dayLabel, cleanTime, slotsToday, eventPhoto, flightSeason } from '../../data/helpers';
+const ev = upcoming(4);
+const [first, ...rest] = ev;
+const fd = dayLabel(first.next);
+const tiles = [
+  { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true },
+  { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis' },
+  { slug: 'weisses_rotwild', name: 'Weißes Rotwild', latin: 'Cervus elaphus' },
+  { slug: 'wildkatze', name: 'Wildkatze', latin: 'Felis silvestris' },
+  { slug: 'storch', name: 'Weißstorch', latin: 'Ciconia ciconia' },
+  { slug: 'uhu', name: 'Uhu', latin: 'Bubo bubo' },
+];
+---
+<L title="Wildpark Eekholt – Naturerlebnisse im Norden Hamburgs">
+  <section class="hero">
+    <img src={img('hero-bartkauz', 2000)} srcset={srcset('hero-bartkauz')} sizes="100vw" alt="Bartkauz im Wildpark Eekholt vor blauem Himmel" fetchpriority="high" />
+    <div class="hero-plate">
+      <img class="eagle" src="/img/eagle.svg" alt="" />
+      <h1>700 heimische Wildtiere auf 67 Hektar Natur</h1>
+      <p class="lede">Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg. Täglich und ganzjährig geöffnet.</p>
+      <div class="row">
+        <a class="btn ink" href="/v1/besuch/">Preise und Öffnungszeiten</a>
+        <span class="live" data-live="status">Täglich geöffnet</span>
+      </div>
+    </div>
+    <span class="credit">Bartkauz · Foto: Wildpark Eekholt</span>
+  </section>
+
+  <section class="today" aria-labelledby="today-h">
+    <div class="wrap">
+      <div>
+        <h2 id="today-h">Heute im Park</h2>
+        <p class="sub">{flightSeason() ? 'Fütterungen und Flugvorführungen' : `Öffentliche Fütterungen. Flugvorführungen wieder ab 14. März 2027.`}</p>
+      </div>
+      <ol class="slots">
+        {slotsToday().map((s) => <li data-slot={s.time} data-kind={s.kind}><time>{s.time}</time><span>{s.what}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2>Als Nächstes im Wildpark</h2>
+        <a class="more" href="/v1/veranstaltungen/">Alle 28 Termine 2026</a>
+      </div>
+      <div class="ev-grid">
+        <a class="ev-feature" href="/v1/veranstaltungen/">
+          <img src={img(eventPhoto[first.title] || 'weihnachtsmarkt', 1200)} alt="" loading="lazy" />
+          <div class="card">
+            <span class="date">{fd.wd} {fd.day}. {fd.monLong} · {cleanTime(first.time)}</span>
+            <h3>{first.title}</h3>
+            <p>{first.text}</p>
+          </div>
+        </a>
+        <ul class="ev-list">
+          {rest.map((e) => { const d = dayLabel(e.next); return (
+            <li><a href="/v1/veranstaltungen/"><span class="d">{d.day}<small>{d.mon} {d.wd}</small></span><div><h3>{e.title}</h3><p>{cleanTime(e.time)}. {e.text.split('. ')[0]}.</p></div></a></li>
+          ); })}
+          <li><p class="pnote">Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head">
+        <h2>Über 100 Arten, fast alle von hier</h2>
+        <p>Wolf, Fischotter, Wildkatze, Seeadler: Tiere, die in Schleswig-Holstein leben oder lebten. 33 davon stellen sich mit Steckbrief vor.</p>
+      </div>
+      <div class="animals">
+        {tiles.map((t) => (
+          <a class={`a-tile ${t.big ? 'big' : ''}`} href="/v1/tier/">
+            <img src={img(animalPhotos[t.slug], t.big ? 1200 : 640)} alt={t.name} loading="lazy" />
+            <span class="name">{t.name}<small>{t.latin}</small></span>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top:24px"><a class="more" href="/v1/tier/">Alle Tiere von A bis Z</a></p>
+    </div>
+  </section>
+
+  <section class="duo">
+    <article>
+      <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
+      <h2>Eekholter Wolfsmeile</h2>
+      <p>{highlights.wolfsmeile}</p>
+      <a class="btn plate" href="#">Zur Wolfsmeile</a>
+    </article>
+    <article>
+      <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
+      <h2>Vogelpflegestation</h2>
+      <p>{highlights.pflegestation}</p>
+      <p class="tel">{highlights.pflegeTel}</p>
+    </article>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2>Eintritt</h2>
+        <a class="more" href="/v1/besuch/">Alle Preise, Gruppen und Grillplätze</a>
+      </div>
+      <div class="price-strip">
+        <div><strong>{fmt(prices.single[0].price)}</strong><span>Erwachsene</span></div>
+        <div><strong>{fmt(prices.single[2].price)}</strong><span>Kinder 4–16 Jahre</span></div>
+        <div><strong>{fmt(prices.family.price)}</strong><span>Familien-Tageskarte</span></div>
+        <div><strong>frei</strong><span>Kinder unter 4 Jahren</span></div>
+      </div>
+      <div class="cards13">
+        <img src="/img/jahreskarten-2027.webp" alt="Die vier Jahreskarten 2027: Erwachsene, Familien, Großeltern, Kinder" loading="lazy" />
+        <div>
+          <h3>Jahreskarte 2027: 13 Monate zum Preis von 12</h3>
+          <p>{prices.annualNote}</p>
+          <a class="btn plate" href={contact.shop} rel="noopener">Im Onlineshop bestellen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head"><h2>Für wen planen Sie?</h2></div>
+      <div class="paths">
+        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><div><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></div></a>
+        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><div><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></div></a>
+        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><div><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></div></a>
+        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><div><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap visit">
+      <div>
+        <div class="head"><h2>So finden Sie zu uns</h2></div>
+        <dl>
+          <dt>Fürs Navi</dt><dd>{contact.navi}</dd>
+          <dt>Postanschrift</dt><dd>{contact.street}, {contact.zip} {contact.city}</dd>
+          <dt>Parken</dt><dd>Kostenlos direkt am Park, auch für Busse</dd>
+          <dt>Ohne Auto</dt><dd>Mit Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt und kostenloses Laden</dd>
+          <dt>Telefon</dt><dd><a href={contact.phoneHref}>{contact.phone}</a>, {contact.office}</dd>
+        </dl>
+      </div>
+      <figure class="mapbox">
+        <img src="/img/lageplan-640.webp" alt="Lageplan des Wildparks mit Rundwegen" loading="lazy" />
+        <figcaption>Lageplan und Rundwege. Die interaktive Karte folgt mit der vollständigen Website.</figcaption>
+      </figure>
+    </div>
+  </section>
+</L>

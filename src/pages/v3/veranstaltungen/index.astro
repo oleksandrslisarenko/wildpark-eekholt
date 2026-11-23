@@ -1,0 +1,66 @@
+---
+import L from '../../../layouts/V3.astro';
+import { events, img } from '../../../data/site';
+import { MONTHS_LONG, TODAY, lastDate, cleanTime, eventPhoto } from '../../../data/helpers';
+import { cats, catOf } from '../../../data/categories';
+const iso = TODAY.toISOString().slice(0, 10);
+const counts = MONTHS_LONG.map((_, i) => events.filter((e) => e.m === i + 1).length);
+const dateText = (d: string) => d.replace(/ und /g, ', ').replace(/Vsl\. /, 'voraussichtl. ');
+---
+<L title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026, nach Monat und Thema. Im Eintritt enthalten." active="veranstaltungen">
+  <section class="visit-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/v3/">Start</a><span>Veranstaltungen</span></p>
+      <h1>Veranstaltungen 2026</h1>
+      <p>28 Termine, alle im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:36px">
+    <div class="wrap">
+      <div class="catbar" role="group" aria-label="Nach Thema filtern">
+        <button type="button" data-c="all" aria-pressed="true">Alle Themen</button>
+        {Object.entries(cats).map(([k, c]) => <button type="button" data-c={k} aria-pressed="false"><i style={`background:var(--${c.color})`}></i>{c.label}</button>)}
+      </div>
+      <div class="monthbar" role="group" aria-label="Nach Monat filtern">
+        <button type="button" data-m="upcoming" aria-pressed="true">Ab heute</button>
+        <button type="button" data-m="all" aria-pressed="false">Ganzes Jahr</button>
+        {MONTHS_LONG.map((mn, i) => <button type="button" data-m={i + 1} aria-pressed="false" disabled={!counts[i]}>{mn}</button>)}
+      </div>
+      <div class="evgrid">
+        {events.map((e) => {
+          const past = (lastDate(e) || '') < iso; const k = catOf(e.title); const c = cats[k];
+          return (
+            <article class={`ec ${c.color} ${past ? 'past' : ''}`} data-m={e.m} data-c={k} data-past={past ? '1' : '0'}>
+              <div class="top-b"><div class="day" style="font-size:26px">{dateText(e.date)}</div><div class="cat">{c.label} · {cleanTime(e.time)}</div></div>
+              {(eventPhoto[e.title] || e.img) && <img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 640) : e.img!} alt="" loading="lazy" />}
+              <div class="body"><h3>{e.title}</h3><p>{e.text}</p></div>
+            </article>
+          );
+        })}
+      </div>
+      <p class="empty-note" data-empty hidden>Zu dieser Auswahl gibt es keine Termine. Wählen Sie einen anderen Monat oder alle Themen.</p>
+      <p class="pnote"><a class="link" href="#">Jahreskalender 2026 als PDF</a></p>
+    </div>
+  </section>
+  <script>
+    let m = 'upcoming', c = 'all';
+    const items = [...document.querySelectorAll<HTMLElement>('.evgrid .ec')];
+    const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+    const mb = [...document.querySelectorAll<HTMLButtonElement>('.monthbar button')];
+    const cb = [...document.querySelectorAll<HTMLButtonElement>('.catbar button')];
+    function apply() {
+      mb.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === m)));
+      cb.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.c === c)));
+      let n = 0;
+      items.forEach((el) => {
+        const okM = m === 'all' || (m === 'upcoming' ? el.dataset.past === '0' : el.dataset.m === m);
+        const ok = okM && (c === 'all' || el.dataset.c === c);
+        el.hidden = !ok; if (ok) n++;
+      });
+      empty.hidden = n > 0;
+    }
+    mb.forEach((b) => b.addEventListener('click', () => { m = b.dataset.m!; apply(); }));
+    cb.forEach((b) => b.addEventListener('click', () => { c = b.dataset.c!; apply(); }));
+    apply();
+  </script>
+</L>

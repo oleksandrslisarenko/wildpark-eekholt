@@ -1,0 +1,73 @@
+---
+import L from '../../../layouts/V2.astro';
+import { prices, fmt, seasons, specialEntry, contact, flights, feedings } from '../../../data/site';
+import { TODAY } from '../../../data/helpers';
+const m = TODAY.getMonth() + 1;
+const cur = m >= 3 && m <= 10 ? 'sommer' : 'winter';
+---
+<L title="Preise und Öffnungszeiten – Wildpark Eekholt" description="Eintrittspreise, Jahreskarten, Gruppenpreise und Einlasszeiten des Wildpark Eekholt. Täglich und ganzjährig geöffnet." active="besuch">
+  <div class="wrap pagehead">
+    <p class="crumbs"><a href="/v2/">Start</a><span>Besuch planen</span></p>
+    <h1>Preise und Öffnungszeiten</h1>
+    <p>Täglich und ganzjährig geöffnet, auch an Feiertagen. Nach dem letzten Einlass dürfen Sie bis zur Dunkelheit bleiben und gehen durch das Drehtor.</p>
+  </div>
+
+  <section class="sec">
+    <div class="wrap ruled">
+      <div class="side"><h2>Einlass</h2><p data-live="status">Täglich geöffnet</p></div>
+      <div>
+        <div class="seasons">{seasons.map((s) => <article class={s.id === cur ? 'cur' : ''}><p class="note">{s.label}</p><div class="t">{s.open} – {s.lastEntry}</div><p>Einlass täglich. Spaziergang bis zur Dunkelheit.</p></article>)}</div>
+        <p class="note" style="margin-top:18px">{specialEntry}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec leaf">
+    <div class="wrap ruled">
+      <div class="side"><h2>Eintritt</h2></div>
+      <div class="twocol">
+        <table class="ptab"><caption>Tageskarten</caption><tbody>
+          {prices.single.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}
+          <tr><th><b>{prices.family.label}</b><br /><span class="note">{prices.family.note}</span></th><td>{fmt(prices.family.price)}</td></tr>
+        </tbody></table>
+        <div>
+          <table class="ptab"><caption>Gruppen ab 20 Personen</caption><tbody>{prices.groups.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}</tbody></table>
+          <p class="note" style="margin-top:12px">{prices.groupsNote}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap ruled">
+      <div class="side"><h2>Jahreskarten</h2><p>{prices.annualNote}</p></div>
+      <div>
+        <div class="cards4">{prices.annual.map((a) => <div class={a.color}><h3>{a.label}</h3><span>{a.note || 'ab 16 Jahren'}</span><b>{fmt(a.price)}</b></div>)}</div>
+        <p style="margin-top:22px"><a class="btn solid" href={contact.shop}>Im Onlineshop bestellen</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec leaf">
+    <div class="wrap ruled">
+      <div class="side"><h2>Schulen, Feiern</h2><p>Bitte vorher anmelden: <a href={contact.phoneHref}>{contact.phone}</a>, {contact.office}.</p></div>
+      <div class="twocol">
+        <div><table class="ptab"><caption>Schulklassen und Kitas</caption><tbody>{prices.schools.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}</td></tr>)}</tbody></table><p class="note" style="margin-top:12px">{prices.schoolsNote}</p></div>
+        <table class="ptab"><caption>Führungen und Grillen</caption><tbody>{prices.extras.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}{p.extra && <small>{p.extra}</small>}</td></tr>)}</tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap ruled">
+      <div class="side"><h2>Im Park</h2></div>
+      <div class="twocol">
+        <div>
+          <table class="ptab"><caption>Fütterungen</caption><tbody>{feedings.map((f) => <tr data-slot={f.time} data-kind="feed"><th>{f.what}</th><td>{f.time}</td></tr>)}</tbody></table>
+          <p class="note" style="margin-top:12px">Flugvorführungen {flights.season} um {flights.times.join(', ')} Uhr. {flights.note}</p>
+        </div>
+        <div><h3 style="font-size:28px;margin-bottom:14px">Gut zu wissen</h3><ul class="rules">{prices.rules.map((r) => <li>{r}</li>)}</ul></div>
+      </div>
+    </div>
+  </section>
+</L>

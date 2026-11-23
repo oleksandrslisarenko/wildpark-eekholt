@@ -1,0 +1,60 @@
+---
+import L from '../../../layouts/V1.astro';
+import { events } from '../../../data/site';
+import { MONTHS_LONG, TODAY, lastDate, cleanTime } from '../../../data/helpers';
+const iso = TODAY.toISOString().slice(0, 10);
+const months = MONTHS_LONG.map((name, i) => ({ name, n: i + 1, count: events.filter((e) => e.m === i + 1).length }));
+const dateText = (d: string) => d.replace(/ und /g, ', ').replace(/Vsl\. /, 'voraussichtl. ');
+---
+<L title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026: Wolfsnächte, Eulentag, Dunkel-Munkel-Nächte, Weihnachtsmarkt und mehr. Im Eintritt enthalten." active="veranstaltungen">
+  <section class="plain-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/v1/">Start</a><span>Veranstaltungen</span></p>
+      <h1>Veranstaltungen 2026</h1>
+      <p>28 Termine übers Jahr, von der Winterwanderung bis zur Wildweihnacht. Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:24px">
+    <div class="wrap">
+      <div class="filters" role="toolbar" aria-label="Nach Monat filtern">
+        <button type="button" aria-pressed="true" data-m="upcoming">Ab heute</button>
+        <button type="button" aria-pressed="false" data-m="all">Ganzes Jahr</button>
+        {months.map((m) => <button type="button" aria-pressed="false" data-m={m.n} disabled={m.count === 0}>{m.name}</button>)}
+      </div>
+      <div class="included"><span>Den Jahreskalender gibt es auch zum Ausdrucken.</span><a class="more" href="#">Kalender 2026 als PDF</a></div>
+      <ul class="evs">
+        {events.map((e) => {
+          const past = (lastDate(e) || '') < iso;
+          return (
+            <li data-m={e.m} data-past={past ? '1' : '0'} class={past ? 'past' : ''}>
+              <div class="when"><strong>{dateText(e.date)}</strong><span>{cleanTime(e.time)}</span></div>
+              <div>{e.img && <img src={e.img} alt="" loading="lazy" />}</div>
+              <div>
+                {e.title.includes('Weihnacht') || e.title.includes('Fackel') ? <span class="tag">Advent</span> : null}
+                <h3>{e.title}</h3>
+                <p>{e.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="pnote" data-empty hidden>Für diesen Monat stehen keine Termine im Kalender.</p>
+    </div>
+  </section>
+  <script>
+    const btns = [...document.querySelectorAll<HTMLButtonElement>('.filters button')];
+    const items = [...document.querySelectorAll<HTMLElement>('.evs li')];
+    const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+    function apply(m: string) {
+      btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === m)));
+      let shown = 0;
+      items.forEach((li) => {
+        const ok = m === 'all' ? true : m === 'upcoming' ? li.dataset.past === '0' : li.dataset.m === m;
+        li.hidden = !ok; if (ok) shown++;
+      });
+      empty.hidden = shown > 0;
+    }
+    btns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.m!)));
+    apply('upcoming');
+  </script>
+</L>

@@ -1,0 +1,51 @@
+---
+import '@fontsource-variable/schibsted-grotesk';
+const v = [
+  { n: 1, href: '/v1/', name: 'Schild', text: 'Das Logo-Prinzip als Layout: Kräftige Plaketten in Lindgrün, der Adler fliegt über die Kante. Grafisch, klar, gut lesbar auch für ältere Besucher.', color: '#C8C901', ink: '#000', img: '/img/hero-bartkauz-640.webp' },
+  { n: 2, href: '/v2/', name: 'Feldbuch', text: 'Ruhig und beobachtend wie ein Naturführer: Serifenschrift, Randnotizen, Maßstäbe im Steckbrief und ein Jahreskreis für die Veranstaltungen.', color: '#18352A', ink: '#F2F4EC', img: '/img/waldkauz-640.webp' },
+  { n: 3, href: '/v3/', name: 'Jahreskarte', text: 'Die Farben der gedruckten Jahreskarten werden zum System: Besuchergruppen und Veranstaltungen sind farbcodiert. Fröhlich, familienorientiert.', color: '#BE2A0C', ink: '#fff', img: '/img/wildkatzen-640.webp' },
+];
+const pages = [['', 'Startseite'], ['tier/', 'Tierseite (Wolf)'], ['besuch/', 'Preise und Öffnungszeiten'], ['veranstaltungen/', 'Veranstaltungen']];
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildpark Eekholt – Redesign-Entwürfe</title><meta name="robots" content="noindex" />
+  <link rel="icon" href="/img/eagle.svg" />
+  <style>
+    body { margin: 0; font: 17px/1.5 'Schibsted Grotesk Variable', system-ui, sans-serif; background: #F3F3EE; color: #000; }
+    header { padding: 48px clamp(16px, 4vw, 48px) 24px; display: flex; gap: 20px; align-items: center; }
+    header img { width: 72px; }
+    h1 { font-size: clamp(32px, 4vw, 52px); margin: 0; line-height: 1.05; letter-spacing: -.02em; }
+    header p { margin: 6px 0 0; color: #55574E; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 12px clamp(16px, 4vw, 48px) 64px; }
+    .card { background: var(--c); color: var(--i); display: flex; flex-direction: column; }
+    .card img { aspect-ratio: 16/10; object-fit: cover; width: 100%; }
+    .card div { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .card h2 { margin: 0 0 8px; font-size: 32px; letter-spacing: -.01em; }
+    .card h2 span { opacity: .6; font-weight: 500; }
+    .card ul { list-style: none; padding: 0; margin: auto 0 0; }
+    .card li a { display: block; padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--i) 30%, transparent); color: inherit; text-decoration: none; font-weight: 600; }
+    .card li a:hover { text-decoration: underline; }
+    .note { padding: 0 clamp(16px, 4vw, 48px) 48px; color: #55574E; font-size: 15px; max-width: 80ch; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header><img src="/img/logo.svg" alt="Wildpark Eekholt" /><div><h1>Redesign: drei Richtungen</h1><p>Je vier Seiten, Desktop und Mobil. Inhalte 1:1 von wildpark-eekholt.de.</p></div></header>
+  <main class="grid">
+    {v.map((x) => (
+      <section class="card" style={`--c:${x.color};--i:${x.ink}`}>
+        <img src={x.img} alt="" />
+        <div>
+          <h2><span>{x.n}.</span> {x.name}</h2>
+          <p>{x.text}</p>
+          <ul>{pages.map(([p, l]) => <li><a href={`${x.href}${p}`}>{l}</a></li>)}</ul>
+        </div>
+      </section>
+    ))}
+  </main>
+  <p class="note">Live-Elemente: Öffnungsstatus und „Heute im Park“ rechnen mit der aktuellen Uhrzeit. Suche (Pagefind), Newsletter-Formular und Veranstaltungsfilter funktionieren. Navigationspunkte in Grau folgen nach der Auswahl.</p>
+</body>
+</html>

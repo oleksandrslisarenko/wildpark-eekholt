@@ -1,0 +1,19 @@
+---
+// DE/RU aktiv, EN/DA vorbereitet (noch nicht klickbar)
+const { cls = '' } = Astro.props;
+const langs = [
+  { code: 'DE', label: 'Deutsch', active: true, href: '#' },
+  { code: 'RU', label: 'Русский', active: false, href: '#', ready: true },
+  { code: 'EN', label: 'English', ready: false },
+  { code: 'DA', label: 'Dansk', ready: false },
+];
+---
+<ul class={`lang ${cls}`} aria-label="Sprache">
+  {langs.map((l) => (
+    <li>
+      {l.active ? <span aria-current="true" title={l.label}>{l.code}</span>
+        : l.ready ? <a href={l.href} title={`${l.label} (folgt nach Auswahl des Designs)`} hreflang={l.code.toLowerCase()}>{l.code}</a>
+        : <span class="off" aria-disabled="true" title={`${l.label} – in Vorbereitung`}>{l.code}</span>}
+    </li>
+  ))}
+</ul>

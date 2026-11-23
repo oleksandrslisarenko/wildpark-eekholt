@@ -1,0 +1,95 @@
+---
+import '@fontsource-variable/schibsted-grotesk';
+import '../styles/v1.css';
+import LangSwitch from '../components/LangSwitch.astro';
+import { contact, nav } from '../data/site';
+const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '' } = Astro.props;
+const base = '/v1';
+const link = (h: string | null) => (h ? `${base}/${h}/` : null);
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/img/eagle.svg" />
+</head>
+<body class="v1">
+  <a class="skip" href="#main">Zum Inhalt</a>
+  <header class="top">
+    <a class="brand" href={`${base}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="76" height="80" /></a>
+    <nav class="mainnav" aria-label="Hauptnavigation">
+      <ul>
+        {nav.map((n) => (
+          <li>{n.href ? <a href={link(n.href)} aria-current={active === n.href ? 'page' : undefined}>{n.label}</a> : <span class="soon" title="Seite folgt nach Auswahl des Designs">{n.label}</span>}</li>
+        ))}
+      </ul>
+    </nav>
+    <div class="tools">
+      <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <LangSwitch />
+      <a class="btn plate" href={`${base}/besuch/`}>Besuch planen</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
+    </div>
+  </header>
+  <div class="drawer" id="drawer" hidden>
+    <ul>
+      {nav.map((n) => <li>{n.href ? <a href={link(n.href)}>{n.label}</a> : <span class="soon">{n.label}</span>}</li>)}
+    </ul>
+    <p class="drawer-status" data-live="status">Ganzjährig geöffnet</p>
+    <a class="btn plate" href={contact.phoneHref}>{contact.phone}</a>
+  </div>
+  <main id="main" data-pagefind-body data-pagefind-filter="variant:v1"><slot /></main>
+  <footer class="foot">
+    <div class="foot-grid">
+      <div>
+        <img src="/img/logo.svg" alt="" width="96" height="101" />
+        <p class="foot-claim">NaturErlebnisse seit über 50 Jahren.</p>
+      </div>
+      <div>
+        <h2>Anschrift</h2>
+        <p>{contact.legal}<br />{contact.street}, {contact.zip} {contact.city}</p>
+        <p>Für das Navi: {contact.navi}</p>
+      </div>
+      <div>
+        <h2>Kontakt</h2>
+        <p><a href={contact.phoneHref}>{contact.phone}</a><br /><a href={`mailto:${contact.mail}`}>{contact.mail}</a><br />Büro {contact.office}</p>
+        <p><a href={contact.facebook} rel="noopener">Facebook</a> · <a href={contact.shop} rel="noopener">Onlineshop</a></p>
+      </div>
+      <form class="newsletter" data-send="Newsletter-Anmeldung" data-ok="Fast geschafft: Bitte bestätigen Sie den Link in der E-Mail, die wir Ihnen gleich schicken.">
+        <h2>Newsletter</h2>
+        <p>Veranstaltungen und Neuigkeiten aus dem Park, etwa einmal im Monat.</p>
+        <label class="field"><span>E-Mail-Adresse</span><input type="email" name="email" required autocomplete="email" /></label>
+        <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Ich möchte den Newsletter erhalten und akzeptiere die <a href="#">Datenschutzerklärung</a>.</span></label>
+        <button class="btn plate" type="submit">Anmelden</button>
+        <p class="msg" data-msg role="status"></p>
+      </form>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Wildpark Eekholt</span>
+      <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Barrierefreiheit</a><a href="#">Inhaltsverzeichnis</a>
+      <span class="proto">Entwurf 1 von 3 · <a href="/">Alle Entwürfe</a></span>
+    </div>
+  </footer>
+  <dialog class="searchdlg" data-searchdlg>
+    <form method="dialog"><label><span class="sr">Suche</span><input type="search" placeholder="Wonach suchen Sie? Zum Beispiel Wolf, Preise, Grillplatz" /></label><button aria-label="Schließen">✕</button></form>
+    <ul class="results" data-results></ul>
+  </dialog>
+  <script>
+    import { hydrate } from '../scripts/live';
+    import { wireForms } from '../scripts/forms';
+    hydrate(); setInterval(() => hydrate(), 60000);
+    wireForms();
+    const b = document.querySelector<HTMLButtonElement>('[data-burger]');
+    const dr = document.getElementById('drawer')!;
+    b?.addEventListener('click', () => { const o = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', String(!o)); dr.hidden = o; document.body.classList.toggle('lock', !o); });
+    import { wireSearch } from '../scripts/search';
+    wireSearch('v1');
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.25 });
+    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

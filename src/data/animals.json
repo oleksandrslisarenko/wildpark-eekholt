@@ -1,0 +1,1413 @@
+[
+ {
+  "slug": "auerhuhn",
+  "url": "unsere_tiere_vorstellung_auerhuhn.htm",
+  "name": "Auerhahn",
+  "latin": "Tetrao urogallus",
+  "intro": "Männliche und weibliche Tiere sehr unterschiedlich im Aussehen (Sexualdimorphismus!). Kommen in fast ganz Eurasien vor und bevorzugen zusammenhängende Nadel- und Mischwälder. Mit Ausnahme der Paarungszeit leben sie gesellig in gleichgeschlechtlichen Gruppen. In der sog. Kollektivbalz treffen sich mehrere Hähne und Hennen auf Balzplätzen. Hennen suchen aktiv ihren Partner auf.",
+  "facts": [
+   {
+    "k": "Größen",
+    "v": "Hahn: bis 100 cm, bis 4 kg Henne: bis 70 cm, bis 3 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "12-18 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Früchte, Beeren, Sämereien, Insekten, Würmer, auch Blüten, Sprosse, junge Triebe von Laub- und Nadelholz"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Bodenbrüter in Mulden von Gräsern u. Heide versteckt"
+   },
+   {
+    "k": "Eier",
+    "v": "6 - 12; blaßgelb bis braun"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "26 Tage, nur Henne brütet und führt Küken"
+   },
+   {
+    "k": "Nestlingszeit",
+    "v": "Nestflüchter, werden ca. 3 Wochen von der Mutter gehudert, bleiben über Winter im Familienverband"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Auerhuhn.pdf"
+ },
+ {
+  "slug": "baummarder",
+  "url": "unsere_tiere_vorstellung_baummarder.htm",
+  "name": "Baummarder",
+  "latin": "Martes martes",
+  "intro": "Vorwiegend in alten Laub- und Mischwäldern unserer Heimat zuhause. Sehr standorttreu. Altbekannte Wege - so genannte Marderwechsel - werden über Generationen hinweg genutzt. Als Kulturmeider ist er im Gegensatz zum Steinmarder seltener und auf geschlossene Waldgebiete angewiesen. Mit Ausnahme der Paarungszeit (Ranz: Juli/August) ein ausgesprochener Einzelgänger, so wird er auch bei uns im Gehege einzeln gehalten. Jungmarder verlassen nach ca. 4 Monaten das Revier der Mutter.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "Männchen: 70 - 85 cm (incl. Schwanz: 28 cm) Weibchen: 60 - 70 cm (incl. Schwanz: 25 cm)"
+   },
+   {
+    "k": "Gewicht",
+    "v": "Männchen: 200 - 1600 g Weibchen: 800 - 1300 g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "8 bis 15 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Obst, Beeren, Nüsse, Kleinsäuger, Vögel, Reptilien, Amphibien, Insekten"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "9 Monate (ca. 7 Monate Keimruhe)"
+   },
+   {
+    "k": "Geburt",
+    "v": "2 - 5 Welpen von 30 g in März/April sind blind, aber dicht behaart"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "meist erst mit 28 Monaten"
+   }
+  ],
+  "img": "image/WE802.jpg",
+  "pdf": "download/Baummard.pdf"
+ },
+ {
+  "slug": "blesswild",
+  "url": "unsere_tiere_vorstellung_blesswild.htm",
+  "name": "Bleßwild",
+  "latin": "Cervus elaphus",
+  "intro": "Bleßhirsche sind eine Farbvariation der Rothirsche mit weißer Blesse und meist weißen Läufen. Farbvarianten treten bei allen Tierarten mit rezessiver Vererbung auf. In freier Wildbahn ist Bleßwild nahezu ausgestorben. Vermutlich hält der Wildpark Eekholt die letzten Exemplare. Geweih und Körpergewicht sind geringer als beim normalfarbenen Rotwild, Daten zur Lebenserwartung und Fortpflanzung unterscheiden sich nicht.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "165 bis 250 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "70-180 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 10 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gräser, Kräuter, Nadeln, Knospen, Triebe etc."
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "33 bis 34 Wochen (Brunft: Sept. bis Okt.)"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Kälber von 5-8 kg in Mai/Juni"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1,5 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Blesswild.pdf"
+ },
+ {
+  "slug": "dachs",
+  "url": "unsere_tiere_vorstellung_dachs.htm",
+  "name": "Dachs",
+  "latin": "Meles meles",
+  "intro": "Der Dachs lebt bevorzugt am Waldrand. Er legt umfangreiche unterirdische Bausysteme, die \"Dachsburgen\", an. Sie können eine Ausdehnung von bis zu 30 m erreichen und werden von Familienverbänden über viele Generationen genutzt. Den Tag verbringen die Dachse in gepolsterten Kesseln, in der Dämmerung werden sie aktiv. Im Herbst kann sich das Sommergewicht der Dachse verdoppeln. Die Fettreserven dienen dazu, den Winter besser zu überstehen, bei milder Witterung sind Dachse auch im Winter aktiv.",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "65-80 cm Rumpflänge 15-20 cm Schwanzlänge ca. 30 cm Schulterhöhe"
+   },
+   {
+    "k": "Gewicht",
+    "v": "7-13 kg (Sommer) 15-25 kg (Herbst)"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "bis 16 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Nager, Kleinvögel, Eier, Frösche, Eidechsen, Insekten, Schnecken, Regenwürmer, Obst, Nüsse, Beeren"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Paarungszeit",
+    "v": "zwei Ranzzeiten; Hauptranz im Juli/August, Nebenranz im Frühwinter"
+   },
+   {
+    "k": "Tragzeit",
+    "v": "ca. 7-8 Monate; Geburt im Februar/März"
+   },
+   {
+    "k": "Zahl der Jungen",
+    "v": "1-6 (meist 2)"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "ab 12 Monaten"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Dachs.pdf"
+ },
+ {
+  "slug": "damwild",
+  "url": "unsere_tiere_vorstellung_damwild.htm",
+  "name": "Damwild",
+  "latin": "Cervus dama",
+  "intro": "Damhirsche unterscheiden sich von den Rothirschen durch ihr schaufelförmiges Geweih und ihre geringere Größe. Funde aus zwischeneiszeitlichen Ablagerungen weisen darauf hin, daß diese Hirschart früher in Mitteleuropa weit verbreitet war. Nach der Eiszeit lebten Damhirsche nur noch südlich der Alpen. Bereits die Römer sollen die Hirsche dann vor ca. 2000 Jahren wieder angesiedelt haben. Während des 17. und 18. Jahrhunderts sind diese Hirsche von Fürstenhäusern verstärkt wieder eingebürgert worden. Häufig sind Alttiere im rostbraunen Sommerfell stark gefleckt.",
+  "facts": [
+   {
+    "k": "Rumpflänge",
+    "v": "140-160 cm"
+   },
+   {
+    "k": "Schulterhöhe",
+    "v": "ca. 90 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "Hirsch 60-100 kg Hirschkuh 35-70 kg"
+   },
+   {
+    "k": "Geweihgewicht",
+    "v": "bis zu 7 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Pflanzenfresser (Wiederkäuer); Gräser, Kräuter, Bucheckern, Eicheln, Kastanien, Knospen, Zweige, Baumrinde, Pilze, Flechten"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "ca. 8 Monate (Brunft: Oktober/November)"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Kälber in Juni/Juli"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1,5 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Damhirs.pdf"
+ },
+ {
+  "slug": "graukranich",
+  "url": "unsere_tiere_vorstellung_graukranich.htm",
+  "name": "Graukranich",
+  "latin": "Grus grus",
+  "intro": "Von Reihern und Störchen unterscheiden ihn vor allem der kurze Schnabel und die extremen Lautäußerungen, die durch die trompetenförmige Vergrößerung der Luftröhre ermöglicht werden. Während der Zugzeit leben Kraniche in großen Trupps zusammen. In der Brutzeit dagegen ziehen sich die einzelnen Paare in Sümpfe, Moore und Seen mit Verlandungszonen zurück. Kraniche sind bekannt für ihren Paarungstanz beider Geschlechter. Graukraniche sind vor allem in Brandenburg beheimatet, kommen aber vereinzelt auch in Schleswig-Holstein vor.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "90 cm bis 160 cm"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "vermutlich über 40 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Wirbellose, kleine Fische, Amphibien, Repti-lien, Getreidesaaten, Samen und Früchte"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "auf kleinen Inseln/Verlandungszonen, Boden-brüter"
+   },
+   {
+    "k": "Gelege",
+    "v": "2 - 3; bräunlich bis grünlichgrau"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "28 - 31 Tage, beide Partner brüten im Wechsel"
+   },
+   {
+    "k": "Nestlingszeit",
+    "v": "werden 60 - 70 Tage von den Eltern geführt"
+   }
+  ],
+  "img": "image/WE801.jpg",
+  "pdf": "download/Kranich.pdf"
+ },
+ {
+  "slug": "hauskaninchen",
+  "url": "unsere_tiere_vorstellung_hauskaninchen.htm",
+  "name": "Hauskaninchen",
+  "latin": "Oryctolagus cuniculus",
+  "intro": "Die Kaninchen bilden mit den Hasen eine eigene Tier-gruppe, die Hasentiere. Sie gehören nicht zu den Nage-tieren, obwohl es ihre Zähne vermuten lassen. Die Stammform aller Hauskaninchen ist das Wildkaninchen. Bereits in der Antike hielten die Mittelmeervölker Kaninchen zur Fleischgewinnung, seit dem Mittelalter auch als Jagdwild. Aus dem 16. Jahrhundert stammen Berichte, die erstmals verschiedenfarbige, zahme Hauskaninchen erwähnen. Inzwischen hat der Mensch eine Vielzahl unterschiedlicher Kaninchenrassen gezüchtet, die sich in Größe, Färbung und Haarkleid unterscheiden.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "bis 9 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "8 - 10 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gras, Kräuter, Getreide, Obst und Gemüse"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "28 - 31 Tage"
+   },
+   {
+    "k": "Geburt",
+    "v": "4-12 Junge, nackt, blind und taub. Mit 8 Tagen sind sie behaart, nach 4 Wochen werden sie entwöhnt."
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "5 - 8 Monate"
+   }
+  ],
+  "img": "image/WE803.jpg",
+  "pdf": "download/Kaninch.pdf"
+ },
+ {
+  "slug": "heidschnucke",
+  "url": "unsere_tiere_vorstellung_heidschnucke.htm",
+  "name": "Graue gehörnte Heidschnucke",
+  "latin": "Ovis ammon f. aries",
+  "intro": "Diese alte Landschafrasse stammt ursprünglich aus der Lüne-burger Heide. Die weiträumigen Heidelandschaften entstanden durch das Abholzen der ursprünglichen Wälder und die Nutzung als Waldweide. Das heutige Landschafts-bild der Heide ist ohne die ständige Schafbeweidung nicht denkbar. Die genügsame Heidschnucke - das Wort \"Schnucke\" bedeutet \"Naschen\" - ernährt sich größtenteils von holzigen Heidesträuchern und schwerverdaulichen Baumkeimlingen. Der \"Schnuckenbiss\" fördert die Blüte des Heidekrauts und verhindert den Baumaufwuchs. Merkmale dieser widerstandsfähigen Rasse sind ihr feingliedriger Körperbau, die grobe, graue Wolle und die harten Klauen. Die Lämmer werden schwarz geboren, die graue Wollfarbe erscheint erst nach der ersten Schur. Bei den Böcken sind die Hörner schneckenförmig gedreht, die der Muttern sichelförmig.",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "50-60 cm Widerrist"
+   },
+   {
+    "k": "Gewicht",
+    "v": "45 - 60 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 15 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gräser, Heidekräuter, Nadelbaumkeimlinge, Ginster"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "ca. 116 Tage"
+   },
+   {
+    "k": "Geburt",
+    "v": "1-2 Lämmer im Mai/Juni"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "7 bis 12 Monate"
+   }
+  ],
+  "img": null,
+  "pdf": "download/GrHeids.pdf"
+ },
+ {
+  "slug": "honigbiene",
+  "url": "unsere_tiere_vorstellung_honigbiene.htm",
+  "name": "Honigbiene",
+  "latin": "Apis mellifera",
+  "intro": "Die Wildform unserer Honigbienen stammt ursprünglich aus den Tropen Südostasiens und wurde durch den Menschen über die ganze Welt verbreitet. Ein Bienenstaat besteht aus drei verschiedenen \"Bienengeschlechtern\" oder Kasten (Königin, Arbeiterinnen und Drohnen oder Männchen). Sie sind Höhlenbrüter und bauen in ihre Behausung Waben aus Wachs. Die Waben dienen als Nahrungsspeicher und als Brutzellen für den Nachwuchs. Im Bienenstaat herrscht eine geregelte Arbeitsteilung. Die Königin legt Eier; die Arbeiterinnen übernehmen in Abhängigkeit von ihrem Lebensalter unterschiedliche Aufgaben (Putzen, Brutpflege, Bauen, Wachen, Sammeln) und die Drohnen leben nur zu dem einen Zweck, die Königin zu befruchten.",
+  "facts": [
+   {
+    "k": "Nahrung",
+    "v": "Honig (aus Nektar und Honigtau), Pollen"
+   },
+   {
+    "k": "Paarung",
+    "v": "meist im Mai-Juni, Jungköniginnen werden nur einmal in ihrem Leben begattet"
+   },
+   {
+    "k": "Eiablage",
+    "v": "1500-2000 Eier pro Tag"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Honigbie.pdf"
+ },
+ {
+  "slug": "kampflaeufer",
+  "url": "unsere_tiere_vorstellung_kampflaeufer.htm",
+  "name": "Kampfläufer",
+  "latin": "Philomachus pugnax",
+  "intro": "Dieser selten gewordene Watvogel lebt auf feuchten Niederungswiesen, in Sümpfen, Hochmooren und in der Tundra. Seinen Namen verdankt er dem auffälligen Balzverhalten der Männchen, die sich alljährlich auf traditionellen \"Balzarenen\" sammeln. Dort versuchen die Hähne ihren Konkurrenten durch Aufstellung des Kopfschmuckes zu imponieren, um Platzhahn zu werden. In der Regel verpaaren sich dann die Platzhähne mit den unscheinbaren Weibchen, welche danach vollkommen allein die Eier ausbrüten und die Jungen aufziehen. Bereits ab Ende Juli ziehen die Altvögel wieder in den Süden, während die Jungvögel meistens noch bis September in den Brutgebieten bleiben.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "Männchen 180g, Weibchen 120g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "10 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Insekten, Kleinkrebse, Schnecken, Würmer"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "vom Weibchen gedrehte Mulde, mit Halmen und Grasstoppeln ausgelegt."
+   },
+   {
+    "k": "Gelege",
+    "v": "3-4 Eier"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "20-21 Tage im Mai/Juni"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nestflüchter; werden die ersten Tage vom Weibchen mit Insekten gefüttert, nehmen dann selbst Nahrung auf; werden später alleingelassen."
+   }
+  ],
+  "img": "image/kampflaeufer.jpg",
+  "pdf": "download/Kampfl.pdf"
+ },
+ {
+  "slug": "kolkrabe",
+  "url": "unsere_tiere_vorstellung_kolkrabe.htm",
+  "name": "Kolkrabe",
+  "latin": "Corvus corax",
+  "intro": "Größter Vertreter der heimischen Rabenvögel. Weibchen sind geringfügig kleiner als Männchen, sonst kaum zu unterscheiden. Er bewohnt offenes Gelände und Waldränder von der Tundra bis zur Wüste. Wie fast alle Rabenvögel können Laute anderer Tiere und des Menschen nachgeahmt werden. Besondere Vorliebe für blanke, glänzende Gegenstände, die ins Nest verschleppt werden.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "65 bis 70 cm"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "bis zu 45 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Wirbellose, Reptilien, Jungvögel und Eier, kleine Säuger, Früchte und Samen, Aas"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "in Baumkronen, Felsspalten aus Reisig und Tierhaaren"
+   },
+   {
+    "k": "Gelege",
+    "v": "4 - 6, blaugrün mit braunen Flecken"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "17 - 19 Tage, meist brütet das Weibchen"
+   },
+   {
+    "k": "Nestlingszeit",
+    "v": "30 - 35 Tage"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Kolkrabe.pdf"
+ },
+ {
+  "slug": "loeffler",
+  "url": "unsere_tiere_vorstellung_loeffler.htm",
+  "name": "Löffler",
+  "latin": "Platalea leucorodia",
+  "intro": "Der Löffler ist sehr leicht an seinem langen spatelförmigen Schnabel mit gelber Spitze und seiner ockergelben Federhaube zu erkennen. Er ist etwas kleiner als der hier heimische Weißstorch. Sein Verbreitungsgebiet liegt in Teilen Spaniens, den Niederlanden, Vorder- und Zentralasien. Er bevorzugt Sumpfgelände mit dichtem Röhricht und Weiden-Erlen-Gestrüpp. Auch an größeren Binnengewässern mit Verlandungszonen und Flussniederungen fühlt er sich wohl.",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "86 cm (während der Nistzeit verlängerte Kopffedern)"
+   },
+   {
+    "k": "Gewicht",
+    "v": "bis ca. 2 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "30 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "verschiedene Wasserinsekten und deren Larven, Froschlaich, kleine Krustentiere und Fische"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Sie nisten in Kolonien auf niedergedrückten Schilf- und Rohrhalmen"
+   },
+   {
+    "k": "Gelege",
+    "v": "3-5 rötlichbraun gefleckte Eier"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "24-25 Tage; während des Brütens verschwinden die Flecken auf den Eiern"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "nach 6-8 Wochen verlassen die Jungen das Nest und werden flügge"
+   }
+  ],
+  "img": "image/WE804.jpg",
+  "pdf": "download/Loeffler.pdf"
+ },
+ {
+  "slug": "maeusebussard",
+  "url": "unsere_tiere_vorstellung_maeusebussard.htm",
+  "name": "Mäusebussard",
+  "latin": "Buteo buteo",
+  "intro": "Der häufigste einheimische Greifvogel. Fast alle haben ihn schon an Autobahnen und Landstraßen, auf einer Warte sitzend oder fliegend, gesehen. Trotzdem kommt es häufig zu Verwechslungen mit anderen Greifvögeln, weil die Mäusebussarde eine Vielzahl verschiedener Farbschattierungen (von fast weiß bis dunkel-braun) aufweisen und auch die Größe regional unterschiedlich sein kann. In Schleswig-Holstein ist er das ganze Jahr anzutreffen. Während des Winters sogar in größeren Stückzahlen, weil die skandinavischen Vögel häufig hier überwintern. Im Frühjahr, während der Balz, kreisen die Paare oft stundenlang am Himmel.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "Männchen 750 g Weibchen 1000g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 25 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Kleinnager, Regenwürmer, Insekten"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "umfangreicher Bau aus Stöcken, kleinen Zweigen und Halmen; mit unterschiedlichen grünen Materialien ausgelegt, die ständig erneuert werden."
+   },
+   {
+    "k": "Gelege",
+    "v": "2-3 Eier; Beginn Ende März bis Ende Mai"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "33-35 Tage"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker; werden zuerst nur vom Weibchen gehudert und gefüttert, Männchen beschafft die Beute; später jagen beide Eltern, aber nur das Weibchen füttert; flügge mit 40-49 Tagen."
+   }
+  ],
+  "img": null,
+  "pdf": "download/Maeusebu.pdf"
+ },
+ {
+  "slug": "otter",
+  "url": "unsere_tiere_vorstellung_otter.htm",
+  "name": "Kanadischer Fischotter",
+  "latin": "Lontra canadensis",
+  "intro": "Er ist eng verwandt mit dem Europäischen Fischotter (Lutra lutra). Beide Arten gehören zur Familie der Marder und unterscheiden sich nur geringfügig in ihrem äußeren Erscheinungsbild. Der Europäische Fischotter ist etwas heller im Fell und etwas zierlicher in seiner Gestalt. Er lebt überwiegend als Einzelgänger, seltener auch paarweise. Der Kanadische Fischotter hingegen lebt in Familienverbänden. Die Zucht bei Kanadischen Fischottern gelingt nur selten. Seit 2003 wird im Wildpark Eekholt erfolgreich nachgezüchtet. Der Fischotter hält keinen Winterschlaf, im Winter werden Atemlöcher und Ausstiege bei zugefrorenen Gewässern eisfrei gehalten. Bei starker Störung und Nahrungsmangel unternimmt er weite Wanderungen in neue Lebensräume.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "60 bis 100 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "7 bis 18 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "15 bis 23 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Würmer, Insekten, Muscheln, Krebse, Fische, Amphibien, Reptilien, Nagetiere und Kleinsäuger"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "8 ½ bis 12 ½ Monate"
+   },
+   {
+    "k": "Geburt",
+    "v": "2-4 Welpen von 100-150g im März bis Mai, Säu-gezeit 4-6 Monate"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "nach 2 bis 3 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/KFischot.pdf"
+ },
+ {
+  "slug": "reh",
+  "url": "unsere_tiere_vorstellung_reh.htm",
+  "name": "Reh",
+  "latin": "Capreolus capreolus",
+  "intro": "Rehwild ist die bei uns verbreiteste und kleinste Hirschart, hat jedoch mit dem Rothirsch verwandtschaftlich nichts zu tun. Das Reh lebt als Einzelgänger an Waldrändern und schließt sich nur in den Wintermonaten in Familienverbänden zusammen. Großflächig angelegte Felder führten dazu, daß das Reh heute auch die offene Landschaft besiedelt, in der sich mehrere Familien zu Rudeln von über 40 Tieren zusammenschließen können.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "100 bis 140 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "15 bis 30 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "12 bis 18 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Kräuter, Nadeln, Knospen, Triebe, selektiv auch Gräser, Weichhölzer, Rinde"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "273 bis 294 Tage (Brunft: Jul. / Aug.) einschließlich 150 Tage Keimruhe"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 bis 3 Kitze von 500 - 1500 g in Mai/Juni; bereits nach 3 Monaten entwöhnt"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1 Jahr"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Reh.pdf"
+ },
+ {
+  "slug": "ringelnatter",
+  "url": "unsere_tiere_vorstellung_ringelnatter.htm",
+  "name": "Ringelnatter",
+  "latin": "Natrix natrix",
+  "intro": "Aufgrund ihrer auffälligen Erkennungszeichen, den beiderseits am Hinterkopf befindlichen, meist gelben Halbmondflecken, ist sie leicht von anderen Arten zu unterscheiden. Sie ist tagaktiv, schwimmt bzw. taucht sehr gut und sonnt sich gern, z.B. auf Büschen. Ringelnattern sind sehr scheu. Bei Gefahr entleeren sie das Sekret der in der Schwanzwurzel befindlichen Stinkdrüsen und suchen schnell Schlupfwinkel auf. Feuchtwiesen, Sümpfe, Gräben und Flußläufe bieten ihr Schutz und Lebensraum. Infolge der Zerstörung ihrer Lebensräume und des Rückganges der Froschpopulation sind viele Ringelnatterbestände stark rückläufig.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "Weibchen durchschnittl. 85 cm Männchen knapp 70 cm"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "15 bis 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Fische und Amphibien, die lebend verschlungen werden"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   }
+  ],
+  "img": null,
+  "pdf": "download/Ringelna.pdf"
+ },
+ {
+  "slug": "rotfuchs",
+  "url": "unsere_tiere_vorstellung_rotfuchs.htm",
+  "name": "Rotfuchs",
+  "latin": "Vulpes vulpes",
+  "intro": "Der Rotfuchs ist ein Waldrandbewohner, der nachts auf Feldern jagt und tagsüber im Wald Deckung findet. Er ist sehr anpassungsfähig und kommt heute auch in menschlichen Siedlungen vor, wo er sich von menschlichen Abfällen ernährt. Ansonsten bezieht der Rotfuchs Bauten, die aus einem \"Wohnraum\", dem so genannten Kessel, und mehreren Ein- und Ausgängen bestehen. Der Fuchs gräbt nicht immer seine Bauten selbst, sondern kann auch einen Kaninchen- oder Dachsbau erweitern und ihn anschließend beziehen. Es kommt bisweilen sogar vor, dass sich ein Fuchs und ein Dachs einen Bau teilen, wobei die Kessel in solchen Fällen stets getrennt vorgefunden wurden.",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "60-80 cm Rumpflänge 30-45 cm Schwanzlänge 35-40 cm Schulterhöhe"
+   },
+   {
+    "k": "Gewicht",
+    "v": "6-10 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 10-15 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Mäuse und andere Kleinsäuger, Vögel, Insekten, Regenwürmer, Aas, Obst, Beeren, Abfälle"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Paarungszeit",
+    "v": "Ranzzeit Ende Januar/Anfang Februar"
+   },
+   {
+    "k": "Tragzeit",
+    "v": "51-53 (bis 63) Tage; Geburt im April"
+   },
+   {
+    "k": "Zahl der Jungen",
+    "v": "4-10 je nach Ernährungszustand der Fähe"
+   },
+   {
+    "k": "Geburtsgewicht",
+    "v": "80-150 g"
+   },
+   {
+    "k": "Entwöhnung",
+    "v": "nach 7-9 Wochen"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "mit etwa 10 Monaten"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Rotfuchs.pdf"
+ },
+ {
+  "slug": "rotwild",
+  "url": "unsere_tiere_vorstellung_rotwild.htm",
+  "name": "Rotwild",
+  "latin": "Cervus elaphus",
+  "intro": "Heute größtes Säugetier unserer Heimat. Es lebt in Rudeln von zum Teil mehr als 50 Tieren streng nach Geschlechtern getrennt. Die weiblichen Rudel leben in reinen Familienverbänden. Grundsätzlich werden sie von einem erfahrenen, weiblichen Alttier geführt. Nur in der Brunft treffen Hirsche und Hirschkühe zusammen, meist verpaart sich nur ein starker Hirsch mit allen weiblichen Tieren des Rudels. Das \"Röhren\" der Hirsche gilt als wichtiges Imponieren zur Abgrenzung des Reviers gegen gleichstarke Hirsche des Nachbarrevieres.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "165 bis 250 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "70 bis 220 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "15 bis 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gräser, Kräuter, Nadeln, Knospen, Triebe etc."
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "33 bis 34 Wochen (Brunft: Sept. bis Okt.)"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Kalb von 5-8 kg in Mai/Juni"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1,5 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Rotwild.pdf"
+ },
+ {
+  "slug": "schneeeule",
+  "url": "unsere_tiere_vorstellung_schneeeule.htm",
+  "name": "Schnee-Eule",
+  "latin": "Nyctea scandiaca",
+  "intro": "Eine fast uhugroße Eule, die die nördlichen Polargebiete bewohnt. Sie ist an diese baumlosen Fjällheiden, Tundren und Moore gebunden. Wie bei vielen Greifen und Eulen sind die Männchen kleiner und von den Weibchen durch ihr weniger geflecktes Federkleid zu unterscheiden. Ähnlich wie die Sumpfohreule ist diese Art hauptsächlich tagaktiv und jagt ihre Beute von einer erhöhten Warte oder im Pirschflug. Ihre Nester legen sie meistens auf leicht erhöhten Standorten mit guter Rundumsicht an.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "Männchen 1800g; Weibchen 2300g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 10 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Kleinnager (besonders Lemminge), Vögel, Schneehasen"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Flache Mulde vom Weibchen gescharrt, gelegentlich mit Moosresten und Federn ausgelegt."
+   },
+   {
+    "k": "Gelege",
+    "v": "4-10 (max. 15) Eier; Beginn April-Juni"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "32-37 Tage, nur das Weibchen brütet"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker; Weibchen hudert, Männchen beschafft die Beute; später jagen beide Eltern; Junge verlassen Nest vor dem Flüggewerden nach 3-4 Wochen; werden auch nach 9 Wochen von den Eltern gefüttert."
+   }
+  ],
+  "img": "image/WE700.jpg",
+  "pdf": "download/Schneeeu.pdf"
+ },
+ {
+  "slug": "schwarzspecht",
+  "url": "unsere_tiere_vorstellung_schwarzspecht.htm",
+  "name": "Schwarzspecht",
+  "latin": "Dryocopus martius",
+  "intro": "Der fast völlig schwarz gefärbte Vogel ist der größte europäische Specht. Er ist etwa so groß wie eine Krähe und wird auch Krähenspecht genannt. Das Männchen hat eine rote Haube, das Weibchen einen roten Fleck am Hinterkopf. Der Schnabel ist auffallend hell und lang. Die Schwarzspechte sind fleißige „Zimmerleute“. Die von ihnen gebauten Höhlen dienen auch anderen Tierarten, wie z.B. Hohltauben, Eulen, Schläfern oder Fledermäusen als Wohnung. Um 1900 war der Schwarzspecht in Schleswig-Holstein sehr selten, doch die jetzige Form der Forstwirtschaft kam ihm entgegen, so dass er heutzutage in vielen Wäldern Schleswig-Holsteins wieder anzutreffen ist.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "ca. 200g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 10-15 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Ameisen, Käfer, Larven, die im Nadel- und Mischwaldholz leben."
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Baumhöhle mit ovalem Eingangsloch"
+   },
+   {
+    "k": "Gelege",
+    "v": "4-5 Eier"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "nur 12-14 Tage"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker, werden von beiden Eltern mit In-sekten gefüttert; verlassen das Nest mit 24-28 Tagen."
+   }
+  ],
+  "img": null,
+  "pdf": "download/Sspecht.pdf"
+ },
+ {
+  "slug": "schwarzstorch",
+  "url": "unsere_tiere_vorstellung_schwarzstorch.htm",
+  "name": "Schwarzstorch",
+  "latin": "Ciconia nigra",
+  "intro": "Vertreter der Familie der Stelzvögel. Männchen sind meist kleiner als Weibchen. Im Flug sind Beine nach hinten, Hals gerade nach vorn gestreckt. Vorkommen in feuchten, einsamen Wald- und Sumpfgebieten, Auniederungen. Im Gegensatz zum Weißstorch ein Kulturmeider. Nachzuchten in Gehegen sehr selten. Zuchtgruppen werden in speziellen internationalen Zuchtbüchern geführt.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "85 bis 110 cm"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "vermutlich über 35 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Wirbellose, Fische, Amphibien, Reptilien, kleine Säuger"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "in Baumkronen aus Reisig und Moos"
+   },
+   {
+    "k": "Gelege",
+    "v": "3 - 6; weiß; bei Zerstörung der Eier Nachgelege möglich"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "30 - 35 Tage, beide Partner brüten im Wechsel"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "40 - 50 Tage"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Sstorch.pdf"
+ },
+ {
+  "slug": "seeadler",
+  "url": "unsere_tiere_vorstellung_seeadler.htm",
+  "name": "Seeadler",
+  "latin": "Haliaeetus albicilla",
+  "intro": "Dieser größte Greifvogel Nordeuropas baut seine gewaltigen Nester in alten Baumbeständen, die immer in der Nähe von Gewässern liegen, aus denen er seinen Nahrungsbedarf weitestgehend deckt. Seine wichtigste Nahrung sind nicht die Fische, sondern die Wasservögel. Ältere Paare haben teilweise eine besondere Jagdmethode für tauchende Vögel entwickelt. Dabei wird der abtauchende Vogel von dem einen Adler über Wasser verfolgt, während der andere Partner, Halbkreise fliegend, dessen Weg beobachtet, um dann überraschend auf den wieder auftauchenden Vogel niederzustoßen.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "Männchen 3800 g Weibchen 5200 g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 40 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Wasservögel, Fische, Kaninchen, Aas"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "massiver Bau aus Stöcken und Reisig, der ständig erweitert wird; die Mulde wird mit grünen Pflanzen und Zweigen, Wolle, etc. ausgelegt."
+   },
+   {
+    "k": "Gelege",
+    "v": "1-3 Eier; Beginn Ende Februar bis Mitte Mai"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "35-42 Tage"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker; werden erst nur vom Weibchen gehudert und gefüttert, Männchen beschafft die Beute; Junge verlassen den Horst nach ca. 56 Tagen; flügge mit ca. 70 Tagen; betteln die Eltern noch ca. 35-40 Tage nach Nahrung an."
+   }
+  ],
+  "img": null,
+  "pdf": "download/Seeadler.pdf"
+ },
+ {
+  "slug": "sikawild",
+  "url": "unsere_tiere_vorstellung_sikawild.htm",
+  "name": "Sikawild",
+  "latin": "Cervus nippon nippon",
+  "intro": "Insgesamt gibt es 13 Unterarten der Sikahirsche, 5 davon sind in freier Wildbahn in ihrem Bestand gefährdet oder bereits ausgestorben und werden nur noch in Gehegen gezüchtet. In Eekholt lebt der Japansika, die kleinste Unterart. Ihre größte Gefährdung in der asiatischen Heimat beruht darauf, daß dem aus ihren Geweihen gewonnenen Knochenmehl eine heilkräftige Wirkung zugeschrieben wird. Da es aber seit Jahrhunderten oft halbzahm in Parks gehalten wird und in seiner Lebensweise recht anpassungsfähig ist, ist diese Hirschart heute fast weltweit verbreitet. In Schleswig-Holstein gibt es etwa 300 freilebende Tiere.",
+  "facts": [
+   {
+    "k": "Rumpflänge",
+    "v": "110-125 cm"
+   },
+   {
+    "k": "Schulterhöhe",
+    "v": "ca. 85 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "Männchen: 55-70 kg"
+   },
+   {
+    "k": "Geweih",
+    "v": "mit höchstens 8-10 Enden"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Laub, Gras, Nadeln, Knospen, Rinde"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "217 Tage (Brunft: November/Dezember)"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Kälber ab Ende Juni bis Anfang August"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "18-24 Monate"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Sikahirs.pdf"
+ },
+ {
+  "slug": "steinmarder",
+  "url": "unsere_tiere_vorstellung_steinmarder.htm",
+  "name": "Steinmarder",
+  "latin": "Martes foina",
+  "intro": "Ähnlich dem Baummarder ist er in ganz Eurasien verbreitet. Als Kulturfolger sogar auf Dachböden in Stadtnähe anzutreffen, hier aber vorwiegend nachtaktiv. Eine effektive Vertreibung der spielenden Jungmarder als „Poltergeiste\" ist fast unmöglich. Mit 4 Monaten verlassen sie das mütterliche Revier. Obwohl zahlreiche Untersuchungen über seine Vorliebe für jegliche Art von Kabel erfolgten, ist nicht bekannt, warum dieser „Automarder\" meist gummihaltige Stoffe zerbeißt.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "Männchen: 70 - 90 cm (incl. Schwanz: 30 cm)"
+   },
+   {
+    "k": "Gewicht",
+    "v": "Männchen: 1700 - 2400 g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "vermutlich 8 bis 15 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Obst, Beeren, Nüsse, Kleinsäuger, Vögel, Reptilien, Amphibien, Insekten, Hausabfall"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "9 Monate (ca. 7 Monate Keimruhe)"
+   },
+   {
+    "k": "Geburt",
+    "v": "2 - 7 Welpen von 30 g in März/April sind blind, aber dicht behaart"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "meist erst mit 28, selten mit 16 Monaten"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Steinmar.pdf"
+ },
+ {
+  "slug": "storch",
+  "url": "unsere_tiere_vorstellung_storch.htm",
+  "name": "Storch",
+  "latin": "Ciconia ciconia",
+  "intro": "Nach seiner Rückkehr aus Afrika beginnt der Weißstorch ab Mitte April sogleich mit dem Brutgeschäft. Der Zugvogel errichtet seine Nester in der Nähe menschlicher Siedlungen. Hausgiebel, Türme und Schornsteine dienen als Brutplätze und werden vom gleichen Storchenpaar über Jahre hinweg wiederbezogen. Seine Beute findet der Weißstorch in Sümpfen, Feuchtwiesen und Bruchwäldern sowie an Gewässern. Die Jungvögel ziehen in der zweiten Augusthälfte in den Süden. Etwas später folgen ihnen bei knapper werdendem Nahrungsangebot ihre Eltern. Während die Altstörche im nächsten Frühjahr zurückziehen, verbringen die Jungstörche ihre ersten zwei bis drei Lebensjahre im Winterquartier.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "2200-4400 g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Amphibien, Reptilien, Fische, Insekten und Kleinsäuger"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Äste, Reisig mit Erde, Grasbüscheln, Moos"
+   },
+   {
+    "k": "Gelege",
+    "v": "3-5 Eier, eine Jahresbrut"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "31- 34 Tage, beide Geschlechter brüten"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker, beide Eltern behüten und füttern die Jungen. Nach 7 Wochen erste Flugversuche, mit 2 Monaten flügge"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Wstorch.pdf"
+ },
+ {
+  "slug": "uhu",
+  "url": "unsere_tiere_vorstellung_uhu.htm",
+  "name": "Uhu",
+  "latin": "Bubo bubo",
+  "intro": "Die größte europäische Eule lebt in sehr unterschiedlichen Lebensräumen, wie z. B. Wäldern, felsigen Schluchten und Wüsten. Den weithin hörbaren Balzrufen verdankt sie ihren Namen. In der Regel ist der Uhu dämmerungs- und nachtaktiv, wobei er offene Flächen als Jagdrevier bevorzugt. Während des Tages sitzt er meistens regungslos an einem geschützten Ort. Die lautlose Lebensweise und der starre Blick der orangen Augen haben seit altersher den Aberglauben der Menschen gefördert, weshalb dieser Vogel seit dem Mittelalter verfolgt wurde. In Schleswig-Holstein sind die Uhus vor ca. 150 Jahren ausgerottet worden. Erfolgreiche Wiedereinbürgerungsversuche haben den Brutbestand seit 1980 auf ca. 50 Brutpaare anwachsen lassen.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "Männchen 2000-2500 g Weibchen 2500-4000 g"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "25 bis 30 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Mäuse, Ratten, Igel, Vögel, Frösche, Fische"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Nest",
+    "v": "Flache, blanke Mulde; auch Nester anderer großer Vögel"
+   },
+   {
+    "k": "Gelege",
+    "v": "2-3 Eier, Beginn Mitte März-Anfang Mai"
+   },
+   {
+    "k": "Brutdauer",
+    "v": "31-37 Tage, meist 34 Tage"
+   },
+   {
+    "k": "Nestlingsdauer",
+    "v": "Nesthocker, Weibchen hudert, Männchen schafft Beute heran, später jagen beide Eltern, Junge verlassen das Nest mit 5-10 Wochen, mit ca. 12 Wochen selbständig; geschlechtsreif erst mit 3 Jahren."
+   }
+  ],
+  "img": null,
+  "pdf": "download/Uhu.pdf"
+ },
+ {
+  "slug": "waschbaer",
+  "url": "unsere_tiere_vorstellung_waschbaer.htm",
+  "name": "Waschbär",
+  "latin": "Procyon lotor",
+  "intro": "Waschbären stammen ursprünglich aus Nordamerika. 1934 wurden zwei Paare in Nordhessen ausgesetzt, und während des 2. Weltkrieges kamen weitere aus Pelztierfarmen hinzu. Inzwischen sind sie in ganz Deutschland weit verbreitet. Waschbären leben in Laub- und Mischwäldern vorwiegend in Wassernähe. Die Nahrung wird vor dem Verzehr genauestens abgetastet. Geschieht dies im Wasser, entsteht der Eindruck, als würde das Futter gewaschen - daher der Name.",
+  "facts": [
+   {
+    "k": "Gewicht",
+    "v": "5 - 15 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "über 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Beeren und Früchte, Insekten, Würmer, Schnecken, Frösche, Kleinsäuger, Eier, Jungvögel"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "60 - 73 Tage"
+   },
+   {
+    "k": "Geburt",
+    "v": "2 - 7 Junge, kommen blind zur Welt Jungtiere sind mit 6 Monaten selbständig nur ein Wurf im Jahr"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "mit 1 - 2 Jahren"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Waschbae.pdf"
+ },
+ {
+  "slug": "weisses_rotwild",
+  "url": "unsere_tiere_vorstellung_weisses_rotwild.htm",
+  "name": "Weißes Rotwild",
+  "latin": "Cervus elaphus ssp.",
+  "intro": "Weiße Hirsche sind keine Albinos! Farbvariationen treten nahezu bei allen Tierarten mit rezessiver Vererbung auf. Sie haben dunkle Augen und unterscheiden sich vom Rotwild neben der Weißfärbung durch eine deutlich stärker ausgeprägte Halsmähne. Angeblich kamen sie aus Indien über Persien nach Böhmen und wurden mit asiatischen (Maral) und nordamerikanischen (Wapiti) Unterarten des Rotwildes eingekreuzt. Einem Aberglauben zufolge werden sie auch Hubertushirsche genannt. Die seltene Haltung und Zucht dieser Hirsche ist kulturell von Bedeutung.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "165 bis 250 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "70 bis 220 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "15 bis 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gräser, Kräuter, Nadeln, Knospen, Triebe etc."
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "33 bis 34 Wochen (Brunft: Sept. bis Okt.)"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Kälber von 5-8 kg in Mai/Juni"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1,5 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Weissrot.pdf"
+ },
+ {
+  "slug": "wildkatze",
+  "url": "unsere_tiere_vorstellung_wildkatze.htm",
+  "name": "Wildkatze",
+  "latin": "Felis silvestris",
+  "intro": "Nur noch selten ist die Wildkatze in freier Natur zu sehen. Die Wildkatze ist eine Indikatorart für naturnahe, strukturreiche Laubmischwälder. Durch diese streift sie als Einzelgängerin in der Dämmerung und Nacht. Sie ist nicht die Wildform unserer Hauskatzen, diese stammen von der afrikanischen Falbkatze ab. Der Schwanz der Wildkatze ist buschig mit dunklen Ringen und stumpfem, schwarzen Ende. Dank ihrer unabhängig voneinander beweglichen Ohren kann sie ihre Beute sehr gut lokalisieren.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "55 bis 80 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "3 bis 8 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "12 bis 16 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Kleinnager, Junghasen und -kaninchen, Vögel, Eidechsen, Amphibien, gelegentl. Fische"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "65 bis 70 Tage (Paarung: Feb./März)"
+   },
+   {
+    "k": "Geburt",
+    "v": "2 bis 5 Junge von 80 - 135 g in Apr./Mai Entwöhnung mit 3 Monaten"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1,5 bis 2 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Wildkatz.pdf"
+ },
+ {
+  "slug": "wildschwein",
+  "url": "unsere_tiere_vorstellung_wildschwein.htm",
+  "name": "Wildschwein",
+  "latin": "Sus scrofa",
+  "intro": "Die Wildschweine leben in Familienverbänden (Rotten), bestehend aus den weiblichen Bachen, jungen männlichen und weiblichen Tieren (Läufer) und den Frischlingen. Die Bache führt die Rotte. Alte Männchen (Keiler) sind meistens Einzelgänger und besuchen diese Rotten nur zur Fortpflanzungszeit (Rausche) von November bis Januar. Bevorzugt leben sie in Laub- und Mischwäldern. Für die Körperpflege benötigen sie feuchte Stellen in denen sie sich wälzen (Suhle) und Bäume an denen sie sich kratzen können (Malbäume).",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "Rumpflänge 90 - 120 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "Keiler 100 - 300 kg"
+   },
+   {
+    "k": "Alter",
+    "v": "ca. 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Allesfresser; Gräser, Kräuter, Wurzeln, Pilze, Beeren, Eicheln, Feldfrüchte, Würmer, Insekten, Kleinsäuger."
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "ca. 116 Tage; (Bauernregel: 3 Monate + 3Wochen + 3 Tage)"
+   },
+   {
+    "k": "Geburt",
+    "v": "4 - 12 Frischlinge im April"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "7 - 12 Monate, ausgewachsen nach 5-6 Jahren"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Wildschw.pdf"
+ },
+ {
+  "slug": "wolf",
+  "url": "unsere_tiere_vorstellung_wolf.htm",
+  "name": "Wolf",
+  "latin": "Canis lupus",
+  "intro": "Das Risiko, von einem Wolf angegriffen zu werden ist äußerst gering. Normalerweise sind sie scheu und meiden den Menschen. Das Wolfsrudel ist ein Familienverband. Es besteht aus dem Elternpaar, den letztjährigen Jungtieren und den diesjährigen Welpen. Geschlechtsreife Jungtiere wandern ab, in der Natur kommt es so innerhalb des Rudels kaum zu sozialen Auseinandersetzungen. Soziale Strukturen mit ranghohen und rangniedrigen Wölfen entstehen nur in Gehegen, wenn mehrere Alttiere zusammen sind.",
+  "facts": [
+   {
+    "k": "Länge",
+    "v": "100 bis 160 cm"
+   },
+   {
+    "k": "Gewicht",
+    "v": "15 bis 50 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "10 bis 20 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "alte. kranke und junge Huftiere, Nager z.B. Biber, Haustiere, Früchte, Obst"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "61 bis 63 Tage (Paarung: Jan./Feb.)"
+   },
+   {
+    "k": "Geburt",
+    "v": "4 bis 7 Welpen von 300 - 500 g in März/April Entwöhnung mit 7 - 9 Wochen"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "1 bis 3 Jahre"
+   }
+  ],
+  "img": "image/woelfe.jpg",
+  "pdf": "download/Wolf.pdf"
+ },
+ {
+  "slug": "zwergesel",
+  "url": "unsere_tiere_vorstellung_zwergesel.htm",
+  "name": "Zwergesel",
+  "latin": "Equus asinus asinus",
+  "intro": "Lange vor den Pferden ist der Esel bereits als Haustier des Menschen gehalten worden. Seine Vorfahren sind verschiedene Wildesel Afrikas, die bereits von den Ägyptern vor 6000 Jahren gezähmt wurden. Im Laufe der Zeit sind weltweit viele Rassen entstanden. Die Zwergesel haben im Mittelmeerraum einen Verbreitungsschwerpunkt und sind von dort nach Mitteleuropa gebracht worden. Früher wurden sie wegen ihrer Genügsamkeit und Zähigkeit gerne als Lasttiere genutzt. Aufgrund der kargen Futtergrundlage, bitte die Esel nicht füttern. Es kann sonst zu Verdauungsstörungen kommen.",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "90-110 cm Widerrist"
+   },
+   {
+    "k": "Gewicht",
+    "v": "150-230 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 30 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Gräser, Kräuter, Blätter, Rinde"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "ca. 13 Monate"
+   },
+   {
+    "k": "Geburt",
+    "v": "1 (selten 2) Fohlen"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "ca. 1,5 Jahre"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Zwergese.pdf"
+ },
+ {
+  "slug": "zwergziege",
+  "url": "unsere_tiere_vorstellung_zwergziege.htm",
+  "name": "Zwergziege",
+  "latin": "Capra hircus",
+  "intro": "Ziege leitet sich vom germanischen \"tig\" ab, was \"kleines Haustier\" bedeutet. Die Zwergziege, eine von ca. 200 Ziegenrassen, kam vermutlich aus Asien nach Afrika. Seit vielen Jahrhunderten sind Zwergziegen auch in Europa eingeführt, wo man sie heute meist in Zoos und in der Hobbytierhaltung findet. In den Ursprungsländern wird sie wegen des Fleisches und der Haut gehalten; ihre Milchleistung ist sehr gering. Da Ziegen bevorzugt Laub fressen, richten sie in Gärten und Wäldern oft erhebliche Schäden an; daher stammt auch der Ausdruck \"den Bock zum Gärtner machen\".",
+  "facts": [
+   {
+    "k": "Größe",
+    "v": "40 - 50 cm Widerrist"
+   },
+   {
+    "k": "Gewicht",
+    "v": "25 - 30 kg"
+   },
+   {
+    "k": "Lebensalter",
+    "v": "ca. 10 Jahre"
+   },
+   {
+    "k": "Nahrung",
+    "v": "Laub, grüne Pflanzenteile"
+   },
+   {
+    "k": "Fortpflanzung",
+    "v": ""
+   },
+   {
+    "k": "Tragzeit",
+    "v": "147 - 175 Tage"
+   },
+   {
+    "k": "Geburt",
+    "v": "1-3 Junge im März"
+   },
+   {
+    "k": "Geschlechtsreife",
+    "v": "Weibchen 7-8 Monate; Männchen 6 Monate"
+   }
+  ],
+  "img": null,
+  "pdf": "download/Zwergzie.pdf"
+ }
+]

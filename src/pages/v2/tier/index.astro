@@ -1,0 +1,70 @@
+---
+import L from '../../../layouts/V2.astro';
+import { img, srcset, animals, animalPhotos, highlights, contact } from '../../../data/site';
+const a = animals.find((x) => x.slug === 'wolf')!;
+const sorted = [...animals].sort((x, y) => x.name.localeCompare(y.name, 'de'));
+const ruler = [
+  { k: 'Länge', v: '100 bis 160 cm', min: 100, max: 160, scale: 200, unit: 'cm', ticks: [0, 50, 100, 150, 200] },
+  { k: 'Gewicht', v: '15 bis 50 kg', min: 15, max: 50, scale: 60, unit: 'kg', ticks: [0, 20, 40, 60] },
+  { k: 'Lebensalter', v: '10 bis 20 Jahre', min: 10, max: 20, scale: 25, unit: 'J.', ticks: [0, 5, 10, 15, 20, 25] },
+];
+const mon = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+---
+<L title="Wolf (Canis lupus) – Wildpark Eekholt" description="Steckbrief Wolf: Länge, Gewicht, Nahrung und Fortpflanzung. Wölfe im Wildpark Eekholt an der Wolfsmeile, Fütterung täglich 15:30 Uhr." active="tier">
+  <div class="wrap species">
+    <div>
+      <p class="crumbs"><a href="/v2/">Start</a><span>Unsere Tiere</span><span>Wolf</span></p>
+      <h1>{a.name}</h1>
+      <p class="latin">{a.latin}</p>
+      <p class="lead">Das Risiko, von einem Wolf angegriffen zu werden, ist äußerst gering. Normalerweise sind Wölfe scheu und meiden den Menschen.</p>
+      <p>Das Wolfsrudel ist ein Familienverband aus Elternpaar, den letztjährigen Jungtieren und den diesjährigen Welpen. Geschlechtsreife Jungtiere wandern ab, so kommt es in der Natur innerhalb des Rudels kaum zu Auseinandersetzungen. Ranghohe und rangniedrige Wölfe gibt es nur in Gehegen, wenn mehrere Alttiere zusammenleben.</p>
+      <p class="callout">Öffentliche Fütterung täglich um <b>15:30 Uhr</b> am Wolfsgehege. <span data-slot="15:30" data-kind="feed"></span></p>
+
+      <div class="measures" data-reveal style="margin-top:48px">
+        {ruler.map((r) => (
+          <div class="measure">
+            <h3>{r.k}</h3>
+            <div class="val">{r.v}</div>
+            <div class="ruler" aria-hidden="true">
+              <span class="rng" style={`left:${r.min / r.scale * 100}%;width:${(r.max - r.min) / r.scale * 100}%`}></span>
+              {r.ticks.map((t) => <span class="lbl" style={`left:${t / r.scale * 100}%`}>{t}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <dl class="textfacts">
+        <dt>Nahrung</dt><dd>Alte, kranke und junge Huftiere, Nager wie der Biber, Haustiere, Früchte und Obst</dd>
+        <dt>Tragzeit</dt><dd>61 bis 63 Tage</dd>
+        <dt>Geburt</dt><dd>4 bis 7 Welpen von 300 bis 500 g, entwöhnt mit 7 bis 9 Wochen</dd>
+        <dt>Geschlechtsreife</dt><dd>1 bis 3 Jahre</dd>
+      </dl>
+      <div style="margin-top:20px">
+        <p class="note" style="margin-bottom:4px">Das Wolfsjahr</p>
+        <div class="cycle" aria-label="Paarung Januar und Februar, Geburt März und April">
+          {mon.map((m, i) => <span class={i < 2 ? 'pair' : i < 4 ? 'birth' : ''}>{m}</span>)}
+        </div>
+        <div class="legend"><span><i style="background:var(--bark)"></i>Paarung</span><span><i style="background:var(--lime)"></i>Geburt der Welpen</span></div>
+      </div>
+      <p style="margin-top:32px"><a class="btn ghost" href="#">Steckbrief als PDF</a> &nbsp; <a class="btn solid" href={contact.paten}>Wolfspate werden</a></p>
+    </div>
+    <figure>
+      <img src={img('woelfe', 1200)} srcset={srcset('woelfe')} sizes="(max-width: 900px) 100vw, 50vw" alt="Zwei Wölfe laufen durch hohes Gras" />
+      <figcaption><span>Wölfe im Wildpark Eekholt</span><span>Foto: Wildpark Eekholt</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="sec leaf">
+    <div class="wrap theme">
+      <figure><img src={img('wolfsmeile', 640)} alt="Besucher an der Wolfsmeile" loading="lazy" /></figure>
+      <div><p class="note">Im Park gleich nebenan</p><h3>Die Eekholter Wolfsmeile</h3><p>{highlights.wolfsmeile}</p><a class="btn solid" href="#">Zur Wolfsmeile</a></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap ruled">
+      <div class="side"><h2>A bis Z</h2><p>Grüner Punkt: mit Foto. Für die übrigen Tiere fehlen auf der aktuellen Website Bilder.</p></div>
+      <ul class="az">{sorted.map((t) => <li><a href="/v2/tier/" class={animalPhotos[t.slug] ? 'ph' : ''} aria-current={t.slug === 'wolf' ? 'page' : undefined}>{t.name}</a></li>)}</ul>
+    </div>
+  </section>
+</L>

@@ -1,0 +1,61 @@
+---
+import L from '../../../layouts/V3.astro';
+import { img, srcset, animals, animalPhotos, highlights, contact } from '../../../data/site';
+const a = animals.find((x) => x.slug === 'wolf')!;
+const sorted = [...animals].sort((x, y) => x.name.localeCompare(y.name, 'de'));
+---
+<L title="Wolf (Canis lupus) – Wildpark Eekholt" description="Steckbrief Wolf: Länge, Gewicht, Nahrung und Fortpflanzung. Wölfe im Wildpark Eekholt, Fütterung täglich 15:30 Uhr." active="tier">
+  <section class="animal-hero">
+    <div class="wrap">
+      <div class="txt">
+        <p class="crumbs"><a href="/v3/">Start</a><span>Unsere Tiere</span><span>Wolf</span></p>
+        <div><h1>{a.name}</h1><p class="it">{a.latin}</p></div>
+        <p class="feed" data-slot="15:30" data-kind="feed"><b>15:30 Uhr</b>Fütterung am Wolfsgehege, täglich</p>
+      </div>
+      <figure><img src={img('woelfe', 1200)} srcset={srcset('woelfe')} sizes="(max-width: 900px) 100vw, 55vw" alt="Zwei Wölfe laufen durch hohes Gras" /></figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap story">
+      <p class="lead">Das Risiko, von einem Wolf angegriffen zu werden, ist äußerst gering. Normalerweise sind Wölfe scheu und meiden den Menschen.</p>
+      <div>
+        <p>Das Wolfsrudel ist ein Familienverband. Es besteht aus dem Elternpaar, den letztjährigen Jungtieren und den diesjährigen Welpen. Geschlechtsreife Jungtiere wandern ab, in der Natur kommt es so innerhalb des Rudels kaum zu sozialen Auseinandersetzungen.</p>
+        <p>Soziale Strukturen mit ranghohen und rangniedrigen Wölfen entstehen nur in Gehegen, wenn mehrere Alttiere zusammen sind.</p>
+        <a class="link" href="#">Steckbrief als PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec warm" style="padding-top:56px">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:24px"><span class="it">Steckbrief</span>Wolf in Zahlen</h2>
+      <div class="factcards">
+        <div class="fc"><h3>Länge</h3><b>100–160 cm</b></div>
+        <div class="fc"><h3>Gewicht</h3><b>15–50 kg</b></div>
+        <div class="fc"><h3>Lebensalter</h3><b>10–20 Jahre</b></div>
+        <div class="fc"><h3>Tragzeit</h3><b>61–63 Tage</b><p style="margin:6px 0 0;font-size:16px">Paarung im Januar und Februar</p></div>
+        <div class="fc"><h3>Welpen</h3><b>4 bis 7</b><p style="margin:6px 0 0;font-size:16px">300–500 g, geboren im März oder April, entwöhnt mit 7–9 Wochen</p></div>
+        <div class="fc"><h3>Geschlechtsreife</h3><b>1–3 Jahre</b></div>
+        <div class="fc wide"><h3>Nahrung</h3><b>Alte, kranke und junge Huftiere, Nager wie der Biber, Haustiere, Früchte und Obst</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="patenband"><div><h2>Pate für einen Wolf werden</h2><p>{highlights.paten}</p></div><a class="btn ink" href={contact.paten}>Patenschaft beantragen</a></div>
+      <article class="block" style="margin-top:18px;grid-template-columns:1fr 1fr;grid-template-rows:auto"><img src={img('wolfsmeile', 640)} alt="Wolfsmeile" loading="lazy" /><div><h3>Mehr über Wölfe: die Wolfsmeile</h3><p>{highlights.wolfsmeile}</p><a class="btn lime" href="#">Zur Wolfsmeile</a></div></article>
+    </div>
+  </section>
+
+  <section class="sec warm">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:24px"><span class="it">33 Steckbriefe</span>Alle Tiere</h2>
+      <ul class="alpha">
+        {sorted.map((t) => <li><a href="/v3/tier/" aria-current={t.slug === 'wolf' ? 'page' : undefined}>{animalPhotos[t.slug] ? <img class="th" src={img(animalPhotos[t.slug], 640)} alt="" loading="lazy" /> : <span class="nt">{t.name[0]}</span>}{t.name}</a></li>)}
+      </ul>
+      <p class="pnote">Für Tiere mit Buchstaben statt Foto gibt es auf der aktuellen Website noch kein Bild.</p>
+    </div>
+  </section>
+</L>
