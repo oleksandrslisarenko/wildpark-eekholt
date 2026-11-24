@@ -225,3 +225,83 @@ html.pt-ringe .t-v3 .r-hero2 { background-image: url(/img/pattern-ringe.svg); ba
   .r-zoo2 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 10px; }
 }
 .r-tri article.big { grid-template-rows: 300px auto; }
+
+/* ===== Revier, Runde 3 ===== */
+.r-hero2 { position: relative; overflow: hidden; }
+.r-blobs { display: none; }
+/* Hero 1: Fotostreifen unten */
+.hvr1 { padding-bottom: 0; }
+.hvr1 .r-h2 { padding-bottom: clamp(40px, 5vw, 64px); }
+.r-strip { overflow: hidden; padding: 0 0 22px; }
+.r-strip .track { display: flex; gap: 10px; width: max-content; animation: rstrip 90s linear infinite; }
+.r-strip img { width: 100px; height: 100px; object-fit: cover; flex: none; transition: transform .35s cubic-bezier(.3,1.5,.5,1); }
+.r-strip:hover .track { animation-play-state: paused; }
+.r-strip img:hover { transform: scale(1.08) rotate(-2deg); }
+@keyframes rstrip { to { transform: translateX(-50%); } }
+.hvr2 .r-strip { display: none; }
+/* Hero 2: Foto-Wolken, Zahlen als Reihe unten */
+.hvr2 { overflow: visible; padding-bottom: 0; z-index: 2; }
+.hvr2 .r-h2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); grid-template-areas: "txt blobs" "stats stats"; row-gap: 0; }
+.hvr2 .r-txt { grid-area: txt; padding-bottom: 90px; }
+.hvr2 .r-blobs { grid-area: blobs; display: block; position: relative; height: 480px; }
+.hvr2 .r-stats2 { grid-area: stats; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: -80px; position: relative; z-index: 3; box-shadow: 0 18px 40px -18px rgba(0,0,0,.35); gap: 0; }
+.hvr2 .r-stats2 li { border-right: 1px solid #E3E5D3; padding: 18px 16px; }
+.hvr2 .r-stats2 li:last-child { border-right: 0; }
+.hvr2 .r-stats2 .ico { --is: 40px; }
+.hvr2 .r-stats2 b { font-size: 42px; }
+.hvr2 + .r-map2 { padding-top: calc(clamp(56px, 7vw, 96px) + 80px); }
+.blob { position: absolute; overflow: hidden; background: var(--lime-deep); box-shadow: 0 16px 34px rgba(0,0,0,.18); animation: morph 11s ease-in-out infinite alternate, drift 7s ease-in-out infinite alternate; }
+.blob img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.blob img.on { opacity: 1; }
+.blob.b1 { width: 46%; height: 72%; left: 12%; top: 4%; border-radius: 58% 42% 55% 45% / 46% 52% 48% 54%; }
+.blob.b2 { width: 34%; height: 44%; left: 58%; top: 0; border-radius: 42% 58% 38% 62% / 55% 40% 60% 45%; animation-delay: -3s, -2s; }
+.blob.b3 { width: 30%; height: 40%; left: 61%; top: 47%; border-radius: 62% 38% 52% 48% / 42% 60% 40% 58%; animation-delay: -6s, -4s; }
+.blob.b4 { width: 26%; height: 34%; left: 0; top: 60%; border-radius: 50% 50% 38% 62% / 60% 42% 58% 40%; animation-delay: -8s, -1s; }
+.blob.b5 { width: 22%; height: 28%; left: 34%; top: 72%; border-radius: 45% 55% 60% 40% / 50% 62% 38% 50%; animation-delay: -2s, -5s; }
+@keyframes morph { 50% { border-radius: 40% 60% 46% 54% / 58% 38% 62% 42%; } 100% { border-radius: 62% 38% 58% 42% / 40% 58% 42% 60%; } }
+@keyframes drift { to { translate: 6px -10px; rotate: 1.5deg; } }
+/* Karte: Infos unter der Legende */
+.r-mapinfo { display: grid; gap: 14px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #E3E5D3; }
+.r-mapinfo > div { display: grid; grid-template-columns: 34px 1fr; gap: 10px; font-size: 13.5px; line-height: 1.4; }
+.r-mapinfo .ico { --is: 32px; }
+.r-mapinfo strong { display: block; font-size: 14px; }
+/* Heute: Farben getauscht, zentriert, Linie */
+.r-today li { align-items: center; text-align: center; }
+.r-today .what { max-width: 18ch; }
+.r-today::before { display: block; left: 8%; right: 8%; top: 60px; border-top: 3px dashed rgba(0,0,0,.2); z-index: -1; }
+.r-today { isolation: isolate; }
+.r-today li[data-state="now"] .pic { box-shadow: 0 0 0 6px var(--lime); }
+.r-today li[data-state="upcoming"] .pic { box-shadow: 0 0 0 6px var(--ink); }
+.r-today li[data-state="now"] .st::before { background: var(--lime); color: var(--ink); }
+.r-today li[data-state="upcoming"] .st::before { background: var(--ink); color: var(--lime); }
+/* Veranstaltungen: eigene Karte */
+.t-v3 .ev3 a { background: #fff; transition: transform .35s var(--ease), box-shadow .3s; }
+.t-v3 .ev3 a:hover { transform: translateY(-4px); box-shadow: 0 12px 0 -4px var(--ink); }
+.t-v3 .ev3 figure { position: relative; overflow: visible; aspect-ratio: 16 / 10; }
+.t-v3 .ev3 figure img { display: block; }
+.t-v3 .ev3 .date { top: auto; bottom: -34px; left: 20px; width: auto; min-height: 0; flex-direction: row; align-items: baseline; gap: 8px; padding: 10px 14px; box-shadow: 4px 4px 0 var(--ink); z-index: 2; }
+.t-v3 .ev3 .date b { flex-direction: row; align-items: baseline; gap: 6px; font-size: 38px; margin: 0; }
+.t-v3 .ev3 .date b small { font-size: 15px; margin: 0; }
+.t-v3 .ev3 .date > span { border: 0; margin: 0 0 0 4px; padding: 0 0 0 10px; border-left: 2px solid var(--ink); width: auto; font-size: 13px; }
+.t-v3 .ev3 .date i { font-size: 13px; }
+.t-v3 .ev3 .body { border-top: 0; padding: 52px 22px 24px; }
+.t-v3 .ev3 h3 { font-size: 24px; }
+/* Tiere: 6 pro Zeile, mehr anzeigen, Hover ohne Abschneiden */
+.r-zoo2 { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 30px 22px; }
+.r-zoo2 li.more { display: none; }
+.r-zoo2.all li.more { display: block; animation: rise .5s var(--ease) both; }
+.r-zoo2 a, .r-zoo2 a:has(img) { overflow: visible !important; }
+.r-zoo2 a:hover .disc { transform: none; box-shadow: 0 0 0 5px var(--lime); }
+.r-zoo2 .disc { margin: 6px; width: calc(100% - 12px); }
+main .r-zoo2 a:hover img { transform: none; }
+.r-moreb { text-align: center; margin: 36px 0 0; }
+@media (max-width: 900px) {
+  .hvr2 .r-h2 { grid-template-columns: 1fr; grid-template-areas: "blobs" "txt" "stats"; }
+  .hvr2 .r-blobs { height: 92vw; }
+  .hvr2 .r-txt { padding-bottom: 28px; }
+  .hvr2 .r-stats2 { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: -60px; }
+  .hvr2 .r-stats2 li { border-bottom: 1px solid #E3E5D3; }
+  .r-zoo2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .r-today li { align-items: center; }
+}
+.t-v3 .ev3 figure { aspect-ratio: auto !important; height: 250px; } .t-v3 .ev3 figure img { width: 100%; height: 100%; object-fit: cover; }

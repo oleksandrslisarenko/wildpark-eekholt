@@ -53,6 +53,7 @@ const VB = '40 0 1660 1240';
     {cats.map((c) => <button type="button" data-filter={c.id} aria-pressed="true"><i style={`background:${c.color}`}></i><span>{c.label}</span><b>{count(c.id)}</b></button>)}
     <button type="button" class="feedtoggle" data-feedonly aria-pressed="false"><i style="background:#C8C901;box-shadow:0 0 0 2px #1C1C1A inset"></i><span>Nur Fütterungen</span><b>{pois.filter((p) => p.feed).length}</b></button>
     <p class="tip">Tippen Sie auf einen Punkt für Details. Mit + und – zoomen, die Karte lässt sich verschieben.</p>
+    <slot />
   </aside>
 </div>
 <script>

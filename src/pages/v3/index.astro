@@ -8,6 +8,10 @@ import { img, highlights, prices, fmt, contact, contact as c2 } from '../../data
 import { slotsToday, flightSeason, upcoming, dayLabel, cleanTime, eventPhoto } from '../../data/helpers';
 import zoo from '../../data/zoo.json';
 const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
+// Hero 2: vier Foto-Wolken, die Fotos wechseln
+const blobs = [['wolf-1', 'wolf-3', 'wolf-2'], ['otter-1', 'otter-2', 'otter-3'], ['katze-1', 'katze-2', 'katze-3'], ['eule-1', 'eule-2', 'eule-3'], ['fuchs-1', 'adler-1', 'fuchs-2']];
+// Hero 1: Fotostreifen
+const strip = [...['wolf-1', 'otter-1', 'katze-2', 'adler-1', 'eule-2', 'fuchs-1', 'wolf-2', 'otter-3', 'katze-1', 'eule-1', 'adler-2', 'fuchs-3', 'wolf-3', 'eule-3'].map((f) => P(f)), '/img/weisses-rotwild-640.webp', '/img/stoerche-640.webp', '/img/wildschwein-640.webp'];
 const stats = [
   { n: '700', l: 'Tiere aus über 100 Arten', icon: 'pfote' },
   { n: '67', l: 'Hektar Wald, Wiese und Moor', icon: 'tanne' },
@@ -30,7 +34,7 @@ const grid = [...popular, ...rest].map((s) => Z.find((a) => a.slug === s)).filte
 const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').replace('/img/weisses-rotwild-700.webp', '/img/weisses-rotwild-640.webp').replace('/img/stoerche-700.webp', '/img/stoerche-640.webp') : a.thumb);
 ---
 <L title="Wildpark Eekholt: 700 Tiere auf 67 Hektar" variant="v3" active="">
-  <section class="r-hero2 pt-target">
+  <section class="r-hero2 hvr1 pt-holz" data-hero>
     <div class="r-wrap r-h2">
       <div class="r-txt">
         <p class="r-pill"><span class="dot"></span><span data-live="status">Täglich geöffnet</span></p>
@@ -41,10 +45,18 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
           <a class="btn line" href="#karte">Lageplan ansehen</a>
         </div>
       </div>
+      <div class="r-blobs" aria-hidden="true">
+        {blobs.map((b, k) => (
+          <div class={`blob b${k + 1}`}>
+            {b.map((f, i) => <img class={i === 0 ? 'on' : ''} src={P(f, k === 0 ? 1200 : 700)} alt="" loading={i === 0 ? 'eager' : 'lazy'} />)}
+          </div>
+        ))}
+      </div>
       <ul class="r-stats2">
         {stats.map((s, i) => <li style={`--d:${0.15 + i * 0.08}s`}><Icon name={s.icon} set="h" /><b data-count={s.n}>{s.n}</b><span>{s.l}</span></li>)}
       </ul>
     </div>
+    <div class="r-strip" aria-hidden="true"><div class="track">{[...strip, ...strip].map((f) => <img src={f} alt="" loading="lazy" />)}</div></div>
   </section>
 
   <section class="mapsec r-map2" id="karte">
@@ -54,7 +66,14 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
         <p>Zwei Rundwege, über 40 Gehege, Grillplätze und Spielplätze. Filtern Sie nach dem, was Sie suchen.</p>
       </div>
     </div>
-    <div class="r-mapfull"><ParkMap base="/v12" pin={2} /></div>
+    <div class="r-mapfull"><ParkMap base="/v12" pin={1.4}>
+      <div class="r-mapinfo">
+        <div><Icon name="navi" set="h" /><div><strong>Fürs Navi</strong>{contact.navi}</div></div>
+        <div><Icon name="auto" set="h" /><div><strong>Parken</strong>Kostenlos direkt am Park, auch für Busse</div></div>
+        <div><Icon name="bus" set="h" /><div><strong>Ohne Auto</strong>Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt</div></div>
+        <div><Icon name="pdf" set="h" /><div><strong>Zum Ausdrucken</strong><a href="/download/Lageplan_Download.pdf" download>Lageplan als PDF</a></div></div>
+      </div>
+    </ParkMap></div>
   </section>
 
   <section class="r-sec">
@@ -103,9 +122,9 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
         <h2>Alle Tiere, die beliebtesten zuerst</h2>
         <a class="more" href="/v12/tiere/">Steckbriefe von A bis Z</a>
       </div>
-      <ul class="r-zoo2">
+      <ul class="r-zoo2" data-zoo>
         {grid.map((a, i) => (
-          <li>
+          <li class:list={[{ more: i >= 18 }]}>
             <a href={a.url} aria-label={a.name}>
               <span class="disc"><Icon name={a.icon} />{photo(a) && <img src={photo(a)} alt="" loading="lazy" />}</span>
               {i < popular.length && <em>Beliebt</em>}
@@ -114,6 +133,7 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
           </li>
         ))}
       </ul>
+      <p class="r-moreb"><button class="btn line" type="button" data-zoomore>Alle {grid.length} Tiere anzeigen</button></p>
     </div>
   </section>
 
@@ -169,6 +189,17 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
   </section>
 
   <script>
+    // Hero 2: Fotos in den Wolken wechseln
+    const blobEls = [...document.querySelectorAll<HTMLElement>('.r-blobs .blob')];
+    let step = 0;
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => {
+      const b = blobEls[step % blobEls.length]; step++;
+      const ims = [...b.querySelectorAll('img')], i = ims.findIndex((x) => x.classList.contains('on'));
+      ims[i].classList.remove('on'); ims[(i + 1) % ims.length].classList.add('on');
+    }, 1800);
+    // Tiere: mehr anzeigen
+    const zb = document.querySelector<HTMLButtonElement>('[data-zoomore]')!;
+    zb.addEventListener('click', () => { document.querySelector('[data-zoo]')!.classList.add('all'); zb.parentElement!.remove(); });
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const io = new IntersectionObserver((es) => es.forEach((e) => {
         if (!e.isIntersecting) return; io.disconnect();

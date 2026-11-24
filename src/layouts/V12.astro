@@ -72,7 +72,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     <div class="tools">
       <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <LangDD />
-      <SettingsDD hero={variant === 'v12'} />
+      <SettingsDD hero={variant === 'v12' || variant === 'v3'} variant={variant} />
       <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
     </div>
@@ -159,15 +159,16 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     });
     // Entwurfs-Einstellungen: Hero-Variante + Muster (gespeichert, wirkt auf der Startseite)
     {
-      const HV = ['3', '4', '8'], PT = ['none', 'topo', 'holz', 'ringe'];
+      const V3 = document.body.classList.contains('t-v3');
+      const HV = V3 ? ['r1', 'r2'] : ['3', '4', '8'], HVKEY = V3 ? 'wp-hv-v3' : 'wp-hv3', PT = ['none', 'topo', 'holz', 'ringe'];
       const get = (k: string, def: string, ok: string[]) => { try { const v = localStorage.getItem(k); return v && ok.includes(v) ? v : def; } catch { return def; } };
       const qs = new URLSearchParams(location.search);
-      let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get('wp-hv3', '4', HV);
+      let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get(HVKEY, V3 ? 'r1' : '4', HV);
       let pt = qs.get('muster') && PT.includes(qs.get('muster')!) ? qs.get('muster')! : get('wp-pt3', 'holz', PT);
       const apply = () => {
         const hero = document.querySelector<HTMLElement>('[data-hero]');
         if (hero) {
-          hero.classList.remove(...[...hero.classList].filter((c) => /^hv\d$/.test(c) || c.startsWith('pt-')));
+          hero.classList.remove(...[...hero.classList].filter((c) => /^hv\w+$/.test(c) || c.startsWith('pt-')));
           hero.classList.add('hv' + hv);
           if (pt !== 'none') hero.classList.add('pt-' + pt);
         }
@@ -177,7 +178,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
         document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === hv)));
         document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
       };
-      document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.addEventListener('click', () => { hv = b.dataset.hv!; try { localStorage.setItem('wp-hv3', hv); } catch {} apply(); }));
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.addEventListener('click', () => { hv = b.dataset.hv!; try { localStorage.setItem(HVKEY, hv); } catch {} apply(); }));
       document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt3', pt); } catch {} apply(); }));
       apply();
       let ld = get('wp-ld', '1', ['0', '1', '2', '3', '4', '5']);
