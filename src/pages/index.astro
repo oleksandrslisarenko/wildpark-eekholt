@@ -3,10 +3,9 @@ import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/golos-text';
 const v = [
   { n: '1', href: '/v12/', name: 'Schild', text: 'Die Hauptrichtung: kräftige Plaketten in Lindgrün, Tier-Hero mit Fotos und Muster, interaktiver Lageplan, Laufband aller Tiere, handgezeichnete Icons.', color: '#000', ink: '#C8C901', img: '/img/hero/wolf-1-700.webp', pages: true },
-  { n: '2', href: '/v2/', name: 'Lichtung', text: 'Die weiche Alternative: runde Formen, warme Töne, verspielte Details. Ruhig, freundlich und einladend, für Familien und alle, die einen schönen Tag planen.', color: '#F4E9DC', ink: '#2E3320', img: '/img/hero/katze-1-700.webp', pages: false },
-  { n: '3', href: '/v3/', name: 'Revier', text: 'Der Park als Karte: Lageplan über die ganze Breite mit den Tieren an ihrem Platz, große Zahlen zu Fläche und Angebot, Kalender und Tierraster.', color: '#C8C901', ink: '#000', img: '/img/hero/otter-1-700.webp', pages: false },
+  { n: '2', href: '/v3/', name: 'Revier', text: 'Der Park als Karte: große Zahlen zu Fläche und Angebot, Lageplan über die ganze Breite, Fütterungen des Tages und alle Tiere im Raster.', color: '#C8C901', ink: '#000', img: '/img/hero/otter-1-700.webp', pages: false },
 ];
-const pages = [['', 'Startseite'], ['tier/', 'Tierseite (Wolf)'], ['besuch/', 'Preise und Öffnungszeiten'], ['veranstaltungen/', 'Veranstaltungen']];
+const pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/', 'Alle Tiere'], ['inhaltsverzeichnis/', 'Alle Seiten'], ['besuch/', 'Preise und Öffnungszeiten'], ['veranstaltungen/', 'Veranstaltungen']];
 ---
 <!doctype html>
 <html lang="de">
@@ -20,11 +19,11 @@ const pages = [['', 'Startseite'], ['tier/', 'Tierseite (Wolf)'], ['besuch/', 'P
     header img { width: 72px; }
     h1 { font-size: clamp(32px, 4vw, 52px); margin: 0; line-height: 1.05; letter-spacing: -.02em; }
     header p { margin: 6px 0 0; color: #55574E; }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 12px clamp(16px, 4vw, 48px) 64px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); gap: 20px; padding: 12px clamp(16px, 4vw, 48px) 64px; }
     .card { background: var(--c); color: var(--i); display: flex; flex-direction: column; }
     .card img { aspect-ratio: 16/10; object-fit: cover; width: 100%; }
-    .card div { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-    .card h2 { margin: 0 0 8px; font-size: 32px; letter-spacing: -.01em; }
+    .card div { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .card h2 { margin: 0 0 8px; font-size: 26px; letter-spacing: -.01em; }
     .card h2 span { opacity: .6; font-weight: 500; }
     .card ul { list-style: none; padding: 0; margin: auto 0 0; }
     .card li a { display: block; padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--i) 30%, transparent); color: inherit; text-decoration: none; font-weight: 600; }
@@ -34,7 +33,7 @@ const pages = [['', 'Startseite'], ['tier/', 'Tierseite (Wolf)'], ['besuch/', 'P
   </style>
 </head>
 <body>
-  <header><img src="/img/logo.svg" alt="Wildpark Eekholt" /><div><h1>Redesign Wildpark Eekholt</h1><p>Drei Richtungen, Desktop und Mobil. Inhalte 1:1 von wildpark-eekholt.de.</p></div></header>
+  <header><img src="/img/logo.svg" alt="Wildpark Eekholt" /><div><h1>Redesign Wildpark Eekholt</h1><p>Zwei Richtungen, Desktop und Mobil. Inhalte 1:1 von wildpark-eekholt.de.</p></div></header>
   <main class="grid">
     {v.map((x) => (
       <section class="card" style={`--c:${x.color};--i:${x.ink}`}>

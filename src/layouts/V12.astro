@@ -12,7 +12,7 @@ import { contact } from '../data/site';
 import { sections } from '../data/nav';
 const secMap = new Map(sections.map((x) => [x.id, x]));
 const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '', variant = 'v12' } = Astro.props;
-const protoName = variant === 'v2' ? 'Entwurf 2' : variant === 'v3' ? 'Entwurf 3' : 'Entwurf 1';
+const protoName = variant === 'v2' ? 'Entwurf 2' : variant === "v3" ? "Entwurf 2" : 'Entwurf 1';
 const base = '/v12';
 const nav = [
   { label: 'Start', href: '' },
