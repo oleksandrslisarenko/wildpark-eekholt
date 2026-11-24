@@ -1408,3 +1408,7 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
 .drawer .btn { font-size: 18px; }
 @media (max-width: 900px) { .cp-head .illu { width: 220px; justify-self: start; } .cp-head .wrap { gap: 12px; padding: 28px 0 32px; } }
 .prose > p { margin: 0; } .prose > * + p, .prose > p + * { margin-top: 1em; } .prose > p + .fig, .prose > p + .gal { margin-top: 1.4em; }
+.slots li[data-state="upcoming"] { background: transparent; color: inherit; }
+.slots li[data-state="upcoming"] span { color: inherit; }
+.v12 .slots li[data-state="upcoming"] .ico { color: var(--lime); }
+.slots li[data-state="upcoming"]::before { color: var(--lime); }
