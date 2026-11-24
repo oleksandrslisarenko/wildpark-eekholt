@@ -1460,3 +1460,36 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
   .t-v2 .burger { display: grid !important; place-content: center; gap: 6px; width: 44px; height: 44px; border: 0; background: var(--lime); cursor: pointer; }
   .t-v2 .burger span:not(.sr) { width: 20px; height: 2px; background: var(--ink); }
 }
+
+/* Burger mit sichtbarem Wort „Menü“; Ticket-Button bleibt auch neben dem Burger im Header */
+.v12 .burger { width: auto; height: 44px; padding: 0 14px; grid-template-columns: 20px auto; grid-template-rows: 2px 2px; column-gap: 10px; row-gap: 6px; align-content: center; justify-content: center; font: 700 15px/1 var(--f); color: var(--ink); }
+.v12 .burger span { grid-column: 1; }
+.v12 .burger b { grid-column: 2; grid-row: 1 / 3; align-self: center; font-weight: 700; }
+.v12 .tools > .tix { display: inline-flex !important; }
+@media (max-width: 1199px) { .v12 .tools .lang { display: flex; } }
+@media (max-width: 520px) {
+  .v12 .tools { gap: 6px; }
+  .v12 .tools > .tix { padding-inline: 12px; }
+  .v12 .tools > .tix svg { display: none; }
+  .v12 .burger { padding: 0 12px; column-gap: 8px; }
+}
+@media (max-width: 440px) { .v12 .tools .setdd { display: none; } }
+@media (max-width: 800px) { .mapinfo { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mapinfo > div > div { min-width: 0; overflow-wrap: anywhere; } }
+@media (max-width: 400px) { .mapinfo { grid-template-columns: 1fr; } }
+.pgrid > * { min-width: 0; }
+.blockhead h2 { overflow-wrap: anywhere; hyphens: auto; }
+.ptable th { overflow-wrap: anywhere; }
+@media (max-width: 420px) { .ptable td { white-space: normal; } .ptable td small, .ptable td span { display: block; } }
+
+/* Schmale Handys (ab 320 px): Rasterspalten dürfen schmaler als ihr Inhalt werden, lange Wörter brechen, breite Tabellen scrollen in sich */
+.cp-grid > *, .evlayout > *, .facts12 > *, .ph12 .wrap > *, .pgrid > *, .hub > *, .zz-row > * { min-width: 0; }
+main h1, main h2, main h3, .fact b, .fact strong { overflow-wrap: break-word; hyphens: auto; }
+.prose, .prose p, .prose li, .prose td { overflow-wrap: break-word; }
+.tbl { overflow-x: auto; max-width: 100%; }
+.prose img, .prose iframe, .prose video { max-width: 100%; height: auto; }
+.promo > *, .fact { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 700px) {
+  .evlayout .evs li { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 14px 16px; }
+  .evlayout .evs li > div:last-child { grid-column: 1 / -1; }
+  .evlayout .evs li > * { min-width: 0; }
+}

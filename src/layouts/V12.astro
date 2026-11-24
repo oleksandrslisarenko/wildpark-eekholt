@@ -72,11 +72,10 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
       </ul>
     </nav>
     <div class="tools">
-      <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <LangDD />
       <SettingsDD hero={variant === 'v12' || variant === 'v3'} variant={variant} />
       <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets <Ext /></a>
-      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><b>Menü</b></button>
     </div>
   </header>
   <div class="drawer" id="drawer" hidden>
@@ -137,16 +136,11 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     </div>
     <p class="msg" data-share-msg role="status"></p>
   </dialog>
-  <dialog class="searchdlg" data-searchdlg>
-    <form method="dialog"><label><span class="sr">Suche</span><input type="search" placeholder="Wonach suchen Sie? Zum Beispiel Wolf, Preise, Grillplatz" /></label><button aria-label="Schließen">✕</button></form>
-    <ul class="results" data-results></ul>
-  </dialog>
   <script>
     import { hydrate } from '../scripts/live';
     import { wireForms } from '../scripts/forms';
-    import { wireSearch } from '../scripts/search';
     hydrate(); setInterval(() => hydrate(), 60000);
-    wireForms(); wireSearch('v12');
+    wireForms();
     const b = document.querySelector<HTMLButtonElement>('[data-burger]');
     const dr = document.getElementById('drawer')!;
     b?.addEventListener('click', () => { const o = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', String(!o)); dr.hidden = o; document.body.classList.toggle('lock', !o); });

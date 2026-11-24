@@ -375,3 +375,5 @@ main .r-zoo2 a:hover img { transform: none; }
 .blob.b6 { left: 84%; top: 66%; }
 .r-stats2 li:hover { transform: none; background: #fff; color: inherit; }
 .r-stats2 li:hover .ico { color: inherit; transform: none; }
+.tk { min-width: 0; }
+@media (max-width: 420px) { .tk strong { font-size: clamp(28px, 9vw, 44px); overflow-wrap: anywhere; } .tk span { overflow-wrap: anywhere; } }
