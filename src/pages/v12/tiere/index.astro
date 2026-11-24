@@ -1,0 +1,70 @@
+---
+// Übersicht aller Tiere
+import L from '../../../layouts/V12.astro';
+import Icon from '../../../components/Icon.astro';
+import zoo from '../../../data/zoo.json';
+import { pois } from '../../../data/mappois';
+import { sections } from '../../../data/nav';
+type A = (typeof zoo)[number];
+const all = [...(zoo as A[])].sort((x, y) => x.name.localeCompare(y.name, 'de'));
+const top = ['wolf', 'otter', 'wildkatze', 'seeadler', 'uhu', 'rotfuchs', 'weisses_rotwild'].map((s) => all.find((a) => a.slug === s)!);
+const feeds = new Map(pois.filter((p) => p.feed && p.slug).map((p) => [p.slug!, p.feed!]));
+const groups = [...new Set(all.map((a) => a.name[0].toUpperCase()))];
+const schutz = sections.find((s) => s.id === 'tiere')!.groups[1].items;
+const big = (h: string) => h.replace('-1200.webp', '-700.webp').replace('/img/weisses-rotwild-700.webp', '/img/weisses-rotwild-640.webp');
+---
+<L title="Unsere Tiere – Wildpark Eekholt" description="Über 100 Arten mit mehr als 700 Tieren: Wolf, Fischotter, Wildkatze, Seeadler und viele mehr. Steckbriefe von A bis Z." active="tiere">
+  <section class="ph12">
+    <div class="wrap">
+      <div>
+        <p class="crumbs"><a href="/v12/">Start</a><span>Unsere Tiere</span></p>
+        <h1>Unsere Tiere</h1>
+        <p>Zur Zeit können Sie im Wildpark über 100 Arten mit mehr als 700 Tieren sehen. Hier stellen sich {all.length} davon mit Steckbrief vor.</p>
+      </div>
+      <div class="illu" aria-hidden="true"><Icon name="szene-tiere" set="h" cls="scene" /></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head"><h2>Die Bekanntesten</h2><p>Unsere Gäste fragen am häufigsten nach diesen Tieren.</p></div>
+      <div class="zoo12">
+        {top.map((t, i) => (
+          <a class={i === 0 ? 'big' : ''} href={t.url}>
+            <img src={i === 0 ? t.hero! : big(t.hero!)} alt={t.name} loading="lazy" />
+            <span class="name">{t.name}<small>{t.latin}</small></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head"><h2>Alle Tiere von A bis Z</h2><p>Tippen Sie auf einen Buchstaben oder scrollen Sie durch die Liste.</p></div>
+      <nav class="abc" aria-label="Buchstaben">{groups.map((g) => <a href={`#b-${g}`}>{g}</a>)}</nav>
+      <div class="azgrid">
+        {groups.map((g) => (
+          <div class="azg" id={`b-${g}`}>
+            <h3>{g}</h3>
+            <ul>
+              {all.filter((a) => a.name[0].toUpperCase() === g).map((a) => (
+                <li><a href={a.url}>
+                  <span class="av">{a.thumb ? <img src={a.thumb} alt="" loading="lazy" /> : <Icon name={a.icon} />}</span>
+                  <span class="nm"><b>{a.name}</b>{a.latin && <i>{a.latin}</i>}{feeds.get(a.slug) && <em>Fütterung {feeds.get(a.slug)} Uhr</em>}</span>
+                </a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head"><h2>Tier- und Artenschutz</h2><a class="more" href="/v12/tiere/artenschutz/">Mehr zum Artenschutz</a></div>
+      <ul class="chips">{schutz.map((s) => <li><a href={s.href}>{s.label}</a></li>)}</ul>
+    </div>
+  </section>
+</L>

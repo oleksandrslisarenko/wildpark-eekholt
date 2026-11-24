@@ -96,6 +96,7 @@ for (const file of walk(DIST)) {
   const html = readFileSync(file, 'utf8');
   const root = parse(html, { comment: false, blockTextElements: { script: true, style: true, noscript: true } });
   const doc = root.querySelector('html');
+  if (!doc || !root.querySelector('body')) continue;
   const title = root.querySelector('title');
   if (title) title.set_content(escapeText(tr(decode(title.text), file)));
   const md = root.querySelector('meta[name="description"]');

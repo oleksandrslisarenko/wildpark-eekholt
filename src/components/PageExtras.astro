@@ -1,0 +1,67 @@
+---
+// Formulare und erzeugte Inhalte für einzelne Seiten
+import { sections, allItems } from '../data/nav';
+import zoo from '../data/zoo.json';
+import { contact } from '../data/site';
+const { url } = Astro.props as { url: string };
+---
+{url === '/v12/kontakt/' && (
+  <div class="cp-split">
+    <form class="cform" data-send="Kontaktanfrage" data-ok="Vielen Dank! Wir melden uns so schnell wie möglich bei Ihnen.">
+      <h2>Schreiben Sie uns</h2>
+      <div class="row2">
+        <label class="field"><span>Name</span><input name="name" required autocomplete="name" /></label>
+        <label class="field"><span>E-Mail-Adresse</span><input type="email" name="email" required autocomplete="email" /></label>
+      </div>
+      <label class="field"><span>Telefon (optional)</span><input type="tel" name="telefon" autocomplete="tel" /></label>
+      <label class="field"><span>Worum geht es?</span>
+        <select name="thema"><option>Allgemeine Frage</option><option>Gruppenbesuch oder Schulklasse</option><option>Grillplatz oder Grillhütte buchen</option><option>Kindergeburtstag</option><option>Tierpatenschaft</option><option>Presse</option></select>
+      </label>
+      <label class="field"><span>Ihre Nachricht</span><textarea name="nachricht" rows="6" required></textarea></label>
+      <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Ich bin einverstanden, dass meine Angaben zur Beantwortung gespeichert werden. Mehr in der <a href="/v12/datenschutz/">Datenschutzerklärung</a>.</span></label>
+      <button class="btn plate" type="submit">Nachricht senden</button>
+      <p class="msg" data-msg role="status"></p>
+    </form>
+    <aside class="cbox">
+      <h2>Direkt erreichen</h2>
+      <p><b>Telefon</b><br /><a href={contact.phoneHref}>{contact.phone}</a><br />Büro {contact.office}</p>
+      <p><b>E-Mail</b><br /><a href={`mailto:${contact.mail}`}>{contact.mail}</a></p>
+      <p><b>Fürs Navi</b><br />{contact.navi}</p>
+    </aside>
+  </div>
+)}
+{url === '/v12/gaestebuch/' && (
+  <form class="cform" data-send="Gästebucheintrag" data-ok="Danke für Ihren Eintrag! Er erscheint, sobald wir ihn freigeschaltet haben. Sie bekommen dann eine E-Mail.">
+    <h2>Neuer Eintrag</h2>
+    <div class="row2">
+      <label class="field"><span>Name</span><input name="name" required autocomplete="name" /></label>
+      <label class="field"><span>E-Mail-Adresse (wird nicht veröffentlicht)</span><input type="email" name="email" required autocomplete="email" /></label>
+    </div>
+    <label class="field"><span>Wohnort (optional)</span><input name="ort" autocomplete="address-level2" /></label>
+    <label class="field"><span>Ihr Eintrag</span><textarea name="eintrag" rows="6" required></textarea></label>
+    <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Mein Name, Wohnort und Eintrag dürfen im Gästebuch erscheinen. Mehr in der <a href="/v12/datenschutz/">Datenschutzerklärung</a>.</span></label>
+    <button class="btn plate" type="submit">Eintrag senden</button>
+    <p class="msg" data-msg role="status"></p>
+  </form>
+)}
+{url === '/v12/newsletter/' && (
+  <form class="cform narrow" data-send="Newsletter-Anmeldung" data-ok="Fast geschafft: Bitte bestätigen Sie den Link in der E-Mail, die wir Ihnen gleich schicken.">
+    <h2>Anmelden</h2>
+    <label class="field"><span>E-Mail-Adresse</span><input type="email" name="email" required autocomplete="email" /></label>
+    <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Ich möchte den Newsletter erhalten und akzeptiere die <a href="/v12/datenschutz/">Datenschutzerklärung</a>.</span></label>
+    <button class="btn plate" type="submit">Anmelden</button>
+    <p class="msg" data-msg role="status"></p>
+  </form>
+)}
+{url === '/v12/inhaltsverzeichnis/' && (
+  <div class="smap">
+    <div><h2><a href="/v12/">Startseite</a></h2><ul><li><a href="/v12/veranstaltungen/">Veranstaltungen</a></li></ul></div>
+    {sections.filter((s) => s.groups.length).map((s) => (
+      <div>
+        <h2><a href={s.href}>{s.label}</a></h2>
+        {s.groups.map((g) => <ul>{g.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>)}
+        {s.id === 'tiere' && <ul class="cols">{(zoo as any[]).map((a) => <li><a href={a.url}>{a.name}</a></li>)}</ul>}
+      </div>
+    ))}
+  </div>
+)}

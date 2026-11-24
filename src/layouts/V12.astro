@@ -7,20 +7,23 @@ import LangDD from '../components/LangDD.astro';
 import SettingsDD from '../components/SettingsDD.astro';
 import Loader from '../components/Loader.astro';
 import Ext from '../components/Ext.astro';
+import Icon from '../components/Icon.astro';
 import { contact } from '../data/site';
+import { sections } from '../data/nav';
+const secMap = new Map(sections.map((x) => [x.id, x]));
 const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '', variant = 'v12' } = Astro.props;
 const protoName = variant === 'v2' ? 'Entwurf 2' : variant === 'v3' ? 'Entwurf 3' : 'Entwurf 1';
 const base = '/v12';
 const nav = [
   { label: 'Start', href: '' },
-  { label: 'Besuch planen', href: 'besuch' },
-  { label: 'Unsere Tiere', href: 'tier' },
+  { label: 'Besuch planen', href: 'besuch', sec: 'besuch' },
+  { label: 'Unsere Tiere', href: 'tiere', sec: 'tiere' },
   { label: 'Veranstaltungen', href: 'veranstaltungen' },
-  { label: 'Wolfsmeile', href: null },
-  { label: 'Vogelpflegestation', href: null },
-  { label: 'Bildung', href: null },
-  { label: 'Unterstützen', href: null },
-  { label: 'Kontakt', href: '#kontakt' },
+  { label: 'Wolfsmeile', href: 'wolfsmeile', sec: 'wolfsmeile' },
+  { label: 'Vogelpflegestation', href: 'vogelpflegestation', sec: 'vogelpflegestation' },
+  { label: 'Bildung', href: 'bildung', sec: 'bildung' },
+  { label: 'Unterstützen', href: 'unterstuetzen', sec: 'unterstuetzen' },
+  { label: 'Kontakt', href: 'kontakt' },
 ];
 const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : h ? `${base}/${h}/` : `/${variant}/`);
 ---
@@ -43,7 +46,26 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     <nav class="mainnav" aria-label="Hauptnavigation">
       <ul>
         {nav.map((n) => (
-          <li>{n.href !== null ? <a href={link(n.href)} aria-current={active === n.href ? 'page' : undefined}>{n.label}</a> : <span class="soon" title="Seite folgt nach Auswahl des Designs">{n.label}</span>}</li>
+          <li class:list={[{ hasdd: n.sec && secMap.get(n.sec)!.groups.length }]}>
+            <a href={link(n.href)} aria-current={active === n.href ? 'page' : undefined}>{n.label}</a>
+            {n.sec && secMap.get(n.sec)!.groups.length > 0 && (
+              <div class="dd">
+                <div class="dd-in">
+                  <div class="dd-intro">
+                    <Icon name={secMap.get(n.sec)!.scene} set="h" cls="scene" />
+                    <p><b>{n.label}</b>{secMap.get(n.sec)!.teaser}</p>
+                    <a class="more" href={link(n.href)}>Zur Übersicht</a>
+                  </div>
+                  {secMap.get(n.sec)!.groups.map((g) => (
+                    <div class="dd-col">
+                      <p>{g.label}</p>
+                      <ul>{g.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
         ))}
       </ul>
     </nav>
@@ -57,7 +79,9 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   </header>
   <div class="drawer" id="drawer" hidden>
     <ul>
-      {nav.map((n) => <li>{n.href !== null ? <a href={link(n.href)}>{n.label}</a> : <span class="soon">{n.label}</span>}</li>)}
+      {nav.map((n) => <li>{n.sec && secMap.get(n.sec)!.groups.length > 0 ? (
+        <details><summary>{n.label}</summary><ul>{secMap.get(n.sec)!.groups.flatMap((g) => g.items).map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul></details>
+      ) : <a href={link(n.href)}>{n.label}</a>}</li>)}
     </ul>
     <p class="drawer-status" data-live="status">Ganzjährig geöffnet</p>
     <a class="btn ink" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
@@ -83,18 +107,34 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
         <h2>Newsletter</h2>
         <p>Veranstaltungen und Neuigkeiten aus dem Park, etwa einmal im Monat.</p>
         <label class="field"><span>E-Mail-Adresse</span><input type="email" name="email" required autocomplete="email" /></label>
-        <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Ich möchte den Newsletter erhalten und akzeptiere die <a href="#">Datenschutzerklärung</a>.</span></label>
+        <label class="check"><input type="checkbox" name="einwilligung" value="ja" required /> <span>Ich möchte den Newsletter erhalten und akzeptiere die <a href="/v12/datenschutz/">Datenschutzerklärung</a>.</span></label>
         <button class="btn plate" type="submit">Anmelden</button>
         <p class="msg" data-msg role="status"></p>
       </form>
     </div>
+    <nav class="foot-links" aria-label="Weitere Seiten">
+      {['besuch', 'tiere', 'bildung', 'unterstuetzen', 'ueber-uns', 'aktuelles', 'aktive-ecke'].map((id) => { const x = secMap.get(id)!; return (
+        <div><h2><a href={x.href}>{x.label}</a></h2><ul>{x.groups.flatMap((g) => g.items).slice(0, 7).map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul></div>
+      ); })}
+    </nav>
     <div class="foot-bottom">
       <span>© 2026 Wildpark Eekholt</span>
-      <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Barrierefreiheit</a><a href="#">Inhaltsverzeichnis</a>
+      <a href="/v12/impressum/">Impressum</a><a href="/v12/datenschutz/">Datenschutz</a><a href="/v12/barrierefreiheit/">Barrierefreiheit</a><a href="/v12/inhaltsverzeichnis/">Inhaltsverzeichnis</a><a href="/v12/gaestebuch/">Gästebuch</a><button type="button" class="linkbtn" data-share>Seite weiterempfehlen</button>
       <span class="credits">Icons: <a href="https://openmoji.org" rel="noopener" target="_blank">OpenMoji</a> (CC BY-SA 4.0), <a href="https://khushmeen.com/icons.html" rel="noopener" target="_blank">Doodle Icons</a> (CC0), <a href="https://github.com/oreo-design/doodle-icons" rel="noopener" target="_blank">Oreo Doodle Icons</a> (MIT), Silhouetten in den Mustern: <a href="https://game-icons.net" rel="noopener" target="_blank">game-icons.net</a> (CC BY 3.0)</span>
       <span class="proto">{protoName} · <a href="/">Alle Entwürfe</a></span>
     </div>
   </footer>
+  <dialog class="sharedlg" data-sharedlg>
+    <form method="dialog" class="sh-close"><button aria-label="Schließen">✕</button></form>
+    <h2>Seite weiterempfehlen</h2>
+    <p data-share-title></p>
+    <div class="sh-row">
+      <a class="btn plate" data-share-mail href="#">Per E-Mail</a>
+      <a class="btn ink" data-share-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="btn ink" type="button" data-share-copy>Link kopieren</button>
+    </div>
+    <p class="msg" data-share-msg role="status"></p>
+  </dialog>
   <dialog class="searchdlg" data-searchdlg>
     <form method="dialog"><label><span class="sr">Suche</span><input type="search" placeholder="Wonach suchen Sie? Zum Beispiel Wolf, Preise, Grillplatz" /></label><button aria-label="Schließen">✕</button></form>
     <ul class="results" data-results></ul>
@@ -144,6 +184,24 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
       const markLd = () => document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ld === ld)));
       document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.addEventListener('click', () => { ld = b.dataset.ld!; try { localStorage.setItem('wp-ld', ld); } catch {} markLd(); (window as any).wpLoader?.(ld); }));
       markLd();
+    }
+    // Seite weiterempfehlen
+    {
+      const dlg = document.querySelector<HTMLDialogElement>('[data-sharedlg]')!;
+      const ru = document.documentElement.lang === 'ru';
+      document.querySelectorAll<HTMLElement>('[data-share]').forEach((b) => b.addEventListener('click', async () => {
+        const url = location.href, title = document.title;
+        if (navigator.share && matchMedia('(pointer: coarse)').matches) { try { await navigator.share({ title, url }); return; } catch {} }
+        dlg.querySelector('[data-share-title]')!.textContent = title;
+        const body = (ru ? 'Посмотри: ' : 'Schau mal: ') + title + '\n' + url;
+        (dlg.querySelector('[data-share-mail]') as HTMLAnchorElement).href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+        (dlg.querySelector('[data-share-wa]') as HTMLAnchorElement).href = `https://wa.me/?text=${encodeURIComponent(body)}`;
+        dlg.querySelector('[data-share-msg]')!.textContent = '';
+        dlg.showModal();
+      }));
+      dlg.querySelector('[data-share-copy]')!.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(location.href); dlg.querySelector('[data-share-msg]')!.textContent = ru ? 'Ссылка скопирована.' : 'Link kopiert.'; } catch {}
+      });
     }
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.25 });
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));

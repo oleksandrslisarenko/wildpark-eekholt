@@ -1,4 +1,6 @@
 ---
+import zooData from '../data/zoo.json';
+const zooSlugs = new Set((zooData as any[]).map((a) => a.slug));
 // Interaktiver Lageplan: Formen aus dem offiziellen Lageplan (PDF) vektorisiert, Punkte aus dessen Legende.
 import shapes from '../data/mapshapes.json';
 import { pois, cats } from '../data/mappois';
@@ -26,7 +28,7 @@ const VB = '40 0 1660 1240';
         const c = catOf[p.cat];
         return (
           <g class="poi" tabindex="0" role="button" data-cat={p.cat} data-feed={p.feed || ''} data-x={p.x} data-y={p.y}
-             data-name={p.name} data-note={p.note || ''} data-catlabel={c.label} data-href={p.slug ? `${base}/tier/` : ''}
+             data-name={p.name} data-note={p.note || ''} data-catlabel={c.label} data-href={p.slug && zooSlugs.has(p.slug) ? `/v12/tiere/${p.slug.replace("_", "-")}/` : ''}
              aria-label={p.name} transform={`translate(${p.x} ${p.y})`}>
             <g class="pin">
               <circle r="22" fill={c.color} />

@@ -79,7 +79,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     <div class="h12-nav hx-nav" role="group" aria-label="Tiere im Wildpark">
       <ul>
         {sets.map((s, i) => <li><button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><Icon name={s.icon} /><span class="bar"></span></button></li>)}
-        <li><a class="all" href="/v12/tier/">Alle Tiere</a></li>
+        <li><a class="all" href="/v12/tiere/">Alle Tiere</a></li>
       </ul>
     </div>
     <div class="hx-frames" data-frames>
@@ -116,7 +116,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     </div>
     <div class="hx-thumbs" role="group" aria-label="Tiere im Wildpark">
       {sets.map((s, i) => <button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><img src={hsrc(hp[s.id][0].f, 700)} style={`object-position:${hp[s.id][0].pos}`} alt="" loading="lazy" /><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bar" cx="50" cy="50" r="47" pathLength="100" /></svg></button>)}
-      <a class="all" href="/v12/tier/">Alle Tiere</a>
+      <a class="all" href="/v12/tiere/">Alle Tiere</a>
     </div>
     <p class="hx-note" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
   </section>
@@ -162,7 +162,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       </div>
       <div class="zoo12">
         {tiles.map((t) => (
-          <a class={t.big ? 'big' : ''} href="/v12/tier/">
+          <a class={t.big ? 'big' : ''} href={`/v12/tiere/${t.slug.replace('_', '-')}/`}>
             <img src={t.fb ? hsrc(t.fb, t.big ? 1200 : 700) : img(animalPhotos[t.slug], t.big ? 1200 : 640)} alt={t.name} loading="lazy" />
             <span class="name">{t.name}<small>{t.latin}</small></span>
           </a>
@@ -171,11 +171,11 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       <div class="ticker" aria-label="Alle Tiere des Parks">
         <ul>
           {[...band, ...band].map((b, i) => (
-            <li aria-hidden={i >= band.length ? 'true' : undefined}><a href="/v12/tier/" tabindex={i >= band.length ? -1 : undefined} aria-label={b.name}><Icon name={b.icon} /><span class="tip">{b.name}</span></a></li>
+            <li aria-hidden={i >= band.length ? 'true' : undefined}><a href="/v12/tiere/" tabindex={i >= band.length ? -1 : undefined} aria-label={b.name}><Icon name={b.icon} /><span class="tip">{b.name}</span></a></li>
           ))}
         </ul>
       </div>
-      <p><a class="more" href="/v12/tier/">Alle Tiere von A bis Z</a></p>
+      <p><a class="more" href="/v12/tiere/">Alle Tiere von A bis Z</a></p>
     </div>
   </section>
 
@@ -184,7 +184,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
       <h2>Eekholter Wolfsmeile</h2>
       <p>{highlights.wolfsmeile}</p>
-      <a class="btn plate" href="#">Zur Wolfsmeile</a>
+      <a class="btn plate" href="/v12/wolfsmeile/">Zur Wolfsmeile</a>
     </article>
     <article>
       <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
@@ -211,7 +211,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
         <div><Icon name="navi" set="h" /><div><strong>Fürs Navi</strong>{contact.navi}</div></div>
         <div><Icon name="auto" set="h" /><div><strong>Parken</strong>Kostenlos direkt am Park, auch für Busse</div></div>
         <div><Icon name="bus" set="h" /><div><strong>Ohne Auto</strong>Mit Bus oder Leih-Pedelec aus Bad Bramstedt: 1 € Rabatt und kostenloses Laden</div></div>
-        <div><Icon name="pdf" set="h" /><div><strong>Lageplan zum Ausdrucken</strong><a href="#">Lageplan als PDF</a></div></div>
+        <div><Icon name="pdf" set="h" /><div><strong>Lageplan zum Ausdrucken</strong><a href="/download/Lageplan_Download.pdf" download>Lageplan als PDF</a></div></div>
       </div>
     </div>
   </section>
@@ -243,10 +243,10 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     <div class="wrap">
       <div class="head"><h2>Für wen planen Sie?</h2></div>
       <div class="paths">
-        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><div><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></div></a>
-        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><div><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></div></a>
-        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><div><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></div></a>
-        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><div><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></div></a>
+        <a href="/v12/besuch/familien/"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><div><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></div></a>
+        <a href="/v12/bildung/"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><div><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></div></a>
+        <a href="/v12/besuch/kindergeburtstag/"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><div><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></div></a>
+        <a href="/v12/besuch/essen-und-grillen/"><img src={img('grillkota', 640)} alt="" loading="lazy" /><div><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></div></a>
       </div>
     </div>
   </section>

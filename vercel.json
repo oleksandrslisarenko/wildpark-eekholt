@@ -1,7 +1,709 @@
 {
-  "redirects": [
-    { "source": "/v1", "destination": "/v12/", "permanent": false },
-    { "source": "/v1/:path*", "destination": "/v12/:path*", "permanent": false },
-    { "source": "/ru/v1/:path*", "destination": "/ru/v12/:path*", "permanent": false }
-  ]
+ "redirects": [
+  {
+   "source": "/v1",
+   "destination": "/v12/",
+   "permanent": false
+  },
+  {
+   "source": "/v1/:path*",
+   "destination": "/v12/:path*",
+   "permanent": false
+  },
+  {
+   "source": "/ru/v1/:path*",
+   "destination": "/ru/v12/:path*",
+   "permanent": false
+  },
+  {
+   "source": "/aktive_ecke.htm",
+   "destination": "/v12/aktive-ecke/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_abstimmung.htm",
+   "destination": "/v12/aktive-ecke/abstimmung/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_kinderseiten.htm",
+   "destination": "/v12/aktive-ecke/kinder/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_kinderseiten_kindergeburtstage.htm",
+   "destination": "/v12/aktive-ecke/kinder/kindergeburtstage/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_kinderseiten_malen.htm",
+   "destination": "/v12/aktive-ecke/kinder/malvorlagen/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_kinderseiten_spiele.htm",
+   "destination": "/v12/aktive-ecke/kinder/spiele/",
+   "permanent": true
+  },
+  {
+   "source": "/aktive_ecke_presseinformationen.htm",
+   "destination": "/v12/aktive-ecke/presse/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles.htm",
+   "destination": "/v12/aktuelles/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_aushilfen.htm",
+   "destination": "/v12/aktuelles/jobs/aushilfen/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_flugwiese.htm",
+   "destination": "/v12/aktuelles/nachwuchs-flugwiese/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_fuetterungen.htm",
+   "destination": "/v12/aktuelles/fuetterungen/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_lebensraumkorridore.htm",
+   "destination": "/v12/aktuelles/lebensraumkorridore/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_monatsinfo.htm",
+   "destination": "/v12/aktuelles/monatsinfo/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_sparkassenstiftung.htm",
+   "destination": "/v12/aktuelles/sparkassenstiftung/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_stellenanzeige.htm",
+   "destination": "/v12/aktuelles/jobs/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_stellenanzeige_Ausbildung.htm",
+   "destination": "/v12/aktuelles/jobs/ausbildung/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_stellenanzeige_Kasse.htm",
+   "destination": "/v12/aktuelles/jobs/kasse/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_stellenanzeige_tierpflege.htm",
+   "destination": "/v12/aktuelles/jobs/tierpflege/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_wolfsinformation.htm",
+   "destination": "/v12/wolfsmeile/wolfsinformation/",
+   "permanent": true
+  },
+  {
+   "source": "/aktuelles_wolfsmalwettbewerb.htm",
+   "destination": "/v12/wolfsmeile/malwettbewerb/",
+   "permanent": true
+  },
+  {
+   "source": "/besucher_informationen.htm",
+   "destination": "/v12/besuch/informationen/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_anfahrt.htm",
+   "destination": "/v12/besuch/anfahrt/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_beste_ager.htm",
+   "destination": "/v12/besuch/best-ager/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_download.htm",
+   "destination": "/v12/besuch/downloads/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_essen.htm",
+   "destination": "/v12/besuch/essen-und-grillen/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_falkner.htm",
+   "destination": "/v12/besuch/falkner-fuer-einen-tag/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_familie_kinder.htm",
+   "destination": "/v12/besuch/familien/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_faq.htm",
+   "destination": "/v12/besuch/faq/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_feiern.htm",
+   "destination": "/v12/besuch/feiern/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_flugwiese.htm",
+   "destination": "/v12/besuch/flugvorfuehrungen/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_fuehrungen.htm",
+   "destination": "/v12/besuch/fuehrungen/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_fuetterung.htm",
+   "destination": "/v12/besuch/fuetterungen/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_hochzeit.htm",
+   "destination": "/v12/besuch/hochzeit/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_jahreskarten.htm",
+   "destination": "/v12/besuch/jahreskarten/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_kindergeburtstage.htm",
+   "destination": "/v12/besuch/kindergeburtstag/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_lageplan.htm",
+   "destination": "/v12/besuch/lageplan/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_lebenselement_wasser.htm",
+   "destination": "/v12/besuch/lebenselement-wasser/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_materialien.htm",
+   "destination": "/v12/besuch/rallyes/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_menschen_handicap.htm",
+   "destination": "/v12/besuch/barrierefrei/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_mobil_ohne_auto.htm",
+   "destination": "/v12/besuch/ohne-auto/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_pavillon.htm",
+   "destination": "/v12/besuch/pavillon/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_preise.htm",
+   "destination": "/v12/besuch/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_projekt_preise.htm",
+   "destination": "/v12/besuch/gruppenpreise/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_reiseveranstalter.htm",
+   "destination": "/v12/besuch/reiseveranstalter/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_service.htm",
+   "destination": "/v12/besuch/service/",
+   "permanent": true
+  },
+  {
+   "source": "/besucherinformationen_spielen.htm",
+   "destination": "/v12/besuch/spielen/",
+   "permanent": true
+  },
+  {
+   "source": "/eekholter_wolfsmeile.htm",
+   "destination": "/v12/wolfsmeile/",
+   "permanent": true
+  },
+  {
+   "source": "/eekholter_wolfsmeile_sponsor.htm",
+   "destination": "/v12/wolfsmeile/sponsoren/",
+   "permanent": true
+  },
+  {
+   "source": "/index_Datenschutzerklaerung.html",
+   "destination": "/v12/datenschutz/",
+   "permanent": true
+  },
+  {
+   "source": "/index_barrierefreiheit.html",
+   "destination": "/v12/barrierefreiheit/",
+   "permanent": true
+  },
+  {
+   "source": "/index_gaestebuch.html",
+   "destination": "/v12/gaestebuch/",
+   "permanent": true
+  },
+  {
+   "source": "/index_impressum.html",
+   "destination": "/v12/impressum/",
+   "permanent": true
+  },
+  {
+   "source": "/index_kontakt.html",
+   "destination": "/v12/kontakt/",
+   "permanent": true
+  },
+  {
+   "source": "/index_newsletter.html",
+   "destination": "/v12/newsletter/",
+   "permanent": true
+  },
+  {
+   "source": "/index_sitemap.html",
+   "destination": "/v12/inhaltsverzeichnis/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns.htm",
+   "destination": "/v12/ueber-uns/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_lebensraeume.htm",
+   "destination": "/v12/ueber-uns/lebensraeume/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_leitbild.htm",
+   "destination": "/v12/ueber-uns/leitbild/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_leitbild_klimaschutz.htm",
+   "destination": "/v12/ueber-uns/klimaschutz/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_links.htm",
+   "destination": "/v12/ueber-uns/links/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_mitarbeiter.htm",
+   "destination": "/v12/ueber-uns/team/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_mitarbeiter_freiwillig.htm",
+   "destination": "/v12/ueber-uns/freiwilliges-jahr/",
+   "permanent": true
+  },
+  {
+   "source": "/ueber_uns_partner.htm",
+   "destination": "/v12/ueber-uns/partner/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung.htm",
+   "destination": "/v12/bildung/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_bienenwelt.htm",
+   "destination": "/v12/bildung/bienenwelt/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_fortbildungen.htm",
+   "destination": "/v12/bildung/fortbildungen/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_kindergeburtstage.htm",
+   "destination": "/v12/bildung/kindergeburtstage/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_materialien.htm",
+   "destination": "/v12/bildung/rallyes/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_projekte.htm",
+   "destination": "/v12/bildung/betreuung/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_sparkassenstiftung.htm",
+   "destination": "/v12/bildung/sparkassenstiftung/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_tagesgruppen.htm",
+   "destination": "/v12/bildung/tagesgruppen/",
+   "permanent": true
+  },
+  {
+   "source": "/umweltbildung_tagesgruppen_tage.htm",
+   "destination": "/v12/bildung/projekttage/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere.htm",
+   "destination": "/v12/tiere/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz.htm",
+   "destination": "/v12/tiere/artenschutz/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_amphibienschutz.htm",
+   "destination": "/v12/tiere/artenschutz/amphibien/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_eep.htm",
+   "destination": "/v12/tiere/artenschutz/eep/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_eulenschutz.htm",
+   "destination": "/v12/tiere/artenschutz/eulen/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_fischotterschutz.htm",
+   "destination": "/v12/tiere/artenschutz/fischotter/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_pflegestation.htm",
+   "destination": "/v12/vogelpflegestation/arbeit/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_tierschutz_seeadlerschutz.htm",
+   "destination": "/v12/tiere/artenschutz/seeadler/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung.htm",
+   "destination": "/v12/tiere/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_aspis_viper.htm",
+   "destination": "/v12/tiere/aspis-viper/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_auerhuhn.htm",
+   "destination": "/v12/tiere/auerhuhn/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_baummarder.htm",
+   "destination": "/v12/tiere/baummarder/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_birkhuhn.htm",
+   "destination": "/v12/tiere/birkhuhn/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_blesswild.htm",
+   "destination": "/v12/tiere/blesswild/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_buntspecht.htm",
+   "destination": "/v12/tiere/buntspecht/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_dachs.htm",
+   "destination": "/v12/tiere/dachs/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_damwild.htm",
+   "destination": "/v12/tiere/damwild/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_eichhoernchen.htm",
+   "destination": "/v12/tiere/eichhoernchen/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_graukranich.htm",
+   "destination": "/v12/tiere/graukranich/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_hauskaninchen.htm",
+   "destination": "/v12/tiere/hauskaninchen/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_heidschnucke.htm",
+   "destination": "/v12/tiere/heidschnucke/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_honigbiene.htm",
+   "destination": "/v12/tiere/honigbiene/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_jagdfasan.htm",
+   "destination": "/v12/tiere/jagdfasan/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_kampflaeufer.htm",
+   "destination": "/v12/tiere/kampflaeufer/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_kolkrabe.htm",
+   "destination": "/v12/tiere/kolkrabe/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_loeffler.htm",
+   "destination": "/v12/tiere/loeffler/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_maeusebussard.htm",
+   "destination": "/v12/tiere/maeusebussard/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_otter.htm",
+   "destination": "/v12/tiere/otter/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_reh.htm",
+   "destination": "/v12/tiere/reh/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_ringelnatter.htm",
+   "destination": "/v12/tiere/ringelnatter/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_rotfuchs.htm",
+   "destination": "/v12/tiere/rotfuchs/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_rotmilan.htm",
+   "destination": "/v12/tiere/rotmilan/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_rotwild.htm",
+   "destination": "/v12/tiere/rotwild/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_schleiereule.htm",
+   "destination": "/v12/tiere/schleiereule/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_schneeeule.htm",
+   "destination": "/v12/tiere/schneeeule/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_schwarzmilan.htm",
+   "destination": "/v12/tiere/schwarzmilan/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_schwarzspecht.htm",
+   "destination": "/v12/tiere/schwarzspecht/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_schwarzstorch.htm",
+   "destination": "/v12/tiere/schwarzstorch/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_seeadler.htm",
+   "destination": "/v12/tiere/seeadler/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_sikawild.htm",
+   "destination": "/v12/tiere/sikawild/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_skudde.htm",
+   "destination": "/v12/tiere/skudde/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_steinadler.htm",
+   "destination": "/v12/tiere/steinadler/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_steinmarder.htm",
+   "destination": "/v12/tiere/steinmarder/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_storch.htm",
+   "destination": "/v12/tiere/storch/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_uhu.htm",
+   "destination": "/v12/tiere/uhu/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_waldkautz.htm",
+   "destination": "/v12/tiere/waldkautz/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_waschbaer.htm",
+   "destination": "/v12/tiere/waschbaer/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_weisses_rotwild.htm",
+   "destination": "/v12/tiere/weisses-rotwild/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_wildkatze.htm",
+   "destination": "/v12/tiere/wildkatze/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_wildschwein.htm",
+   "destination": "/v12/tiere/wildschwein/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_wolf.htm",
+   "destination": "/v12/tiere/wolf/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_zwergesel.htm",
+   "destination": "/v12/tiere/zwergesel/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_vorstellung_zwergziege.htm",
+   "destination": "/v12/tiere/zwergziege/",
+   "permanent": true
+  },
+  {
+   "source": "/unsere_tiere_wildvogel.htm",
+   "destination": "/v12/vogelpflegestation/wildvogel-gefunden/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung.htm",
+   "destination": "/v12/unterstuetzen/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung_foerderungsverein.htm",
+   "destination": "/v12/unterstuetzen/foerderverein/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung_geschenkewald.htm",
+   "destination": "/v12/unterstuetzen/geschenkewald/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung_pflegestation.htm",
+   "destination": "/v12/unterstuetzen/pflegestation/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung_tierpaten.htm",
+   "destination": "/v12/unterstuetzen/tierpatenschaften/",
+   "permanent": true
+  },
+  {
+   "source": "/unterstuetzung_tierpatenfaq.htm",
+   "destination": "/v12/unterstuetzen/tierpatenschaften/faq/",
+   "permanent": true
+  },
+  {
+   "source": "/veranstaltungen.htm",
+   "destination": "/v12/veranstaltungen/",
+   "permanent": true
+  },
+  {
+   "source": "/vogelpflegestation.htm",
+   "destination": "/v12/vogelpflegestation/",
+   "permanent": true
+  },
+  {
+   "source": "/index_english.html",
+   "destination": "/v12/",
+   "permanent": true
+  },
+  {
+   "source": "/index_dansk.html",
+   "destination": "/v12/",
+   "permanent": true
+  },
+  {
+   "source": "/index_english_anfahrt.htm",
+   "destination": "/v12/besuch/anfahrt/",
+   "permanent": true
+  },
+  {
+   "source": "/index_dansk_anfahrt.htm",
+   "destination": "/v12/besuch/anfahrt/",
+   "permanent": true
+  }
+ ]
 }

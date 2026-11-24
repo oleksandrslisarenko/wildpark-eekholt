@@ -150,12 +150,12 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
     <div class="r-wrap">
       <div class="r-head row">
         <h2>Alle Tiere, die beliebtesten zuerst</h2>
-        <a class="more" href="/v12/tier/">Steckbriefe von A bis Z</a>
+        <a class="more" href="/v12/tiere/">Steckbriefe von A bis Z</a>
       </div>
       <ul class="r-zoo">
         {grid.map((a, i) => (
           <li class:list={[{ top: i < 6 }]}>
-            <a href="/v12/tier/" aria-label={a.name}>
+            <a href={`/v12/tiere/${a.slug.replace('_', '-')}/`} aria-label={a.name}>
               <Icon name={icons[a.slug] || 'pfote'} />
               {photoOf[a.slug] && <img src={photoOf[a.slug]} alt="" loading="lazy" />}
               <span>{a.name}</span>
@@ -188,7 +188,7 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
   <section class="r-trio">
     <article>
       <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
-      <div><h2>Eekholter Wolfsmeile</h2><p>{highlights.wolfsmeile}</p><a class="btn plate" href="#">Zur Wolfsmeile</a></div>
+      <div><h2>Eekholter Wolfsmeile</h2><p>{highlights.wolfsmeile}</p><a class="btn plate" href="/v12/wolfsmeile/">Zur Wolfsmeile</a></div>
     </article>
     <article>
       <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
@@ -204,10 +204,10 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
     <div class="r-wrap">
       <div class="r-head"><h2>Für wen planen Sie?</h2></div>
       <div class="r-for">
-        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><Icon name="gruppe" set="h" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
-        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><Icon name="buch" set="h" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
-        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><Icon name="geschenk" set="h" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
-        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><Icon name="feuer" set="h" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
+        <a href="/v12/besuch/familien/"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><Icon name="gruppe" set="h" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
+        <a href="/v12/bildung/"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><Icon name="buch" set="h" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
+        <a href="/v12/besuch/kindergeburtstag/"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><Icon name="geschenk" set="h" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
+        <a href="/v12/besuch/essen-und-grillen/"><img src={img('grillkota', 640)} alt="" loading="lazy" /><Icon name="feuer" set="h" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
       </div>
     </div>
   </section>

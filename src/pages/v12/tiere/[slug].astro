@@ -1,0 +1,104 @@
+---
+// Steckbrief-Seite für jedes Tier (Wolf hat eine eigene, ausführlichere Seite)
+import L from '../../../layouts/V12.astro';
+import Icon from '../../../components/Icon.astro';
+import Ext from '../../../components/Ext.astro';
+import zoo from '../../../data/zoo.json';
+import { pois } from '../../../data/mappois';
+import { highlights, contact } from '../../../data/site';
+type A = (typeof zoo)[number];
+export function getStaticPaths() {
+  return (zoo as A[]).filter((a) => a.slug !== 'wolf').map((a) => ({ params: { slug: a.url.split('/').at(-2) }, props: { a } }));
+}
+const { a } = Astro.props as { a: A };
+const all = [...(zoo as A[])].sort((x, y) => x.name.localeCompare(y.name, 'de'));
+const feed = pois.find((p) => p.slug === a.slug && p.feed)?.feed;
+const factIcon = (k: string) => /Länge|Größe|höhe/.test(k) ? 'lineal' : /Gewicht/.test(k) ? 'kiste' : /alter|Alter/.test(k) ? 'uhr' : /reife/.test(k) ? 'herz' : /Nahrung/.test(k) ? 'besteck' : /Trag|Brut|Paarung|Eiablage/.test(k) ? 'kalender' : /Nest|Gelege|Eier/.test(k) ? 'haus' : /Geweih/.test(k) ? 'baum' : 'pfote';
+const facts = a.facts.filter((f) => f.k !== 'Fortpflanzung');
+const withPhoto = all.filter((x) => x.hero && x.slug !== a.slug);
+const i = withPhoto.findIndex((x) => x.name > a.name);
+const related = [...withPhoto.slice(Math.max(0, i)), ...withPhoto].slice(0, 4);
+const intro = a.intro.split(/(?<=\.)\s+(?=[A-ZÄÖÜ])/);
+const lead = intro.length > 2 ? intro.slice(0, 2).join(' ') : '';
+const rest = intro.length > 2 ? intro.slice(2).join(' ') : a.intro;
+---
+<L title={`${a.name}${a.latin ? ` (${a.latin})` : ''} – Wildpark Eekholt`} description={a.intro ? a.intro.slice(0, 155) : `${a.name} im Wildpark Eekholt.`} active="tiere">
+  {a.hero ? (
+    <section class="page-hero">
+      <img src={a.hero} alt={a.name} />
+      <div class="plate-h">
+        <p class="crumbs"><a href="/v12/">Start</a><a href="/v12/tiere/">Unsere Tiere</a><span>{a.name}</span></p>
+        <h1>{a.name}</h1>
+        {a.latin && <p class="latin">{a.latin}</p>}
+      </div>
+    </section>
+  ) : (
+    <section class="ph12 an-head">
+      <div class="wrap">
+        <div>
+          <p class="crumbs"><a href="/v12/">Start</a><a href="/v12/tiere/">Unsere Tiere</a><span>{a.name}</span></p>
+          <h1 class:list={[{ long: a.name.length > 14 }]}>{a.name}</h1>
+          {a.latin && <p class="latin">{a.latin}</p>}
+        </div>
+        <div class="an-badge" aria-hidden="true">
+          {a.thumb && <img src={a.thumb} alt="" />}
+          <span class="ic"><Icon name={a.icon} /></span>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="sec">
+    <div class="wrap tier-top">
+      <div class="prose">
+        {lead && <p class="lead">{lead}</p>}
+        {a.intro ? <p>{rest}</p> : <p>Diese Art lebt im Wildpark Eekholt. Einen ausführlichen Steckbrief gibt es auf der bisherigen Website noch nicht. Fragen Sie gern unsere Tierpfleger bei den öffentlichen Fütterungen oder bei einer Führung.</p>}
+        {a.pdf && <p><a class="more" href={a.pdf} download>Tiersteckbrief als PDF herunterladen</a></p>}
+      </div>
+      <aside class="side-stack">
+        {feed && (
+          <div class="feedcard" data-slot={feed.slice(0, 5)} data-kind="feed">
+            <Icon name={a.icon} />
+            <span class="when">Öffentliche Fütterung</span>
+            <strong>täglich {feed} Uhr</strong>
+            <span>mit Infos der Tierpfleger</span>
+          </div>
+        )}
+        <div class="patencard">
+          <h2>Pate werden</h2>
+          <p>{highlights.paten}</p>
+          <a class="btn plate" href={contact.paten} rel="noopener" target="_blank">Patenschaft beantragen <Ext /></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {facts.length > 0 && (
+    <section class="sec mist">
+      <div class="wrap">
+        <div class="head"><h2>Steckbrief</h2></div>
+        <div class="facts12">
+          {facts.map((f) => <div class:list={['fact', { wide: f.v.length > 60 }]}><Icon name={factIcon(f.k)} set="h" /><h3>{f.k}</h3><div class="v">{f.v}</div></div>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head"><h2>Weitere Tiere</h2><a class="more" href="/v12/tiere/">Alle Tiere</a></div>
+      <div class="zoo12 four">
+        {related.map((r) => <a href={r.url}><img src={r.hero!.replace('-1200.webp', '-700.webp').replace('/img/weisses-rotwild-700.webp', '/img/weisses-rotwild-640.webp').replace('/img/stoerche-700.webp', '/img/stoerche-640.webp')} alt={r.name} loading="lazy" /><span class="name">{r.name}</span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec mist">
+    <div class="wrap">
+      <div class="head"><h2>Alle Tiere von A bis Z</h2></div>
+      <ul class="az12">
+        {all.map((t) => <li><a href={t.url} aria-current={t.slug === a.slug ? 'page' : undefined}><Icon name={t.icon} />{t.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</L>

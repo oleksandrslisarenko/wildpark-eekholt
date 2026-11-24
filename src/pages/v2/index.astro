@@ -35,7 +35,7 @@ const pets = [
         <p class="lede">700 heimische Wildtiere auf 67 Hektar Wald, Wiese und Moor. Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg.</p>
         <div class="w-cta">
           <a class="w-btn lime" href="/v12/besuch/">Besuch planen</a>
-          <a class="w-btn line" href="/v12/tier/">Tiere entdecken</a>
+          <a class="w-btn line" href="/v12/tiere/">Tiere entdecken</a>
         </div>
       </div>
       <div class="w-photos" data-wphotos>
@@ -94,11 +94,11 @@ const pets = [
     <div class="w-wrap">
       <div class="w-head row">
         <h2>Unsere Lieblinge</h2>
-        <a class="w-more" href="/v12/tier/">Alle Tiere von A bis Z</a>
+        <a class="w-more" href="/v12/tiere/">Alle Tiere von A bis Z</a>
       </div>
       <div class="w-pets">
         {pets.map((p) => (
-          <a class={p.tall ? 'tall' : ''} href="/v12/tier/">
+          <a class={p.tall ? 'tall' : ''} href="/v12/tiere/">
             <img src={P(p.f)} alt={p.name} loading="lazy" />
             <span><b>{p.name}</b><small>{p.note}</small></span>
           </a>
@@ -113,7 +113,7 @@ const pets = [
         <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
         <h2>Eekholter Wolfsmeile</h2>
         <p>{highlights.wolfsmeile}</p>
-        <a class="w-btn ink" href="#">Zur Wolfsmeile</a>
+        <a class="w-btn ink" href="/v12/wolfsmeile/">Zur Wolfsmeile</a>
       </article>
       <article class="peach">
         <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
@@ -157,10 +157,10 @@ const pets = [
     <div class="w-wrap">
       <div class="w-head"><h2>Für wen planen Sie?</h2></div>
       <div class="w-paths">
-        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
-        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
-        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
-        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
+        <a href="/v12/besuch/familien/"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
+        <a href="/v12/bildung/"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
+        <a href="/v12/besuch/kindergeburtstag/"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
+        <a href="/v12/besuch/essen-und-grillen/"><img src={img('grillkota', 640)} alt="" loading="lazy" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
       </div>
     </div>
   </section>

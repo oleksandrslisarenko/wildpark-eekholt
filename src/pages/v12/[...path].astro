@@ -1,0 +1,84 @@
+---
+// Alle übrigen Seiten der alten Website im Stil von Entwurf 1
+import L from '../../layouts/V12.astro';
+import Icon from '../../components/Icon.astro';
+import Blocks from '../../components/Blocks.astro';
+import Extras from '../../components/PageExtras.astro';
+import pagesRaw from '../../data/pages.json';
+import zoo from '../../data/zoo.json';
+import { sections, allItems, labelFor } from '../../data/nav';
+
+export function getStaticPaths() {
+  const animalUrls = new Set((zoo as any[]).map((a) => a.url));
+  const pages = (pagesRaw as any[]).filter((p) => !['/v12/', '/v12/veranstaltungen/', '/v12/besuch/', '/v12/tiere/'].includes(p.url) && !animalUrls.has(p.url));
+  const seen = new Set<string>();
+  return pages.filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))).map((p) => ({ params: { path: p.url.replace(/^\/v12\//, '').replace(/\/$/, '') }, props: { page: p } }));
+}
+const { page } = Astro.props as { page: any };
+const sec = sections.find((s) => s.id === page.section) || sections.find((s) => s.id === 'service')!;
+const label = labelFor(page.url) || page.title;
+const items = allItems(sec);
+const isHub = page.url === sec.href;
+const strip = (h: string) => h.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+let blocks = [...page.blocks];
+if (page.url === '/v12/inhaltsverzeichnis/') blocks = [];
+blocks = blocks.filter((b: any) => !(b.t === 'p' && /konnte nicht gespeichert|unser <a[^>]*>Kontaktformular/.test(b.html)));
+let lead = '';
+if (blocks[0]?.t === 'p' && strip(blocks[0].html).length < 340 && !/<a /.test(blocks[0].html)) { lead = blocks[0].html; blocks = blocks.slice(1); }
+const title = page.title.length > 70 ? label : page.title;
+const idx = items.findIndex((i) => i.href === page.url);
+const next = idx >= 0 ? items[idx + 1] : undefined;
+const prev = idx > 0 ? items[idx - 1] : undefined;
+const byUrl = new Map((pagesRaw as any[]).map((p) => [p.url, p]));
+const firstImg = (u: string) => byUrl.get(u)?.blocks.find((b: any) => b.t === 'img' && b.w >= 300)?.sm || byUrl.get(u)?.blocks.find((b: any) => b.t === 'gallery')?.imgs[0]?.sm;
+const teaser = (u: string) => { const b = byUrl.get(u)?.blocks.find((x: any) => x.t === 'p' && strip(x.html).length > 60); return b ? strip(b.html).slice(0, 130).replace(/\s\S*$/, '') + ' …' : ''; };
+const hubItems = isHub ? items.filter((i) => i.href !== page.url) : [];
+const crumbs = [{ label: 'Start', href: '/v12/' }, ...(sec.id !== 'service' && !isHub ? [{ label: sec.label, href: sec.href }] : [])];
+---
+<L title={`${label} – Wildpark Eekholt`} description={page.description || strip(lead).slice(0, 155)} active={sec.href.replace('/v12/', '').replace(/\/$/, '')}>
+  <section class="ph12 cp-head">
+    <div class="wrap">
+      <div>
+        <p class="crumbs">{crumbs.map((c) => <a href={c.href}>{c.label}</a>)}<span>{label}</span></p>
+        <h1 class:list={[{ long: title.length > 34 }]}>{title}</h1>
+        {lead && <p set:html={lead} />}
+      </div>
+      <div class="illu" aria-hidden="true"><Icon name={sec.scene} set="h" cls="scene" /></div>
+    </div>
+  </section>
+
+  <section class="cp">
+    <div class="wrap cp-grid">
+      {sec.groups.length > 0 && (
+        <nav class="cp-nav" aria-label={`Bereich ${sec.label}`}>
+          {sec.groups.map((g) => (
+            <div>
+              <p>{g.label}</p>
+              <ul>{g.items.map((i) => <li><a href={i.href} aria-current={i.href === page.url ? 'page' : undefined}>{i.label}</a></li>)}</ul>
+            </div>
+          ))}
+        </nav>
+      )}
+      <article class="prose">
+        <Blocks blocks={blocks} />
+        <Extras url={page.url} />
+        {hubItems.length > 0 && (
+          <div class="hub">
+            {hubItems.map((i) => { const im = firstImg(i.href); return (
+              <a href={i.href}>
+                {im ? <img src={im} alt="" loading="lazy" /> : <span class="ph"><Icon name={sec.scene} set="h" cls="scene" /></span>}
+                <span class="t"><b>{i.label}</b>{teaser(i.href) && <small>{teaser(i.href)}</small>}</span>
+              </a>
+            ); })}
+          </div>
+        )}
+        {(prev || next) && (
+          <div class="pn">
+            {prev ? <a class="p" href={prev.href}><small>Zurück</small>{prev.label}</a> : <span></span>}
+            {next && <a class="n" href={next.href}><small>Weiter</small>{next.label}</a>}
+          </div>
+        )}
+      </article>
+    </div>
+  </section>
+</L>
