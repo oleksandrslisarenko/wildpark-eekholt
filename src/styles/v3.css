@@ -371,3 +371,7 @@ main .r-zoo2 a:hover img { transform: none; }
   .r-today::before { display: none; }
   .hvr2 .r-stats2 { gap: 8px; }
 }
+.blob.b1 { width: 58%; height: 58%; left: 21%; top: 42%; }
+.blob.b6 { left: 84%; top: 66%; }
+.r-stats2 li:hover { transform: none; background: #fff; color: inherit; }
+.r-stats2 li:hover .ico { color: inherit; transform: none; }
