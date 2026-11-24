@@ -44,7 +44,8 @@ export function schedule(d = new Date()) {
 }
 
 export function hydrate(root: ParentNode = document) {
-  const d = new Date();
+  // Entwurf: feste Uhrzeit 11:00, damit der Zustand immer gleich aussieht
+  const d = new Date(); d.setHours(11, 0, 0, 0);
   const st = status(d);
   root.querySelectorAll<HTMLElement>('[data-live="status"]').forEach((el) => { el.textContent = st.text; el.dataset.state = st.state; });
   root.querySelectorAll<HTMLElement>('[data-live="short"]').forEach((el) => { el.textContent = st.short; el.dataset.state = st.state; });
