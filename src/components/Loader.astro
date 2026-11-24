@@ -28,7 +28,7 @@ const VB = '342 192 1516 1598';
     if (variant === '0') { el.hidden = true; return; }
     el.className = 'ldr'; el.dataset.v = variant; el.hidden = false; void el.offsetWidth; el.classList.add('go');
     document.documentElement.classList.add('ldr-lock');
-    var pct = el.querySelector('.ldr-pct'), t0 = performance.now(), D = { '1': 2900, '2': 2300, '3': 2400, '4': 2600, '5': 2500 }[variant] || 2500;
+    var pct = el.querySelector('.ldr-pct'), t0 = performance.now(), D = { '1': 3700, '2': 2300, '3': 2400, '4': 2600, '5': 2500 }[variant] || 2500;
     (function tick() { var k = Math.min(1, (performance.now() - t0) / (D - 400)); pct.textContent = Math.round(k * 100); if (k < 1) requestAnimationFrame(tick); })();
     clearTimeout(el._t); clearTimeout(el._t2);
     el._t = setTimeout(function () {

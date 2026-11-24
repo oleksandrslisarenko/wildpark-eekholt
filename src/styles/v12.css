@@ -1179,3 +1179,4 @@ html.ldr-lock { overflow: hidden; }
 .setmenu .seg button[data-ld] { min-width: 0; }
 .ldr-bird { transform-box: fill-box; transform-origin: center; }
 .ldr[data-v="1"].go .ldr-wipe { transform-box: fill-box; transform-origin: top; }
+.ldr[data-v="1"].out { clip-path: inset(0 0 100% 0); opacity: 1; }
