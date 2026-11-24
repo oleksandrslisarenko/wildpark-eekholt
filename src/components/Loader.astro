@@ -2,8 +2,9 @@
 // Lade-Animationen aus dem Logo (Entwurf). Variante kommt aus den Einstellungen.
 import parts from '../data/logoParts.json';
 const VB = '342 192 1516 1598';
+const { def = '1', k = 'v1' } = Astro.props;
 ---
-<div class="ldr" id="ldr" data-v="1" aria-hidden="true" hidden>
+<div class="ldr" id="ldr" data-v={def} data-def={def} data-k={k} aria-hidden="true" hidden>
   <div class="ldr-cur"></div>
   <svg class="ldr-logo" viewBox={VB}>
     <defs>
@@ -22,7 +23,7 @@ const VB = '342 192 1516 1598';
 <script is:inline>
 (function () {
   var el = document.getElementById('ldr'); if (!el) return;
-  var v = '1'; try { v = localStorage.getItem('wp-ld') || '1'; } catch (e) {}
+  var v = el.dataset.def; try { v = localStorage.getItem('wp-ld-' + el.dataset.k) || v; } catch (e) {}
   var seen = false; try { seen = sessionStorage.getItem('wp-ld-seen') === '1'; } catch (e) {}
   window.wpLoader = function (variant) {
     if (variant === '0') { el.hidden = true; return; }

@@ -12,6 +12,7 @@ import { contact } from '../data/site';
 import { sections } from '../data/nav';
 const secMap = new Map(sections.map((x) => [x.id, x]));
 const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '', variant = 'v12' } = Astro.props;
+const DEF = variant === 'v3' ? { pt: 'topo', ld: '2', k: 'v3' } : { pt: 'holz', ld: '1', k: 'v1' };
 const protoName = variant === 'v2' ? 'Entwurf 2' : variant === "v3" ? "Entwurf 2" : 'Entwurf 1';
 const base = '/v12';
 const nav = [
@@ -28,10 +29,10 @@ const nav = [
 const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : h ? `${base}/${h}/` : `/${variant}/`);
 ---
 <!doctype html>
-<html lang="de" class="pt-holz">
+<html lang="de" class={`pt-${DEF.pt}`} data-k={DEF.k}>
 <head>
   <meta charset="utf-8" />
-  <script is:inline>try{var p=localStorage.getItem("wp-pt3");if(p&&["none","topo","holz","ringe"].indexOf(p)>-1){document.documentElement.classList.remove("pt-holz");if(p!=="none")document.documentElement.classList.add("pt-"+p);}}catch(e){}</script>
+  <script is:inline>try{var h=document.documentElement,k=h.dataset.k,p=localStorage.getItem("wp-pt-"+k);if(p&&["none","topo","holz","ringe"].indexOf(p)>-1){h.className=h.className.replace(/\bpt-\w+/g,"");if(p!=="none")h.classList.add("pt-"+p);}}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
@@ -39,7 +40,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   <link rel="icon" href="/img/eagle.svg" />
 </head>
 <body class={`v12 ${variant !== 'v12' ? 't-' + variant : ''}`}>
-  <Loader />
+  <Loader def={DEF.ld} k={DEF.k} />
   <a class="skip" href="#main">Zum Inhalt</a>
   <header class="top">
     <a class="brand" href={`/${variant}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="58" height="61" /></a>
@@ -160,11 +161,11 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     // Entwurfs-Einstellungen: Hero-Variante + Muster (gespeichert, wirkt auf der Startseite)
     {
       const V3 = document.body.classList.contains('t-v3');
-      const HV = V3 ? ['r1', 'r2'] : ['3', '4', '8'], HVKEY = V3 ? 'wp-hv-v3' : 'wp-hv3', PT = ['none', 'topo', 'holz', 'ringe'];
+      const HV = V3 ? ['r1', 'r2'] : ['3', '4', '8'], HVKEY = V3 ? 'wp-hv-v3b' : 'wp-hv-v1', K = document.documentElement.dataset.k, PT = ['none', 'topo', 'holz', 'ringe'];
       const get = (k: string, def: string, ok: string[]) => { try { const v = localStorage.getItem(k); return v && ok.includes(v) ? v : def; } catch { return def; } };
       const qs = new URLSearchParams(location.search);
-      let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get(HVKEY, V3 ? 'r1' : '4', HV);
-      let pt = qs.get('muster') && PT.includes(qs.get('muster')!) ? qs.get('muster')! : get('wp-pt3', 'holz', PT);
+      let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get(HVKEY, V3 ? 'r2' : '4', HV);
+      let pt = qs.get('muster') && PT.includes(qs.get('muster')!) ? qs.get('muster')! : get('wp-pt-' + K, V3 ? 'topo' : 'holz', PT);
       const apply = () => {
         const hero = document.querySelector<HTMLElement>('[data-hero]');
         if (hero) {
@@ -179,11 +180,11 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
         document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
       };
       document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.addEventListener('click', () => { hv = b.dataset.hv!; try { localStorage.setItem(HVKEY, hv); } catch {} apply(); }));
-      document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt3', pt); } catch {} apply(); }));
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt-' + K, pt); } catch {} apply(); }));
       apply();
-      let ld = get('wp-ld', '1', ['0', '1', '2', '3', '4', '5']);
+      let ld = get('wp-ld-' + K, V3 ? '2' : '1', ['0', '1', '2', '3', '4', '5']);
       const markLd = () => document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ld === ld)));
-      document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.addEventListener('click', () => { ld = b.dataset.ld!; try { localStorage.setItem('wp-ld', ld); } catch {} markLd(); (window as any).wpLoader?.(ld); }));
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.addEventListener('click', () => { ld = b.dataset.ld!; try { localStorage.setItem('wp-ld-' + K, ld); } catch {} markLd(); (window as any).wpLoader?.(ld); }));
       markLd();
     }
     // Seite weiterempfehlen
