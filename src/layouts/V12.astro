@@ -5,6 +5,7 @@ import '@fontsource/caveat/600.css';
 import '../styles/v12.css';
 import LangDD from '../components/LangDD.astro';
 import SettingsDD from '../components/SettingsDD.astro';
+import Loader from '../components/Loader.astro';
 import Ext from '../components/Ext.astro';
 import { contact } from '../data/site';
 const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '' } = Astro.props;
@@ -23,9 +24,10 @@ const nav = [
 const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : h ? `${base}/${h}/` : `${base}/`);
 ---
 <!doctype html>
-<html lang="de">
+<html lang="de" class="pt-holz">
 <head>
   <meta charset="utf-8" />
+  <script is:inline>try{var p=localStorage.getItem("wp-pt3");if(p&&["none","topo","holz","ringe"].indexOf(p)>-1){document.documentElement.classList.remove("pt-holz");if(p!=="none")document.documentElement.classList.add("pt-"+p);}}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
@@ -33,6 +35,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   <link rel="icon" href="/img/eagle.svg" />
 </head>
 <body class="v12">
+  <Loader />
   <a class="skip" href="#main">Zum Inhalt</a>
   <header class="top">
     <a class="brand" href={`${base}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="58" height="61" /></a>
@@ -127,12 +130,19 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
           hero.classList.add('hv' + hv);
           if (pt !== 'none') hero.classList.add('pt-' + pt);
         }
+        const html = document.documentElement;
+        html.classList.remove(...[...html.classList].filter((c) => c.startsWith('pt-')));
+        if (pt !== 'none') html.classList.add('pt-' + pt);
         document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === hv)));
         document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
       };
       document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.addEventListener('click', () => { hv = b.dataset.hv!; try { localStorage.setItem('wp-hv3', hv); } catch {} apply(); }));
       document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt3', pt); } catch {} apply(); }));
       apply();
+      let ld = get('wp-ld', '1', ['0', '1', '2', '3', '4', '5']);
+      const markLd = () => document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ld === ld)));
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-ld]').forEach((b) => b.addEventListener('click', () => { ld = b.dataset.ld!; try { localStorage.setItem('wp-ld', ld); } catch {} markLd(); (window as any).wpLoader?.(ld); }));
+      markLd();
     }
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.25 });
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));

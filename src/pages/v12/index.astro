@@ -49,13 +49,13 @@ const pins = [
 ];
 const pct = (v: number, o: number, len: number) => `${(((v - o) / len) * 100).toFixed(2)}%`;
 const tiles = [
-  { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true },
-  { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis' },
+  { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true, fb: 'wolf-1' },
+  { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis', fb: 'otter-1' },
   { slug: 'weisses_rotwild', name: 'Weißes Rotwild', latin: 'Cervus elaphus' },
-  { slug: 'wildkatze', name: 'Wildkatze', latin: 'Felis silvestris' },
-  { slug: 'storch', name: 'Weißstorch', latin: 'Ciconia ciconia' },
-  { slug: 'uhu', name: 'Uhu', latin: 'Bubo bubo' },
-  { slug: 'fuchs', name: 'Waldkauz', latin: 'Strix aluco', photo: 'waldkauz' },
+  { slug: 'wildkatze', name: 'Wildkatze', latin: 'Felis silvestris', fb: 'katze-1' },
+  { slug: 'seeadler', name: 'Seeadler', latin: 'Haliaeetus albicilla', fb: 'adler-1' },
+  { slug: 'uhu', name: 'Uhu', latin: 'Bubo bubo', fb: 'eule-2' },
+  { slug: 'rotfuchs', name: 'Rotfuchs', latin: 'Vulpes vulpes', fb: 'fuchs-1' },
 ];
 // Laufband: alle Tiere mit Icon, zweimal hintereinander für die Endlosschleife
 const icons = aIcons as Record<string, string>;
@@ -163,7 +163,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       <div class="zoo12">
         {tiles.map((t) => (
           <a class={t.big ? 'big' : ''} href="/v12/tier/">
-            <img src={img(t.photo || animalPhotos[t.slug], t.big ? 1200 : 640)} alt={t.name} loading="lazy" />
+            <img src={t.fb ? hsrc(t.fb, t.big ? 1200 : 700) : img(animalPhotos[t.slug], t.big ? 1200 : 640)} alt={t.name} loading="lazy" />
             <span class="name">{t.name}<small>{t.latin}</small></span>
           </a>
         ))}

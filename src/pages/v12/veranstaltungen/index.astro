@@ -11,11 +11,14 @@ const dateText = (d: string) => d.replace(/ und /g, ', ').replace(/Vsl\. /, 'vor
 const short = (e: typeof events[number]) => (e.dates[0] || '').slice(8, 10) + '.' + (e.dates[0] || '').slice(5, 7) + '.';
 ---
 <L title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026: Wolfsnächte, Eulentag, Dunkel-Munkel-Nächte, Weihnachtsmarkt und mehr. Im Eintritt enthalten." active="veranstaltungen">
-  <section class="plain-hero">
+  <section class="ph12">
     <div class="wrap">
-      <p class="crumbs"><a href="/v12/">Start</a><span>Veranstaltungen</span></p>
-      <h1>Veranstaltungen</h1>
-      <p>28 Termine übers Jahr, von der Winterwanderung bis zur Wildweihnacht. Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+      <div>
+        <p class="crumbs"><a href="/v12/">Start</a><span>Veranstaltungen</span></p>
+        <h1>Veranstaltungen</h1>
+        <p>28 Termine übers Jahr, von der Winterwanderung bis zur Wildweihnacht. Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
+      </div>
+      <div class="illu" aria-hidden="true"><Icon name="szene-events" set="h" cls="scene" /></div>
     </div>
   </section>
   <section class="sec" style="padding-top:48px">
@@ -25,7 +28,7 @@ const short = (e: typeof events[number]) => (e.dates[0] || '').slice(8, 10) + '.
         <ul class="evs">
           {coming.map((e) => (
             <li>
-              <div class="when"><strong>{dateText(e.date).split(/, (?=[A-Z])/).map((d) => <span class="d">{d}</span>)}</strong><span>{cleanTime(e.time)}</span></div>
+              <div class="when"><strong class="dt">{dateText(e.date).split(/, (?=[A-Z])/).map((d) => <span class="d">{d}</span>)}</strong><span>{cleanTime(e.time)}</span></div>
               <div><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 640) : e.img} alt="" loading="lazy" /></div>
               <div>
                 {e.title.includes('Weihnacht') || e.title.includes('Fackel') ? <span class="tag">Advent</span> : null}

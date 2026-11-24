@@ -1,0 +1,42 @@
+---
+// Lade-Animationen aus dem Logo (Entwurf). Variante kommt aus den Einstellungen.
+import parts from '../data/logoParts.json';
+const VB = '342 192 1516 1598';
+---
+<div class="ldr" id="ldr" data-v="1" aria-hidden="true" hidden>
+  <div class="ldr-cur"></div>
+  <svg class="ldr-logo" viewBox={VB}>
+    <defs>
+      <clipPath id="ldrPlate"><rect class="ldr-wipe" x="485" y="752" width="1084" height="1032" /></clipPath>
+    </defs>
+    <rect class="ldr-plate" x="485" y="752" width="1084" height="1032" clip-path="url(#ldrPlate)" />
+    <circle class="ldr-ring" cx="1000" cy="1000" r="760" pathLength="100" />
+    <g class="ldr-bird">
+      <path class="ldr-eagle" d={parts.eagle} fill-rule="evenodd" pathLength="100" />
+      <path class="ldr-tail" d={parts.tail} />
+    </g>
+    <path class="ldr-text" d={parts.text} fill-rule="evenodd" />
+  </svg>
+  <span class="ldr-pct">0</span>
+</div>
+<script is:inline>
+(function () {
+  var el = document.getElementById('ldr'); if (!el) return;
+  var v = '1'; try { v = localStorage.getItem('wp-ld') || '1'; } catch (e) {}
+  var seen = false; try { seen = sessionStorage.getItem('wp-ld-seen') === '1'; } catch (e) {}
+  window.wpLoader = function (variant) {
+    if (variant === '0') { el.hidden = true; return; }
+    el.className = 'ldr'; el.dataset.v = variant; el.hidden = false; void el.offsetWidth; el.classList.add('go');
+    document.documentElement.classList.add('ldr-lock');
+    var pct = el.querySelector('.ldr-pct'), t0 = performance.now(), D = { '1': 2900, '2': 2300, '3': 2400, '4': 2600, '5': 2500 }[variant] || 2500;
+    (function tick() { var k = Math.min(1, (performance.now() - t0) / (D - 400)); pct.textContent = Math.round(k * 100); if (k < 1) requestAnimationFrame(tick); })();
+    clearTimeout(el._t); clearTimeout(el._t2);
+    el._t = setTimeout(function () {
+      el.classList.add('out'); document.documentElement.classList.remove('ldr-lock');
+      el._t2 = setTimeout(function () { el.hidden = true; el.className = 'ldr'; }, 800);
+    }, D);
+    try { sessionStorage.setItem('wp-ld-seen', '1'); } catch (e) {}
+  };
+  if (!seen && v !== '0' && !matchMedia('(prefers-reduced-motion: reduce)').matches) window.wpLoader(v);
+})();
+</script>

@@ -1084,3 +1084,98 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .setmenu .seg button:hover { background: var(--mist); }
 .setmenu .seg button[aria-pressed="true"] { background: var(--lime); }
 @media (max-width: 1640px) { .setdd > button span { display: none; } .setdd > button { gap: 6px; } }
+
+/* ===== Runde 6 ===== */
+/* A–Z: größere, kräftigere Tier-Icons */
+.az12 a { gap: 16px; padding: 10px 0; }
+.az12 a .ico { --is: 48px; color: var(--ink); }
+.az12 a .ico svg [stroke] { stroke-width: 3.2; }
+/* Einstellungen: nur Zahnrad */
+.setdd > button.gear { width: 44px; padding: 0; justify-content: center; }
+.setdd.open > button.gear svg { transform: rotate(60deg); }
+.setdd > button.gear svg { transition: transform .4s var(--ease); }
+/* Wolf: wichtiger Hinweis */
+.notice { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; background: var(--lime); padding: 22px 26px 24px 20px; margin: 0 0 28px; max-width: 640px; box-shadow: 8px 8px 0 var(--ink); }
+.notice .ico { --is: 52px; }
+.notice strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.notice p { margin: 0; font-size: 24px; line-height: 1.35; font-weight: 650; letter-spacing: -.01em; }
+/* Veranstaltungen: Datum deutlicher */
+.evlayout .evs .when strong.dt { font-size: 22px; line-height: 1.15; }
+.evlayout .evs .when strong.dt .d { display: inline-block; background: var(--lime); padding: 4px 10px; margin: 0 0 6px; }
+.evlayout .evs .when > span { color: var(--ink); font-weight: 600; font-size: 16px; }
+/* Muster aus den Einstellungen auch in den Unterseiten-Köpfen */
+html.pt-topo .ph12, html.pt-topo .page-hero .plate-h { background-image: url(/img/pattern-topo.svg); background-size: cover; background-position: center; }
+html.pt-holz .ph12, html.pt-holz .page-hero .plate-h { background-image: url(/img/pattern-holz.svg); background-size: cover; background-position: center; }
+html.pt-ringe .ph12, html.pt-ringe .page-hero .plate-h { background-image: url(/img/pattern-ringe.svg); background-size: cover; background-position: center; }
+.evlayout .evs .when strong.dt .d { color: var(--ink); font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-top: 0; margin-bottom: 6px; padding: 6px 12px; }
+.evlayout .evs li { grid-template-columns: 170px 190px 1fr; }
+
+/* ===== Lade-Animationen ===== */
+html.ldr-lock { overflow: hidden; }
+.ldr { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #fff; transition: opacity .6s ease, clip-path .8s var(--ease); clip-path: inset(0 0 0 0); }
+.ldr[hidden] { display: none; }
+.ldr.out { opacity: 0; pointer-events: none; }
+.ldr-logo { width: min(300px, 56vw); height: auto; overflow: visible; position: relative; z-index: 2; }
+.ldr-plate { fill: var(--lime); }
+.ldr-eagle { fill: var(--ink); }
+.ldr-tail { fill: #fff; }
+.ldr-text { fill: var(--ink); }
+.ldr-ring { fill: none; stroke: none; }
+.ldr-cur { position: absolute; inset: 0; background: var(--lime); transform: scaleY(0); transform-origin: bottom; }
+.ldr-pct { display: none; }
+
+/* 1 Kontur: Umriss zeichnen → schwarz füllen → Platte von oben → Schriftzug */
+.ldr[data-v="1"].go .ldr-eagle { fill: transparent; stroke: var(--ink); stroke-width: 6; stroke-dasharray: 100; stroke-dashoffset: 100; animation: l1draw 1.1s ease-in-out forwards, l1fill .4s ease 1.05s forwards; }
+.ldr[data-v="1"].go .ldr-tail { opacity: 0; animation: fadeIn .3s ease 1.3s forwards; }
+.ldr[data-v="1"].go .ldr-wipe { transform: scaleY(0); transform-origin: 50% 752px; transform-box: view-box; animation: l1wipe .55s var(--ease) 1.5s forwards; }
+.ldr[data-v="1"].go .ldr-text { opacity: 0; transform: translateY(40px); animation: l1text .5s var(--ease) 2.05s forwards; }
+@keyframes l1draw { to { stroke-dashoffset: 0; } }
+@keyframes l1fill { to { fill: var(--ink); stroke-width: 0; } }
+@keyframes l1wipe { to { transform: scaleY(1); } }
+@keyframes l1text { to { opacity: 1; transform: none; } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* 2 Anflug: der Adler gleitet auf die Platte */
+.ldr[data-v="2"] { background: var(--paper); }
+.ldr[data-v="2"].go .ldr-plate, .ldr[data-v="2"].go .ldr-text { opacity: 0; animation: fadeIn .4s ease .95s forwards; }
+.ldr[data-v="2"].go .ldr-plate { transform-box: fill-box; transform-origin: center; transform: scale(.6); animation: l2plate .6s var(--ease) .8s forwards; opacity: 1; }
+.ldr[data-v="2"].go .ldr-bird { transform: translate(-900px, 700px) rotate(-18deg) scale(.5); animation: l2fly 1.2s cubic-bezier(.2,.7,.2,1) forwards; }
+.ldr[data-v="2"].out { clip-path: inset(0 0 100% 0); opacity: 1; }
+@keyframes l2fly { 60% { transform: translate(60px, -60px) rotate(6deg) scale(1.04); } to { transform: none; } }
+@keyframes l2plate { to { transform: scale(1); } }
+
+/* 3 Quadrat: Lime füllt den Bildschirm, Logo erscheint, Vorhang hebt sich */
+.ldr[data-v="3"] { background: var(--ink); }
+.ldr[data-v="3"] .ldr-cur { transform: scale(0); transform-origin: center; }
+.ldr[data-v="3"].go .ldr-cur { animation: l3grow .7s var(--ease) .1s forwards; }
+.ldr[data-v="3"] .ldr-plate { display: none; }
+.ldr[data-v="3"].go .ldr-bird { opacity: 0; transform: translateY(-120px); animation: l3drop .7s cubic-bezier(.3,1.4,.5,1) .75s forwards; }
+.ldr[data-v="3"].go .ldr-text { opacity: 0; animation: fadeIn .4s ease 1.3s forwards; }
+.ldr[data-v="3"].out { clip-path: inset(0 0 100% 0); opacity: 1; }
+@keyframes l3grow { 0% { transform: scale(0); border-radius: 50%; } 60% { border-radius: 20%; } to { transform: scale(1); border-radius: 0; } }
+@keyframes l3drop { to { opacity: 1; transform: none; } }
+
+/* 4 Ring: Fortschritt als Lime-Kreis mit Prozent, dann öffnet sich der Kreis */
+.ldr[data-v="4"] .ldr-plate { display: none; }
+.ldr[data-v="4"] .ldr-ring { stroke: var(--lime); stroke-width: 34; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transform: rotate(-90deg); transform-origin: 1000px 1000px; }
+.ldr[data-v="4"].go .ldr-ring { animation: l1draw 2s cubic-bezier(.4,0,.2,1) forwards; }
+.ldr[data-v="4"] .ldr-text { display: none; }
+.ldr[data-v="4"].go .ldr-bird { animation: l4bob 1.2s ease-in-out infinite alternate; }
+.ldr[data-v="4"] .ldr-pct { display: block; position: absolute; left: 50%; top: calc(50% + min(150px, 28vw) + 36px); transform: translateX(-50%); font: 800 28px var(--f); letter-spacing: -.02em; }
+.ldr[data-v="4"] .ldr-pct::after { content: ' %'; font-weight: 600; font-size: 18px; }
+.ldr[data-v="4"].out { clip-path: circle(0% at 50% 50%); opacity: 1; transition: clip-path .7s var(--ease); }
+@keyframes l4bob { to { transform: translateY(-30px); } }
+
+/* 5 Überflug: großer Adler-Schatten zieht vorbei, Schriftzug erscheint */
+.ldr[data-v="5"] { background: var(--lime); }
+.ldr[data-v="5"] .ldr-plate { display: none; }
+.ldr[data-v="5"] .ldr-logo { width: min(520px, 84vw); }
+.ldr[data-v="5"].go .ldr-bird { transform: translate(-1800px, -300px) scale(2.4); animation: l5fly 1.5s cubic-bezier(.45,.05,.3,1) forwards; }
+.ldr[data-v="5"].go .ldr-text { opacity: 0; clip-path: inset(0 100% 0 0); animation: l5text .8s var(--ease) 1.2s forwards; }
+.ldr[data-v="5"].out { transform: translateY(-100%); opacity: 1; transition: transform .8s var(--ease); }
+@keyframes l5fly { 70% { transform: translate(80px, 20px) scale(1.05); } to { transform: none; } }
+@keyframes l5text { to { opacity: 1; clip-path: inset(0 0 0 0); } }
+
+.setmenu .seg button[data-ld] { min-width: 0; }
+.ldr-bird { transform-box: fill-box; transform-origin: center; }
+.ldr[data-v="1"].go .ldr-wipe { transform-box: fill-box; transform-origin: top; }
