@@ -1197,8 +1197,6 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
   main a:not(.btn):has(img) { overflow: hidden; }
   .ico { transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
   a:hover > .ico, button:hover > .ico, li:hover > .ico, a:hover .ico:first-child { transform: rotate(-6deg) scale(1.08); }
-  .mainnav a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size .3s var(--ease); }
-  .mainnav a:hover { background-size: 100% 2px; }
   details summary { transition: color .2s; }
   .tools .search svg { transition: transform .3s var(--ease); }
   .tools .search:hover svg { transform: rotate(-12deg) scale(1.1); }
@@ -1207,3 +1205,14 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
 }
 :lang(ru) .mainnav ul { gap: 0; }
 :lang(ru) .mainnav a, :lang(ru) .mainnav .soon { font-size: 14.5px; padding: 10px 8px; }
+
+.mapcard [hidden] { display: none !important; }
+/* Wolf: Hinweis freundlich auf Weiß */
+.notice { grid-template-columns: 64px 1fr; gap: 18px; align-items: center; background: #fff; padding: 20px 26px 20px 20px; box-shadow: 0 0 0 1.5px #E3E5D3; border-radius: 20px; max-width: 660px; }
+.notice .smile { width: 64px; height: 64px; border-radius: 50%; background: var(--mist); display: grid; place-items: center; }
+.notice .smile .ico { --is: 44px; }
+.notice strong { font-size: 15px; color: var(--forest); }
+.notice p { font-size: 20px; font-weight: 500; line-height: 1.45; letter-spacing: 0; }
+/* Hero 1: Kreise mit welliger Kante */
+.hv3 .fr1, .hv3 .fr2, .hv3 .fr3, .hv3 .fr4 { border-radius: 0; clip-path: url(#wellkreis); box-shadow: none; }
+.notice strong.hand { font: 600 26px/1 'Caveat', cursive; color: var(--forest); margin-bottom: 6px; rotate: -2deg; display: inline-block; }
