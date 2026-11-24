@@ -19,6 +19,35 @@ const sets = [
 ];
 const hp = heroPhotos as Record<string, { f: string; pos: string }[]>;
 const hsrc = (f: string, w: number) => `/img/hero/${f}-${w}.webp`;
+import mapShapes from '../../data/mapshapes.json';
+// Variante 4: drei verschiedene Naturkanten (objectBoundingBox 0..1)
+function edge(kind: string) {
+  const B = 0.006, N = 64, pts: string[] = [];
+  const env = (u: number) => Math.min(1, u * 7, (1 - u) * 7);
+  const w = (side: number, u: number) => {
+    const t = 2 * Math.PI * u;
+    if (kind === 'wasser') return 0.014 * (1 - Math.cos(t * (side % 2 ? 5 : 7) + side)) / 2 * env(u);
+    if (kind === 'krone') { const k = [6, 4, 7, 4][side], a = [0.034, 0.02, 0.016, 0.02][side]; return a * (1 - Math.abs(Math.sin(Math.PI * u * k))) * env(u); }
+    return (0.022 * (1 + Math.sin(t * 1.3 + side * 1.7)) / 2 + 0.01 * (1 + Math.sin(t * 3.1 + side)) / 2) * env(u);
+  };
+  for (let side = 0; side < 4; side++) for (let i = 0; i < N; i++) {
+    const u = i / N, d = B + w(side, u), m = B + (1 - 2 * B) * u;
+    const [x, y] = side === 0 ? [m, d] : side === 1 ? [1 - d, m] : side === 2 ? [1 - m, 1 - d] : [d, 1 - m];
+    pts.push(`${x.toFixed(4)} ${y.toFixed(4)}`);
+  }
+  return 'M' + pts.join('L') + 'Z';
+}
+const edges = [edge('krone'), edge('wasser'), edge('huegel')];
+// Variante 6: Tiere als Kreise auf dem Parkplan (Kartenkoordinaten, viewBox 40 0 1660 1240)
+const pins = [
+  { set: 0, at: [772, 396], c: [560, 300], r: 150 },
+  { set: 1, at: [1080, 785], c: [1390, 840], r: 175 },
+  { set: 2, at: [1103, 566], c: [1010, 470], r: 112 },
+  { set: 3, at: [1306, 436], c: [1430, 250], r: 128 },
+  { set: 4, at: [744, 912], c: [560, 880], r: 140 },
+  { set: 5, at: [1052, 856], c: [1010, 1080], r: 104 },
+];
+const pct = (v: number, o: number, len: number) => `${(((v - o) / len) * 100).toFixed(2)}%`;
 const tiles = [
   { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true },
   { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis' },
@@ -61,14 +90,37 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
           ); })}
         </figure>
       ))}
+      <svg class="hx-defs" width="0" height="0" aria-hidden="true"><defs>{edges.map((d, k) => <clipPath id={`edge${k + 1}`} clipPathUnits="objectBoundingBox"><path d={d} /></clipPath>)}</defs></svg>
+      <div class="hx-plan" aria-hidden="true">
+        <svg viewBox="40 0 1660 1240" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <pattern id="bpgrid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" /></pattern>
+            <pattern id="bphatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V14" /></pattern>
+          </defs>
+          <rect class="grid" x="40" y="0" width="1660" height="1240" fill="url(#bpgrid)" />
+          <path class="road" d="M330 358 L940 300 L1046 232" /><path class="road" d="M520 1225 C560 1060 640 990 760 958 L1565 850" />
+          <path class="park" d={mapShapes.park} />
+          <path class="moor" d={mapShapes.moor} />
+          <path class="water" d={mapShapes.water} />
+          <path class="paths" d={mapShapes.paths} />
+          {pins.map((p) => <g class="lead"><path d={`M${p.at[0]} ${p.at[1]} L${p.c[0]} ${p.c[1]}`} /><circle cx={p.at[0]} cy={p.at[1]} r="9" /></g>)}
+        </svg>
+        {pins.map((p, k) => (
+          <figure class="pin" data-pin={p.set} style={`left:${pct(p.c[0], 40, 1660)};top:${pct(p.c[1], 0, 1240)};width:${pct(2 * p.r, 0, 1660)};--i:0`}>
+            <span class="disc">{hp[sets[p.set].id].map((ph, j) => <img class={j === 0 ? 'on' : ''} src={hsrc(ph.f, 700)} style={`object-position:${ph.pos}`} alt="" loading="lazy" />)}</span>
+            <figcaption>{sets[p.set].label}</figcaption>
+          </figure>
+        ))}
+      </div>
       <svg class="hx-trail" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true"><path d="M339 202 C 360 180, 372 190, 393 173" /><path d="M286 352 C 300 410, 300 440, 328 454" /><path d="M50 462 C 38 425, 46 388, 66 362" /><path class="tip" d="M54 366 L66 361 L68 374" /></svg>
       <p class="hx-hand" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
       <p class="hx-cap">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{[...new Set(s.names)].join(', ')}</span>)}<span> · Fotos: Wildpark Eekholt</span></p>
     </div>
+    <img class="hx-perch" src="/img/eagle.svg" alt="" />
   </section>
   <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
     <span>Hero</span>
-    {[1, 2, 3].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
   </div>
 
   <section class="today" aria-labelledby="today-h">
@@ -209,6 +261,8 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const N = btns.length, DUR = 6000;
     let cur = 0, timer: number | undefined;
+    const pinEls = [...hero.querySelectorAll<HTMLElement>('[data-pin]')];
+    const pinTurn = pinEls.map(() => 0);
     function go(i: number) {
       const next = (i + N) % N;
       if (next !== cur) {
@@ -222,6 +276,16 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
         cur = next;
       }
       caps.forEach((c) => (c.hidden = +c.dataset.cap! !== cur));
+      pinEls.forEach((p) => {
+        const on = +p.dataset.pin! === cur;
+        if (on && p.classList.contains('act') === false) {
+          const ims = [...p.querySelectorAll('img')], o = ims.findIndex((im) => im.classList.contains('on'));
+          const n = (o + (pinTurn[cur]++ > 0 ? 1 : 0)) % ims.length;
+          ims.forEach((im) => im.classList.remove('was'));
+          if (n !== o) { ims[o].classList.replace('on', 'was'); ims[n].classList.add('on'); }
+        }
+        p.classList.toggle('act', on);
+      });
       btns.forEach((b, k) => { b.setAttribute('aria-current', String(k === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
       // nächstes Set vorladen
       frames.forEach((f) => { const p = f.querySelector<HTMLImageElement>(`img[data-set="${(cur + 1) % N}"]`); if (p) p.loading = 'eager'; });
@@ -241,13 +305,14 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     // Umschalter der Hero-Varianten (nur Entwurf)
     const sw = document.querySelector<HTMLElement>('[data-hvswitch]')!;
     const setHv = (n: string) => {
-      hero.classList.remove('hv1', 'hv2', 'hv3'); hero.classList.add('hv' + n);
+      hero.classList.remove(...[...hero.classList].filter((c) => /^hv\d$/.test(c)));
+      if (n === '6') pinEls.forEach((p) => p.querySelectorAll('img').forEach((im) => (im.loading = 'eager'))); hero.classList.add('hv' + n);
       sw.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === n)));
       try { localStorage.setItem('wp-hv', n); } catch {}
     };
     const q = new URLSearchParams(location.search).get('hero');
     let saved: string | null = null; try { saved = localStorage.getItem('wp-hv'); } catch {}
-    setHv(q && /^[123]$/.test(q) ? q : saved && /^[123]$/.test(saved) ? saved : '1');
+    setHv(q && /^[1-9]$/.test(q) ? q : saved && /^[1-9]$/.test(saved) ? saved : '1');
     sw.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => setHv(b.dataset.hv!)));
   </script>
 </L>
