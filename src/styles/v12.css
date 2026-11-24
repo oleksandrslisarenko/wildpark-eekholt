@@ -1052,3 +1052,7 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv3 .hx-plate h1 { margin-top: 74px; }
 @media (max-width: 900px) { .hv3 .hx-plate h1 { margin-top: 0; } }
 .hv3 .fr2 { right: 14.5%; top: 18%; } .hv3 .fr4 { right: 8%; top: 46%; } .hv3 .fr3 { right: 27%; bottom: 14%; }
+.hv3 .hx-nav button { border-radius: 50%; }
+.hv3 .hx-nav button .bar { left: 14px; right: 14px; border-radius: 2px; }
+.hv3 .hx-eagle { left: calc(clamp(24px, 4vw, 64px) + 300px); }
+.hv3 .hx-nav .all { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); } .hv3 .hx-nav .all:hover { background: var(--ink); color: #fff; }
