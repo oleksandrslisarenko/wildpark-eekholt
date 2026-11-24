@@ -9,7 +9,6 @@ const cur = m >= 3 && m <= 10 ? 'sommer' : 'winter';
 const ordered = [...seasons].sort((a, b) => (a.id === cur ? -1 : b.id === cur ? 1 : 0));
 const feedIcon: Record<string, string> = { 'Fischotter': 'otter', 'Baummarder': 'marder', 'Füchse, Dachse und Steinmarder': 'fuchs', 'Störche': 'storch', 'Wolf': 'wolf' };
 const ruleIcons = ['hund', 'pfote', 'verbot', 'karre'];
-const extraIcon = (l: string) => l.startsWith('Führung') ? 'flagge' : l.startsWith('Grillhütte') || l.startsWith('Doppelte') ? 'haus' : l.startsWith('Grillplatz') ? 'feuer' : l.startsWith('Zusatzpavillon') ? 'schirm' : 'flamme';
 ---
 <L title="Preise und Öffnungszeiten – Wildpark Eekholt" description="Eintrittspreise, Jahreskarten, Gruppenpreise und Einlasszeiten des Wildpark Eekholt. Täglich und ganzjährig geöffnet." active="besuch">
   <section class="ph12">
@@ -90,7 +89,7 @@ const extraIcon = (l: string) => l.startsWith('Führung') ? 'flagge' : l.startsW
       </div>
       <div>
         <div class="blockhead"><Icon name="feuer" set="h" /><h2>Führungen, Geburtstage, Grillen</h2></div>
-        <table class="ptable"><caption class="hidden">Führungen, Geburtstage, Grillen</caption><tbody>{prices.extras.map((p) => <tr><th><Icon name={extraIcon(p.label)} set="h" />{p.label}</th><td>{fmt(p.price)}{p.extra && <small>{p.extra}</small>}</td></tr>)}</tbody></table>
+        <table class="ptable"><caption class="hidden">Führungen, Geburtstage, Grillen</caption><tbody>{prices.extras.map((p) => <tr><th>{p.label}</th><td>{fmt(p.price)}{p.extra && <small>{p.extra}</small>}</td></tr>)}</tbody></table>
         <p class="pnote">Grillplätze und Führungen bitte vorher anmelden: <a href={contact.phoneHref}>{contact.phone}</a>, {contact.office}.</p>
       </div>
     </div>

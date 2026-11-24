@@ -741,3 +741,120 @@ form[data-state="error"] .msg { color: #FFB4A0; }
   .h12-eagle { top: -64px; bottom: auto; right: 10px; width: 150px; }
   .ph12 .illu { justify-self: center; width: min(340px, 100%); }
 }
+
+/* ===== Runde 3 ===== */
+/* Hero: eine Bühne, drei Anordnungen (hv1 Mosaik, hv2 Staffel, hv3 Ausschnitte) */
+.hx { position: relative; background: var(--lime); overflow: hidden; display: grid; isolation: isolate; }
+.hx-plate { position: relative; z-index: 3; }
+.hx-plate h1 { font-size: clamp(38px, 3.9vw, 64px); max-width: 12ch; animation: rise .9s var(--ease) both .1s; }
+.hx-plate .lede { font-size: 19px; max-width: 36ch; margin: 18px 0 26px; }
+.hx-plate .row { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: center; }
+.hx-eagle { position: absolute; z-index: 4; pointer-events: none; width: clamp(160px, 15vw, 230px); filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); animation: glide 1.4s var(--ease) both .4s; }
+.hx-nav { position: relative; z-index: 3; margin: 0; }
+.hx-frames { position: relative; z-index: 1; }
+.fr { margin: 0; position: relative; overflow: hidden; background: var(--lime-deep); transition: translate .6s ease-out; }
+.fr img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; clip-path: inset(100% 0 0 0); transform: scale(1.14); }
+.fr img.was { clip-path: inset(0); transform: scale(1); z-index: 1; }
+.fr img.on { clip-path: inset(0); transform: scale(1); z-index: 2; transition: clip-path 1.05s var(--ease) calc(var(--i) * .14s), transform 1.8s var(--ease) calc(var(--i) * .14s); }
+.hx-cap { position: absolute; z-index: 3; margin: 0; font-size: 13px; color: var(--ink); opacity: .75; }
+.hx-trail, .hx-hand { display: none; }
+
+/* 1 Mosaik: ein Hochformat, zwei kleine, mit grünem Rand dazwischen */
+.hv1 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: min(calc(100vh - 78px), 820px); }
+.hv1 .hx-plate, .hv3 .hx-plate { grid-area: plate; align-self: center; padding: clamp(48px, 6vw, 88px) clamp(24px, 4vw, 64px) 28px; }
+.hv1 .hx-nav, .hv3 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 4vw, 64px) clamp(36px, 4vw, 60px); }
+.hv1 .hx-eagle { right: clamp(-120px, -7vw, -70px); top: 18px; }
+.hv1 .hx-frames { grid-area: frames; display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: 1.15fr .85fr; gap: 14px; padding: 28px 28px 46px 0; }
+.hv1 .fr1 { grid-row: span 2; }
+.hv1 .fr3 { margin-right: 18%; }
+.hv1 .hx-cap { right: 28px; bottom: 16px; }
+
+/* 2 Staffel: Text oben, drei Fotos treppab, unten angeschnitten */
+.hv2 { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plate" "nav" "frames"; }
+.hv2 .hx-plate { grid-area: plate; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; padding: clamp(44px, 5vw, 76px) clamp(24px, 5vw, 72px) 30px; }
+.hv2 .hx-plate h1 { font-size: clamp(44px, 5.4vw, 88px); max-width: 13ch; }
+.hv2 .hx-plate .lede { margin-top: 0; }
+.hv2 .hx-eagle { right: clamp(20px, 6vw, 110px); top: 16px; width: clamp(140px, 12vw, 190px); }
+.hv2 .hx-plate .hx-txt { padding-top: clamp(90px, 9vw, 150px); }
+.hv2 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 5vw, 72px); margin-bottom: 30px; }
+.hv2 .hx-frames { grid-area: frames; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; padding: 0 clamp(24px, 5vw, 72px); margin-bottom: -150px; }
+.hv2 .fr { aspect-ratio: 1 / 1.05; }
+.hv2 .fr2 { margin-top: 56px; }
+.hv2 .fr3 { margin-top: 112px; }
+.hv2 .hx-cap { right: clamp(24px, 5vw, 72px); top: -32px; }
+
+/* 3 Ausschnitte: Kreis, Bogen, kleiner Kreis, weiße Markerspur */
+.hv3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: min(calc(100vh - 78px), 820px); }
+.hv3 .hx-eagle { right: clamp(-60px, -3vw, -20px); top: 18px; }
+.hv3 .hx-frames { grid-area: frames; min-height: 560px; }
+.hv3 .fr { position: absolute; }
+.hv3 .fr1 { width: 54%; aspect-ratio: 1; left: 2%; top: 13%; border-radius: 50%; }
+.hv3 .fr2 { width: 29%; aspect-ratio: 1 / 1.45; right: 6%; top: 7%; border-radius: 999px 999px 0 0; }
+.hv3 .fr3 { width: 27%; aspect-ratio: 1; right: 19%; bottom: 7%; border-radius: 50%; box-shadow: 0 0 0 10px var(--lime); }
+.hv3 .hx-trail { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 12; overflow: visible; }
+.hv3 .hx-trail path { vector-effect: non-scaling-stroke; }
+.hv3 .hx-hand { display: block; position: absolute; z-index: 3; left: 3%; bottom: 13%; margin: 0; font: 600 clamp(34px, 3.4vw, 52px)/1 'Caveat', cursive; color: #fff; transform: rotate(-5deg); }
+.hv3 .hx-hand span { animation: rise .7s var(--ease) both; display: inline-block; }
+.hv3 .hx-cap { right: 24px; bottom: 14px; }
+
+/* Umschalter, nur im Entwurf */
+.hvswitch { position: fixed; left: 16px; bottom: 16px; z-index: 80; display: flex; align-items: center; gap: 4px; padding: 6px 6px 6px 14px; background: var(--ink); color: #fff; border-radius: 999px; font: 600 13px var(--f); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.hvswitch span { margin-right: 6px; }
+.hvswitch button { width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent; color: #fff; font: 700 14px var(--f); cursor: pointer; transition: background .2s; }
+.hvswitch button:hover { background: rgba(255,255,255,.14); }
+.hvswitch button[aria-pressed="true"] { background: var(--lime); color: var(--ink); }
+
+@media (max-width: 900px) {
+  .hx.hv1, .hx.hv3 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "frames" "plate" "nav"; min-height: 0; }
+  .hv1 .hx-plate, .hv3 .hx-plate { padding: 36px 20px 22px; }
+  .hv1 .hx-nav, .hv3 .hx-nav { padding: 0 20px 34px; }
+  .hv1 .hx-eagle, .hv3 .hx-eagle { right: 14px; top: -54px; width: 130px; }
+  .hv1 .hx-frames { height: 108vw; padding: 12px 12px 34px; gap: 8px; }
+  .hv1 .fr3 { margin-right: 0; }
+  .hv1 .hx-cap, .hv3 .hx-cap { right: 14px; bottom: 10px; font-size: 12px; }
+  .hv2 .hx-plate { grid-template-columns: minmax(0, 1fr); padding: 30px 20px 22px; }
+  .hv2 .hx-plate .hx-txt { padding-top: 0; }
+  .hv2 .hx-eagle { width: 120px; right: 14px; top: 8px; }
+  .hv2 .hx-plate h1 { font-size: 40px; max-width: 9ch; }
+  .hv2 .hx-nav { padding: 0 20px; margin-bottom: 40px; }
+  .hv2 .hx-frames { padding: 0 12px; gap: 8px; margin-bottom: -70px; }
+  .hv2 .fr2 { margin-top: 26px; } .hv2 .fr3 { margin-top: 52px; }
+  .hv2 .hx-cap { right: 14px; top: -26px; font-size: 12px; }
+  .hv3 .hx-frames { min-height: 0; height: 96vw; }
+  .hv3 .fr3 { box-shadow: 0 0 0 6px var(--lime); }
+  .hx-nav button, .hx-nav .all { width: 48px; height: 48px; }
+  .hx-nav button .ico { --is: 32px; }
+  .hx-nav .all { font-size: 10px; }
+  .hvswitch { left: 10px; bottom: 10px; }
+}
+
+/* Veranstaltungen: grünes Datumsquadrat auf dem Foto */
+.ev3 .date { left: 0; right: auto; top: 0; bottom: auto; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 0; width: 132px; min-height: 132px; padding: 12px 14px 14px; background: var(--lime); color: var(--ink); transition: transform .5s var(--ease); }
+.ev3 .date i { font-style: normal; font-weight: 700; font-size: 14px; }
+.ev3 .date b { display: flex; flex-direction: column; font-size: 58px; line-height: .92; font-weight: 800; letter-spacing: -.03em; margin: 2px 0 2px; }
+.ev3 .date b small { font-size: 16px; letter-spacing: 0; font-weight: 700; margin-top: 4px; }
+.ev3 .date > span { font-size: 13px; font-weight: 600; line-height: 1.25; border-top: 2px solid var(--ink); padding-top: 6px; margin-top: 8px; width: 100%; }
+.ev3 a:hover .date { transform: translate(6px, 6px); }
+
+/* Karte: ohne Rahmen, ganz sichtbar; beim Zoomen ein ruhiger Kasten mit Innenschatten */
+.mapbox12 { box-shadow: none; background: transparent; grid-template-columns: minmax(0, 1fr) 260px; gap: 28px; align-items: start; }
+.mapview { border-radius: 14px; transition: box-shadow .4s var(--ease), background .4s; }
+.mapview svg { max-height: calc(100vh - 120px); margin: 0 auto; }
+.mapview.zoomed { background: #ECEEE0; box-shadow: inset 0 2px 14px rgba(28,28,26,.16), inset 0 0 0 1px rgba(28,28,26,.08); }
+.legend { border-left: 0; background: #fff; border-radius: 14px; position: sticky; top: 96px; }
+.mapzoom button { border: 0; border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(28,28,26,.14); }
+@media (max-width: 900px) { .mapbox12 { grid-template-columns: 1fr; } .legend { position: static; } .mapview svg { max-height: none; } }
+
+/* Preise: Tier-Icons bei den Fütterungen größer, Strich kräftiger */
+.ptable .anim { gap: 14px; }
+.ptable .anim .ico { --is: 46px; }
+.ptable .anim .ico svg [stroke] { stroke-width: 3.2; }
+.hx [data-cap][hidden] { display: none !important; }
+.hv3 .hx-trail .tip { stroke-dasharray: none; stroke-linejoin: round; }
+@media (max-width: 900px) {
+  .hv1 .hx-cap, .hv3 .hx-cap { right: auto; left: 14px; }
+  .hx-nav ul { gap: 6px; flex-wrap: nowrap; }
+  .hx-nav button, .hx-nav .all { width: 44px; height: 44px; flex: none; }
+  .hx-nav button .ico { --is: 30px; }
+}
+.ptable tr[data-kind="feed"] th, .ptable tr[data-kind="feed"] td { vertical-align: middle; }

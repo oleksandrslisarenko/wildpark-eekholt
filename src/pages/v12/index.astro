@@ -7,13 +7,18 @@ import { img, srcset, highlights, prices, fmt, contact, animals, animalPhotos } 
 import { upcoming, dayLabel, cleanTime, slotsToday, eventPhoto, flightSeason } from '../../data/helpers';
 import aIcons from '../../data/animalIcons.json';
 const ev = upcoming(3);
-const slides = [
-  { id: 'eule', icon: 'eule', name: 'Bartkauz', label: 'Eulen', layers: true },
-  { id: 'wolf', icon: 'wolf', name: 'Wölfe', label: 'Wolf', src: 'slide-woelfe' },
-  { id: 'otter', icon: 'otter', name: 'Kanadischer Fischotter', label: 'Fischotter', src: 'slide-otter' },
-  { id: 'katze', icon: 'katze', name: 'Junge Wildkatzen', label: 'Wildkatze', src: 'slide-katzen' },
-  { id: 'hirsch', icon: 'hirsch', name: 'Weißes Rotwild', label: 'Weißes Rotwild', src: 'slide-rotwild' },
+import heroPhotos from '../../data/heroPhotos.json';
+// Hero: je Tier drei Fotos aus dem Facebook-Auftritt des Parks
+const sets = [
+  { id: 'eule', icon: 'eule', label: 'Eulen', names: ['Bartkauz', 'Uhu', 'Schleiereule'] },
+  { id: 'wolf', icon: 'wolf', label: 'Wolf', names: ['Wolf', 'Wolf', 'Wolf'] },
+  { id: 'otter', icon: 'otter', label: 'Fischotter', names: ['Fischotter', 'Fischotter', 'Fischotter'] },
+  { id: 'katze', icon: 'katze', label: 'Wildkatze', names: ['Junge Wildkatze', 'Wildkatze mit Jungen', 'Junge Wildkatzen'] },
+  { id: 'adler', icon: 'adler', label: 'Seeadler', names: ['Seeadler', 'Seeadler', 'Seeadler'] },
+  { id: 'fuchs', icon: 'fuchs', label: 'Rotfuchs', names: ['Rotfuchs', 'Rotfuchs', 'Rotfuchs'] },
 ];
+const hp = heroPhotos as Record<string, { f: string; pos: string }[]>;
+const hsrc = (f: string, w: number) => `/img/hero/${f}-${w}.webp`;
 const tiles = [
   { slug: 'wolf', name: 'Wolf', latin: 'Canis lupus', big: true },
   { slug: 'otter', name: 'Fischotter', latin: 'Lutra canadensis' },
@@ -30,37 +35,41 @@ const band = [...animals].sort(() => 0.5 - Math.random()).filter((a) => { const 
 const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
 ---
 <L title="Wildpark Eekholt – Naturerlebnisse im Norden Hamburgs" active="">
-  <section class="h12" data-hero>
-    <div class="h12-plate">
-      <img class="h12-eagle" src="/img/eagle.svg" alt="" />
+  <section class="hx hv1" data-hero>
+    <div class="hx-plate">
+      <img class="hx-eagle" src="/img/eagle.svg" alt="" />
       <h1>700 heimische Wildtiere auf 67 Hektar Natur</h1>
-      <p class="lede">Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg. Täglich und ganzjährig geöffnet.</p>
-      <div class="row">
-        <a class="btn ink" href="/v12/besuch/">Preise und Öffnungszeiten</a>
-        <span class="live" data-live="status">Täglich geöffnet</span>
+      <div class="hx-txt">
+        <p class="lede">Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg. Täglich und ganzjährig geöffnet.</p>
+        <div class="row">
+          <a class="btn ink" href="/v12/besuch/">Preise und Öffnungszeiten</a>
+          <span class="live" data-live="status">Täglich geöffnet</span>
+        </div>
       </div>
     </div>
-    <div class="h12-stage" aria-roledescription="Karussell" aria-label="Tiere im Wildpark">
-      <div class="h12-nav">
-        <ul>
-          {slides.map((s, i) => <li><button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><Icon name={s.icon} /><span class="bar"></span></button></li>)}
-          <li><a class="all" href="/v12/tier/">Alle Tiere</a></li>
-        </ul>
-      </div>
-      {slides.map((s, i) => s.layers ? (
-        <figure class={`h12-slide layers ${i === 0 ? 'on' : ''}`} data-slide={i} data-parallax>
-          <img class="bg" src="/img/owl-bg-1400.webp" srcset="/img/owl-bg-800.webp 800w, /img/owl-bg-1400.webp 1400w" sizes="50vw" alt="" fetchpriority="high" />
-          <img class="fg" src="/img/owl-fg-1400.webp" srcset="/img/owl-fg-800.webp 800w, /img/owl-fg-1400.webp 1400w" sizes="50vw" alt="Bartkauz im Wildpark Eekholt" />
-          <figcaption>{s.name} · Foto: Wildpark Eekholt</figcaption>
-        </figure>
-      ) : (
-        <figure class="h12-slide" data-slide={i}>
-          <img src={img(s.src!, 1200)} srcset={srcset(s.src!)} sizes="50vw" alt={s.name} loading="lazy" />
-          <figcaption>{s.name} · Foto: Wildpark Eekholt</figcaption>
+    <div class="h12-nav hx-nav" role="group" aria-label="Tiere im Wildpark">
+      <ul>
+        {sets.map((s, i) => <li><button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><Icon name={s.icon} /><span class="bar"></span></button></li>)}
+        <li><a class="all" href="/v12/tier/">Alle Tiere</a></li>
+      </ul>
+    </div>
+    <div class="hx-frames" data-frames>
+      {[0, 1, 2].map((slot) => (
+        <figure class={`fr fr${slot + 1}`} style={`--i:${slot}`}>
+          {sets.map((s, k) => { const ph = hp[s.id][slot]; return (
+            <img class={k === 0 ? 'on' : ''} data-set={k} src={hsrc(ph.f, slot === 0 ? 1200 : 700)} srcset={`${hsrc(ph.f, 700)} 700w, ${hsrc(ph.f, 1200)} 1200w`} sizes={slot === 0 ? '(max-width: 900px) 100vw, 45vw' : '(max-width: 900px) 50vw, 25vw'} style={`object-position:${ph.pos}`} alt={s.names[slot]} loading={k === 0 ? 'eager' : 'lazy'} fetchpriority={k === 0 && slot === 0 ? 'high' : undefined} />
+          ); })}
         </figure>
       ))}
+      <svg class="hx-trail" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true"><path d="M339 202 C 360 180, 372 190, 393 173" /><path d="M286 352 C 300 410, 300 440, 328 454" /><path d="M50 462 C 38 425, 46 388, 66 362" /><path class="tip" d="M54 366 L66 361 L68 374" /></svg>
+      <p class="hx-hand" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
+      <p class="hx-cap">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{[...new Set(s.names)].join(', ')}</span>)}<span> · Fotos: Wildpark Eekholt</span></p>
     </div>
   </section>
+  <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
+    <span>Hero</span>
+    {[1, 2, 3].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
+  </div>
 
   <section class="today" aria-labelledby="today-h">
     <div class="wrap">
@@ -83,7 +92,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       <div class="ev3">
         {ev.map((e) => { const d = dayLabel(e.next); return (
           <a href="/v12/veranstaltungen/">
-            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="date"><b>{d.wd} {d.day}. {d.monLong}</b><span>{cleanTime(e.time)}</span></span></figure>
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="date"><i>{d.wd}</i><b data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.day}<small>{d.monLong}</small></b><span>{cleanTime(e.time)}</span></span></figure>
             <div class="body">
               <h3>{e.title}</h3>
               <p>{e.text}</p>
@@ -192,32 +201,53 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     </div>
   </section>
   <script>
-    // Karussell mit Tier-Icons + Parallaxe beim Bartkauz
+    // Hero: drei Fotos je Tier, Icons schalten um, Autoplay alle 6 s
     const hero = document.querySelector<HTMLElement>('[data-hero]')!;
-    const slides = [...hero.querySelectorAll<HTMLElement>('[data-slide]')];
+    const frames = [...hero.querySelectorAll<HTMLElement>('.fr')];
+    const caps = [...hero.querySelectorAll<HTMLElement>('[data-cap]')];
     const btns = [...hero.querySelectorAll<HTMLButtonElement>('[data-go]')];
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const N = btns.length, DUR = 6000;
     let cur = 0, timer: number | undefined;
-    const DUR = 6000;
     function go(i: number) {
-      cur = (i + slides.length) % slides.length;
-      slides.forEach((s, k) => { s.classList.toggle('on', k === cur); if (k === cur) s.querySelectorAll('img').forEach((im) => (im.loading = 'eager')); });
+      const next = (i + N) % N;
+      if (next !== cur) {
+        frames.forEach((f) => {
+          f.querySelectorAll('img').forEach((im) => im.classList.remove('was'));
+          const old = f.querySelector<HTMLImageElement>(`img[data-set="${cur}"]`)!, nu = f.querySelector<HTMLImageElement>(`img[data-set="${next}"]`)!;
+          nu.loading = 'eager';
+          old.classList.replace('on', 'was');
+          nu.classList.add('on');
+        });
+        cur = next;
+      }
+      caps.forEach((c) => (c.hidden = +c.dataset.cap! !== cur));
       btns.forEach((b, k) => { b.setAttribute('aria-current', String(k === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+      // nächstes Set vorladen
+      frames.forEach((f) => { const p = f.querySelector<HTMLImageElement>(`img[data-set="${(cur + 1) % N}"]`); if (p) p.loading = 'eager'; });
       restart();
     }
     function restart() { clearTimeout(timer); if (!reduce) timer = window.setTimeout(() => go(cur + 1), DUR); }
     btns.forEach((b, k) => b.addEventListener('click', () => go(k)));
-    restart();
-    const layer = hero.querySelector<HTMLElement>('[data-parallax]');
-    if (layer && !reduce) {
-      const bg = layer.querySelector<HTMLElement>('.bg')!, fg = layer.querySelector<HTMLElement>('.fg')!;
+    go(0);
+    if (!reduce) {
       hero.addEventListener('mousemove', (e) => {
         const r = hero.getBoundingClientRect();
         const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
-        fg.style.transform = `translate(${dx * -18}px, ${dy * -12}px)`;
-        bg.style.transform = `translate(${dx * 8}px, ${dy * 6}px) scale(1.02)`;
+        frames.forEach((f, k) => (f.style.translate = `${dx * -(8 + k * 7)}px ${dy * -(6 + k * 5)}px`));
       });
-      hero.addEventListener('mouseleave', () => { fg.style.transform = ''; bg.style.transform = ''; });
+      hero.addEventListener('mouseleave', () => frames.forEach((f) => (f.style.translate = '')));
     }
+    // Umschalter der Hero-Varianten (nur Entwurf)
+    const sw = document.querySelector<HTMLElement>('[data-hvswitch]')!;
+    const setHv = (n: string) => {
+      hero.classList.remove('hv1', 'hv2', 'hv3'); hero.classList.add('hv' + n);
+      sw.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === n)));
+      try { localStorage.setItem('wp-hv', n); } catch {}
+    };
+    const q = new URLSearchParams(location.search).get('hero');
+    let saved: string | null = null; try { saved = localStorage.getItem('wp-hv'); } catch {}
+    setHv(q && /^[123]$/.test(q) ? q : saved && /^[123]$/.test(saved) ? saved : '1');
+    sw.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => setHv(b.dataset.hv!)));
   </script>
 </L>

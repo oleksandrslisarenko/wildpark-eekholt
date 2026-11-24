@@ -7,7 +7,7 @@ const icons = import.meta.glob('../icons/a/*.svg', { query: '?raw', import: 'def
 const inner = (n: string) => (icons[`../icons/a/${n}.svg`] || '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
 const catOf = Object.fromEntries(cats.map((c) => [c.id, c]));
 const count = (id: string) => pois.filter((p) => p.cat === id).length;
-const VB = '40 0 1660 1160';
+const VB = '40 0 1660 1240';
 ---
 <div class="mapbox12" data-map>
   <div class="mapview" data-mapview>
@@ -63,7 +63,7 @@ const VB = '40 0 1660 1160';
     const feedBtn = box.querySelector<HTMLButtonElement>('[data-feedonly]')!;
     const [vx, vy, vw, vh] = svg.dataset.vb!.split(' ').map(Number);
     let vb = { x: vx, y: vy, w: vw, h: vh };
-    const setVB = () => { svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); place(); };
+    const setVB = () => { svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); view.classList.toggle('zoomed', vb.w < vw - 1); place(); };
     let sel: SVGGElement | null = null;
 
     function apply() {
