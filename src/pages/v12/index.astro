@@ -64,7 +64,7 @@ const band = [...animals].sort(() => 0.5 - Math.random()).filter((a) => { const 
 const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
 ---
 <L title="Wildpark Eekholt – Naturerlebnisse im Norden Hamburgs" active="">
-  <section class="hx hv1" data-hero>
+  <section class="hx hv4 pt-holz" data-hero>
     <div class="hx-plate">
       <img class="hx-eagle" src="/img/eagle.svg" alt="" />
       <h1>700 heimische Wildtiere auf 67 Hektar Natur</h1>
@@ -120,12 +120,6 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     </div>
     <p class="hx-note" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
   </section>
-  <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
-    <div><span>Hero</span>
-    {[1, 3, 4, 7, 8].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}</div>
-    <div><span>Muster</span>
-    {[['none', 'Ohne'], ['topo', 'Topo'], ['topohell', 'Topo hell'], ['holz', 'Holz'], ['holzhell', 'Holz hell'], ['ringe', 'Ringe'], ['ringehell', 'Ringe hell']].map(([v, l]) => <button type="button" class="w" data-pt={v} aria-pressed="false">{l}</button>)}</div>
-  </div>
 
   <section class="today" aria-labelledby="today-h">
     <div class="wrap">
@@ -308,33 +302,5 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       });
       hero.addEventListener('mouseleave', () => birds.forEach((b) => { b.style.translate = ''; b.style.rotate = ''; }));
     }
-    // Umschalter der Hero-Varianten (nur Entwurf)
-    const sw = document.querySelector<HTMLElement>('[data-hvswitch]')!;
-    const setHv = (n: string) => {
-      hero.classList.remove(...[...hero.classList].filter((c) => /^hv\d$/.test(c)));
-      if (n === '7') hero.querySelectorAll<HTMLImageElement>('.hx-thumbs img').forEach((im) => (im.loading = 'eager'));
-      if (n === '6') pinEls.forEach((p) => p.querySelectorAll('img').forEach((im) => (im.loading = 'eager'))); hero.classList.add('hv' + n);
-      sw.querySelectorAll('[data-hv]').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.hv === n)));
-      try { localStorage.setItem('wp-hv', n); } catch {}
-    };
-    const q = new URLSearchParams(location.search).get('hero');
-    let saved: string | null = null; try { saved = localStorage.getItem('wp-hv'); } catch {}
-    setHv(q && /^[13478]$/.test(q) ? q : saved && /^[13478]$/.test(saved) ? saved : '1');
-    sw.querySelectorAll<HTMLButtonElement>('[data-hv]').forEach((b) => b.addEventListener('click', () => { setHv(b.dataset.hv!); applyPt(); }));
-    // Hintergrundmuster (nur Entwurf): auto = Standard der Variante
-    const ptDefault: Record<string, string> = { '8': 'topo', '9': 'schnitt' };
-    const PTS = ['none', 'topo', 'topohell', 'holz', 'holzhell', 'ringe', 'ringehell'];
-    let pt = 'auto'; try { pt = localStorage.getItem('wp-pt2') || 'auto'; } catch {}
-    if (pt !== 'auto' && !PTS.includes(pt)) pt = 'auto';
-    const qp = new URLSearchParams(location.search).get('muster'); if (qp) pt = qp;
-    function applyPt() {
-      hero.classList.remove(...[...hero.classList].filter((c) => c.startsWith('pt-')));
-      const hv = [...hero.classList].find((c) => /^hv\d$/.test(c))!.slice(2);
-      const eff = pt === 'auto' ? ptDefault[hv] || 'none' : pt;
-      if (eff !== 'none') hero.classList.add('pt-' + eff);
-      sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === eff)));
-    }
-    sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt2', pt); } catch {} applyPt(); }));
-    applyPt();
   </script>
 </L>

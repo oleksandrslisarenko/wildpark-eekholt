@@ -1072,3 +1072,15 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 /* 7: runde Tier-Navigation waagerecht unten rechts */
 .hv7 .hx-thumbs { flex-direction: row; align-items: center; align-self: end; justify-self: end; margin: 0 clamp(18px, 2.4vw, 36px) 26px 0; gap: 12px; }
 .hv7 .hx-cap { bottom: auto; top: 14px; left: 16px; }
+/* Einstellungen im Kopf (Entwurf) */
+.setdd > button { gap: 8px; }
+.v12 .setdd > button { height: 44px; padding-block: 0; box-sizing: border-box; }
+.setmenu { position: absolute; right: 0; top: calc(100% + 6px); width: 250px; padding: 12px 14px 14px; background: var(--paper); box-shadow: 0 0 0 2px var(--ink); opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .2s, transform .25s var(--ease); z-index: 30; }
+.setdd.open .setmenu { opacity: 1; transform: none; pointer-events: auto; }
+.setmenu p { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--stone); }
+.setmenu .seg { display: flex; gap: 4px; margin-bottom: 14px; }
+.setmenu .seg:last-child { margin-bottom: 0; }
+.setmenu .seg button { flex: 1; height: 36px; border: 2px solid var(--ink); background: transparent; font: 700 14px var(--f); cursor: pointer; color: var(--ink); }
+.setmenu .seg button:hover { background: var(--mist); }
+.setmenu .seg button[aria-pressed="true"] { background: var(--lime); }
+@media (max-width: 1640px) { .setdd > button span { display: none; } .setdd > button { gap: 6px; } }

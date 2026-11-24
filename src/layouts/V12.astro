@@ -4,6 +4,7 @@ import '@fontsource-variable/golos-text';
 import '@fontsource/caveat/600.css';
 import '../styles/v12.css';
 import LangDD from '../components/LangDD.astro';
+import SettingsDD from '../components/SettingsDD.astro';
 import Ext from '../components/Ext.astro';
 import { contact } from '../data/site';
 const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '' } = Astro.props;
@@ -45,6 +46,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     <div class="tools">
       <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <LangDD />
+      <SettingsDD />
       <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
     </div>
@@ -103,13 +105,35 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     const dr = document.getElementById('drawer')!;
     b?.addEventListener('click', () => { const o = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', String(!o)); dr.hidden = o; document.body.classList.toggle('lock', !o); });
     // Sprach-Dropdown
-    document.querySelectorAll<HTMLElement>('[data-langdd]').forEach((dd) => {
+    document.querySelectorAll<HTMLElement>('[data-langdd], [data-setdd]').forEach((dd) => {
+      dd.querySelector('.setmenu')?.addEventListener('click', (e) => e.stopPropagation());
       const btn = dd.querySelector('button')!;
       const close = () => { btn.setAttribute('aria-expanded', 'false'); dd.classList.remove('open'); };
       btn.addEventListener('click', (e) => { e.stopPropagation(); const o = btn.getAttribute('aria-expanded') === 'true'; btn.setAttribute('aria-expanded', String(!o)); dd.classList.toggle('open', !o); });
       document.addEventListener('click', close);
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
     });
+    // Entwurfs-Einstellungen: Hero-Variante + Muster (gespeichert, wirkt auf der Startseite)
+    {
+      const HV = ['3', '4', '8'], PT = ['none', 'topo', 'holz', 'ringe'];
+      const get = (k: string, def: string, ok: string[]) => { try { const v = localStorage.getItem(k); return v && ok.includes(v) ? v : def; } catch { return def; } };
+      const qs = new URLSearchParams(location.search);
+      let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get('wp-hv3', '4', HV);
+      let pt = qs.get('muster') && PT.includes(qs.get('muster')!) ? qs.get('muster')! : get('wp-pt3', 'holz', PT);
+      const apply = () => {
+        const hero = document.querySelector<HTMLElement>('[data-hero]');
+        if (hero) {
+          hero.classList.remove(...[...hero.classList].filter((c) => /^hv\d$/.test(c) || c.startsWith('pt-')));
+          hero.classList.add('hv' + hv);
+          if (pt !== 'none') hero.classList.add('pt-' + pt);
+        }
+        document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === hv)));
+        document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
+      };
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-hv]').forEach((b) => b.addEventListener('click', () => { hv = b.dataset.hv!; try { localStorage.setItem('wp-hv3', hv); } catch {} apply(); }));
+      document.querySelectorAll<HTMLElement>('[data-setdd] [data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt3', pt); } catch {} apply(); }));
+      apply();
+    }
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.25 });
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
   </script>
