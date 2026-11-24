@@ -10,6 +10,18 @@ const strip = (h: string) => h.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').tri
 const out: B[] = [];
 for (let i = 0; i < blocks.length; i++) {
   const b = blocks[i];
+  // alte Layout-Tabelle: je Zeile ein Text und eine leere Zelle, die Fotos folgen danach -> Zickzack Text/Foto
+  if (b.t === 'table' && b.rows.length > 1 && b.rows.every((r: string[]) => r.length === 2 && r.filter((c) => strip(c)).length === 1)) {
+    const imgs = blocks.slice(i + 1, i + 1 + b.rows.length);
+    if (imgs.length === b.rows.length && imgs.every((x: B) => x.t === 'img')) {
+      out.push({ t: 'split', rows: b.rows.map((r: string[], k: number) => ({ html: strip(r[0]) ? r[0] : r[1], img: imgs[k], flip: !strip(r[0]) })) });
+      i += b.rows.length; continue;
+    }
+  }
+  // einzelne Textzelle mit Bild danach -> Karte Text + Bild
+  if (b.t === 'table' && b.rows.length === 1 && b.rows[0].length === 1 && blocks[i + 1]?.t === 'img') {
+    out.push({ t: 'promo', html: b.rows[0][0], img: blocks[i + 1] }); i++; continue;
+  }
   const small = b.t === 'img' && b.w < 420;
   if (small && b.href && blocks[i + 1]?.t === 'p') {
     const card = { t: 'card', img: b, html: blocks[i + 1].html }; i++;
@@ -45,6 +57,22 @@ const isSmall = (b: B) => b.t === 'img' && b.w < 520 && !b.href;
   if (b.t === 'cards') return (
     <div class="logos">
       {b.items.map((c: B) => <div class="logo"><a href={c.img.href} target="_blank" rel="noopener" class="lg"><img src={c.img.sm} alt="" loading="lazy" /></a><p set:html={c.html} /></div>)}
+    </div>
+  );
+  if (b.t === 'split') return (
+    <div class="zz">
+      {b.rows.map((r: B) => (
+        <div class:list={['zz-row', { flip: r.flip }]}>
+          <p set:html={r.html.replace(/^(<br\s*\/?>|\s)+/, '')} />
+          <figure><img src={r.img.sm} alt={r.img.alt} loading="lazy" width={r.img.w} height={r.img.h} /></figure>
+        </div>
+      ))}
+    </div>
+  );
+  if (b.t === 'promo') return (
+    <div class="promo">
+      <img src={b.img.sm} alt={b.img.alt} loading="lazy" width={b.img.w} height={b.img.h} />
+      <p set:html={b.html.replace(/<strong>([^<]*?):?<\/strong>\s*<br\s*\/?>/, '<strong class="promo-h">$1</strong>')} />
     </div>
   );
   if (b.t === 'table') return (

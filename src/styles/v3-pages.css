@@ -68,3 +68,5 @@
 .t-v3 .evlayout .evs .when strong.dt .d { border-radius: 10px; }
 .t-v3 .evs img { border-radius: 10px; }
 @media (max-width: 700px) { .t-v3 .page-hero .plate-h { margin-right: 16px; margin-left: 16px; margin-bottom: 16px; } }
+.t-v3 .promo { background: #fff; box-shadow: var(--card); border-radius: var(--rr); }
+.t-v3 .promo img { border-radius: 8px; }

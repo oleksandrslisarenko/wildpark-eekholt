@@ -1412,3 +1412,21 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
 .slots li[data-state="upcoming"] span { color: inherit; }
 .v12 .slots li[data-state="upcoming"] .ico { color: var(--lime); }
 .slots li[data-state="upcoming"]::before { color: var(--lime); }
+/* Zickzack Text/Foto aus alten Layout-Tabellen */
+.zz { display: grid; gap: clamp(28px, 4vw, 48px); margin: 2em 0; }
+.zz-row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: center; }
+.zz-row p { margin: 0; }
+.zz-row figure { margin: 0; }
+.zz-row img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.zz-row.flip figure { order: -1; }
+/* Karte Text + Bild */
+.promo { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: center; background: var(--mist); padding: 22px; margin: 2em 0; }
+.promo img { width: 100%; height: auto; display: block; box-shadow: 0 10px 20px -12px rgba(0,0,0,.45); }
+.promo p { margin: 0; }
+.promo-h { display: block; font-size: 22px; letter-spacing: -.01em; margin-bottom: 6px; }
+@media (max-width: 700px) {
+  .zz-row { grid-template-columns: 1fr; gap: 14px; }
+  .zz-row figure, .zz-row.flip figure { order: -1; }
+  .promo { grid-template-columns: 96px 1fr; gap: 16px; padding: 16px; }
+}
+.pn a { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
