@@ -1,0 +1,5 @@
+---
+export function getStaticPaths() { return ['v12', 'v3'].map((v) => ({ params: { v } })); }
+// alte Adresse des Wolf-Entwurfs
+return Astro.redirect(`/${Astro.params.v}/tiere/wolf/`);
+---

@@ -1,0 +1,70 @@
+/* Entwurf 2 „Revier“: Unterseiten. Gleiche Vorlagen wie Entwurf 1, aber im Charakter der Revier-Startseite:
+   gerundete Flächen, weiße Karten mit weichem Schatten auf Nebelgrün, Etiketten als Pillen. Gilt nur mit body.t-v3. */
+.t-v3 { --rr: 14px; --mist: #EEF0DC; --card: 0 1px 0 #E3E5D3, 0 14px 30px -22px rgba(30, 32, 10, .45); }
+
+/* Grundformen */
+.t-v3 .btn, .t-v3 .langdd > button, .t-v3 .setmenu, .t-v3 .tools .tix { border-radius: 12px; }
+.t-v3 .foot input, .t-v3 .foot .btn, .t-v3 .foot img { border-radius: 10px; }
+:where(.t-v3) main img { border-radius: var(--rr); }
+:where(.t-v3) main .ico, :where(.t-v3) main .ico svg { border-radius: 0; }
+
+/* Kopf der Unterseite: als eingelassene Kartentafel, wie die Startseiten-Karte */
+.t-v3 .ph12 { margin: 14px clamp(10px, 1.6vw, 22px) 0; border-radius: 26px; overflow: hidden; }
+.t-v3 .page-hero { margin: 14px clamp(10px, 1.6vw, 22px) 0; border-radius: 26px; }
+.t-v3 .page-hero .plate-h { border-radius: 20px; margin-bottom: 26px; }
+.t-v3 .crumbs a { text-decoration-thickness: 1.5px; }
+
+/* Karten: weiß mit weichem Schatten statt harter Rahmen */
+.t-v3 .hours article { border: 0; background: #fff; box-shadow: var(--card); border-radius: var(--rr); }
+.t-v3 .hours article.current { background: var(--lime); box-shadow: none; }
+.t-v3 .hours article.current::after { border-radius: 999px; padding-inline: 10px; }
+.t-v3 .family, .t-v3 .feedcard, .t-v3 .patencard, .t-v3 .pdfcard, .t-v3 .cbox, .t-v3 .cform, .t-v3 .archive,
+.t-v3 .notice, .t-v3 .duo .tel, .t-v3 .rules12 li, .t-v3 .fact { border-radius: var(--rr); }
+.t-v3 .rules12 li, .t-v3 .fact { background: #fff; box-shadow: var(--card); }
+.t-v3 .annual12 .card { border-radius: var(--rr); }
+.t-v3 .annual12 .card img { border-radius: 0; }
+.t-v3 .duo article { border-radius: var(--rr); overflow: hidden; }
+
+/* Kacheln und Listen */
+.t-v3 .hub a { background: #fff; border-radius: var(--rr); box-shadow: var(--card); }
+.t-v3 .hub a:hover { box-shadow: 0 0 0 3px var(--lime), 0 18px 30px -20px rgba(30, 32, 10, .5); }
+.t-v3 .hub a img, .t-v3 .hub .ph { border-radius: 0; }
+.t-v3 .dls a, .t-v3 .chips a { background: #fff; border-radius: 12px; box-shadow: var(--card); }
+.t-v3 .dls a:hover, .t-v3 .chips a:hover { background: var(--lime); }
+.t-v3 .abc a { border-radius: 10px; box-shadow: var(--card); }
+.t-v3 .zoo12 a { border-radius: var(--rr); }
+.t-v3 .zoo12 a img { border-radius: 0; }
+.t-v3 .zoo12 .name { left: 10px; bottom: 10px; border-radius: 10px; }
+.t-v3 .zoo12 a:hover { box-shadow: 0 0 0 4px var(--lime); }
+.t-v3 .az12 img { border-radius: 50%; }
+.t-v3 .gal img { border-radius: 10px; }
+
+/* Etiketten als Pillen, wie „Beliebt“ auf der Startseite */
+.t-v3 .tag, .t-v3 .evs .tag, .t-v3 main .feed, .t-v3 main mark { border-radius: 999px; padding-inline: 10px; }
+
+/* Tabellen und FAQ in Karten */
+.t-v3 .tbl { background: #fff; border-radius: var(--rr); box-shadow: var(--card); overflow: hidden; }
+.t-v3 .tbl tr:first-child td, .t-v3 .tbl th { border-top: 0; }
+.t-v3 .faq { border-top: 0; background: #fff; border-radius: var(--rr); box-shadow: var(--card); padding: 4px 20px; }
+.t-v3 .faq details:last-child { border-bottom: 0; }
+
+/* Termine: jede Veranstaltung als Karte */
+.t-v3 .evs li { border-top: 0; background: #fff; border-radius: var(--rr); box-shadow: var(--card); padding: 22px; margin-bottom: 14px; }
+.t-v3 .evs li img { border-radius: 10px; }
+
+/* Seitennavigation: aktiver Punkt als Pille */
+.t-v3 .cp-nav ul { border-left: 0; display: grid; gap: 2px; }
+.t-v3 .cp-nav a { border-left: 0; margin-left: 0; padding: 8px 14px; border-radius: 10px; }
+.t-v3 .cp-nav a:hover { background: var(--mist); }
+.t-v3 .cp-nav a[aria-current] { background: var(--lime); padding-left: 14px; }
+
+/* Formulare */
+.t-v3 .field input, .t-v3 .field textarea, .t-v3 .field select { border-radius: 10px; }
+.t-v3 .sharedlg, .t-v3 .sharedlg .btn { border-radius: var(--rr); }
+
+@media (max-width: 700px) {
+  .t-v3 .ph12, .t-v3 .page-hero { margin: 8px 8px 0; border-radius: 20px; }
+}
+.t-v3 .evlayout .evs .when strong.dt .d { border-radius: 10px; }
+.t-v3 .evs img { border-radius: 10px; }
+@media (max-width: 700px) { .t-v3 .page-hero .plate-h { margin-right: 16px; margin-left: 16px; margin-bottom: 16px; } }

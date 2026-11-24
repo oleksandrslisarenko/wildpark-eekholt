@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/translate.mjs && pagefind --site dist",
+    "build": "astro build && node scripts/v3links.mjs && node scripts/translate.mjs && pagefind --site dist",
     "preview": "astro preview"
   },
   "dependencies": {

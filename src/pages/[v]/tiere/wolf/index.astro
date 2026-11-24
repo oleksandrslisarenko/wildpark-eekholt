@@ -10,8 +10,9 @@ const related = ['weisses_rotwild', 'otter', 'wildkatze', 'uhu'];
 const relName: Record<string, string> = { weisses_rotwild: 'Weißes Rotwild', otter: 'Fischotter', wildkatze: 'Wildkatze', uhu: 'Uhu' };
 const bar = (min: number, max: number, scale: number) => `left:${(min / scale) * 100}%;right:${100 - (max / scale) * 100}%`;
 const mon = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+export function getStaticPaths() { return ['v12', 'v3'].map((v) => ({ params: { v } })); }
 ---
-<L title="Wolf (Canis lupus) – Wildpark Eekholt" description="Steckbrief Wolf: Länge, Gewicht, Nahrung und Fortpflanzung. Wölfe erleben Sie im Wildpark Eekholt an der Wolfsmeile, Fütterung täglich 15:30 Uhr." active="tiere">
+<L variant={Astro.params.v as any} title="Wolf (Canis lupus) – Wildpark Eekholt" description="Steckbrief Wolf: Länge, Gewicht, Nahrung und Fortpflanzung. Wölfe erleben Sie im Wildpark Eekholt an der Wolfsmeile, Fütterung täglich 15:30 Uhr." active="tiere">
   <section class="page-hero">
     <img src="/img/wolf-hero-2000.webp" srcset="/img/wolf-hero-1200.webp 1200w, /img/wolf-hero-2000.webp 2000w" sizes="100vw" alt="Wolf liegt im Gras und schaut in die Kamera" style="object-position:50% 55%" />
     <div class="plate-h">

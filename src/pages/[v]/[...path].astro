@@ -9,10 +9,13 @@ import zoo from '../../data/zoo.json';
 import { sections, allItems, labelFor } from '../../data/nav';
 
 export function getStaticPaths() {
-  const animalUrls = new Set((zoo as any[]).map((a) => a.url));
-  const pages = (pagesRaw as any[]).filter((p) => !['/v12/', '/v12/veranstaltungen/', '/v12/besuch/', '/v12/tiere/'].includes(p.url) && !animalUrls.has(p.url));
-  const seen = new Set<string>();
-  return pages.filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))).map((p) => ({ params: { path: p.url.replace(/^\/v12\//, '').replace(/\/$/, '') }, props: { page: p } }));
+  function paths() {
+    const animalUrls = new Set((zoo as any[]).map((a) => a.url));
+    const pages = (pagesRaw as any[]).filter((p) => !['/v12/', '/v12/veranstaltungen/', '/v12/besuch/', '/v12/tiere/'].includes(p.url) && !animalUrls.has(p.url));
+    const seen = new Set<string>();
+    return pages.filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))).map((p) => ({ params: { path: p.url.replace(/^\/v12\//, '').replace(/\/$/, '') }, props: { page: p } }));
+  }
+  return ['v12', 'v3'].flatMap((v) => paths().map((x: any) => ({ ...x, params: { ...x.params, v } })));
 }
 const { page } = Astro.props as { page: any };
 const sec = sections.find((s) => s.id === page.section) || sections.find((s) => s.id === 'service')!;
@@ -35,7 +38,7 @@ const teaser = (u: string) => { const b = byUrl.get(u)?.blocks.find((x: any) => 
 const hubItems = isHub ? items.filter((i) => i.href !== page.url) : [];
 const crumbs = [{ label: 'Start', href: '/v12/' }, ...(sec.id !== 'service' && !isHub ? [{ label: sec.label, href: sec.href }] : [])];
 ---
-<L title={`${label} – Wildpark Eekholt`} description={page.description || strip(lead).slice(0, 155)} active={sec.href.replace('/v12/', '').replace(/\/$/, '')}>
+<L variant={Astro.params.v as any} title={`${label} – Wildpark Eekholt`} description={page.description || strip(lead).slice(0, 155)} active={sec.href.replace('/v12/', '').replace(/\/$/, '')}>
   <section class="ph12 cp-head">
     <div class="wrap">
       <div>

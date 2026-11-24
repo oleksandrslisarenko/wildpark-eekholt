@@ -12,8 +12,9 @@ const feeds = new Map(pois.filter((p) => p.feed && p.slug).map((p) => [p.slug!, 
 const groups = [...new Set(all.map((a) => a.name[0].toUpperCase()))];
 const schutz = sections.find((s) => s.id === 'tiere')!.groups[1].items;
 const big = (h: string) => h.replace('-1200.webp', '-700.webp').replace('/img/weisses-rotwild-700.webp', '/img/weisses-rotwild-640.webp');
+export function getStaticPaths() { return ['v12', 'v3'].map((v) => ({ params: { v } })); }
 ---
-<L title="Unsere Tiere – Wildpark Eekholt" description="Über 100 Arten mit mehr als 700 Tieren: Wolf, Fischotter, Wildkatze, Seeadler und viele mehr. Steckbriefe von A bis Z." active="tiere">
+<L variant={Astro.params.v as any} title="Unsere Tiere – Wildpark Eekholt" description="Über 100 Arten mit mehr als 700 Tieren: Wolf, Fischotter, Wildkatze, Seeadler und viele mehr. Steckbriefe von A bis Z." active="tiere">
   <section class="ph12">
     <div class="wrap">
       <div>

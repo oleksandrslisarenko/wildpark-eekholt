@@ -9,8 +9,9 @@ const past = events.filter((e) => (lastDate(e) || '') < iso);
 const byMonth = MONTHS_LONG.map((name, i) => ({ name, items: past.filter((e) => e.m === i + 1) })).filter((g) => g.items.length).reverse();
 const dateText = (d: string) => d.replace(/ und /g, ', ').replace(/Vsl\. /, 'voraussichtl. ');
 const short = (e: typeof events[number]) => (e.dates[0] || '').slice(8, 10) + '.' + (e.dates[0] || '').slice(5, 7) + '.';
+export function getStaticPaths() { return ['v12', 'v3'].map((v) => ({ params: { v } })); }
 ---
-<L title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026: Wolfsnächte, Eulentag, Dunkel-Munkel-Nächte, Weihnachtsmarkt und mehr. Im Eintritt enthalten." active="veranstaltungen">
+<L variant={Astro.params.v as any} title="Veranstaltungen 2026 – Wildpark Eekholt" description="Alle Veranstaltungen im Wildpark Eekholt 2026: Wolfsnächte, Eulentag, Dunkel-Munkel-Nächte, Weihnachtsmarkt und mehr. Im Eintritt enthalten." active="veranstaltungen">
   <section class="ph12">
     <div class="wrap">
       <div>

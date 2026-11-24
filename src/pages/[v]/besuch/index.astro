@@ -9,8 +9,9 @@ const cur = m >= 3 && m <= 10 ? 'sommer' : 'winter';
 const ordered = [...seasons].sort((a, b) => (a.id === cur ? -1 : b.id === cur ? 1 : 0));
 const feedIcon: Record<string, string> = { 'Fischotter': 'otter', 'Baummarder': 'marder', 'Füchse, Dachse und Steinmarder': 'fuchs', 'Störche': 'storch', 'Wolf': 'wolf' };
 const ruleIcons = ['hund', 'pfote', 'verbot', 'karre'];
+export function getStaticPaths() { return ['v12', 'v3'].map((v) => ({ params: { v } })); }
 ---
-<L title="Preise und Öffnungszeiten – Wildpark Eekholt" description="Eintrittspreise, Jahreskarten, Gruppenpreise und Einlasszeiten des Wildpark Eekholt. Täglich und ganzjährig geöffnet." active="besuch">
+<L variant={Astro.params.v as any} title="Preise und Öffnungszeiten – Wildpark Eekholt" description="Eintrittspreise, Jahreskarten, Gruppenpreise und Einlasszeiten des Wildpark Eekholt. Täglich und ganzjährig geöffnet." active="besuch">
   <section class="ph12">
     <div class="wrap">
       <div>
