@@ -8,7 +8,8 @@ import SettingsDD from '../components/SettingsDD.astro';
 import Loader from '../components/Loader.astro';
 import Ext from '../components/Ext.astro';
 import { contact } from '../data/site';
-const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '' } = Astro.props;
+const { title, description = 'Naturerlebnisstätte Wildpark Eekholt: über 700 heimische Wildtiere auf 67 Hektar zwischen Bad Bramstedt und Bad Segeberg. Ganzjährig geöffnet.', active = '', variant = 'v12' } = Astro.props;
+const protoName = variant === 'v2' ? 'Entwurf 2' : variant === 'v3' ? 'Entwurf 3' : 'Entwurf 1';
 const base = '/v12';
 const nav = [
   { label: 'Start', href: '' },
@@ -21,7 +22,7 @@ const nav = [
   { label: 'Unterstützen', href: null },
   { label: 'Kontakt', href: '#kontakt' },
 ];
-const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : h ? `${base}/${h}/` : `${base}/`);
+const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : h ? `${base}/${h}/` : `/${variant}/`);
 ---
 <!doctype html>
 <html lang="de" class="pt-holz">
@@ -34,11 +35,11 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   <meta name="robots" content="noindex" />
   <link rel="icon" href="/img/eagle.svg" />
 </head>
-<body class="v12">
+<body class={`v12 ${variant !== 'v12' ? 't-' + variant : ''}`}>
   <Loader />
   <a class="skip" href="#main">Zum Inhalt</a>
   <header class="top">
-    <a class="brand" href={`${base}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="58" height="61" /></a>
+    <a class="brand" href={`/${variant}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="58" height="61" /></a>
     <nav class="mainnav" aria-label="Hauptnavigation">
       <ul>
         {nav.map((n) => (
@@ -49,7 +50,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     <div class="tools">
       <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <LangDD />
-      <SettingsDD />
+      <SettingsDD hero={variant === 'v12'} />
       <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
     </div>
@@ -61,7 +62,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     <p class="drawer-status" data-live="status">Ganzjährig geöffnet</p>
     <a class="btn ink" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
   </div>
-  <main id="main" data-pagefind-body data-pagefind-filter="variant:v12"><slot /></main>
+  <main id="main" data-pagefind-body data-pagefind-filter={`variant:${variant}`}><slot /></main>
   <footer class="foot" id="kontakt">
     <div class="foot-grid">
       <div>
@@ -91,7 +92,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
       <span>© 2026 Wildpark Eekholt</span>
       <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Barrierefreiheit</a><a href="#">Inhaltsverzeichnis</a>
       <span class="credits">Icons: <a href="https://openmoji.org" rel="noopener" target="_blank">OpenMoji</a> (CC BY-SA 4.0), <a href="https://khushmeen.com/icons.html" rel="noopener" target="_blank">Doodle Icons</a> (CC0), <a href="https://github.com/oreo-design/doodle-icons" rel="noopener" target="_blank">Oreo Doodle Icons</a> (MIT), Silhouetten in den Mustern: <a href="https://game-icons.net" rel="noopener" target="_blank">game-icons.net</a> (CC BY 3.0)</span>
-      <span class="proto">Entwurf 1.2 · <a href="/">Alle Entwürfe</a></span>
+      <span class="proto">{protoName} · <a href="/">Alle Entwürfe</a></span>
     </div>
   </footer>
   <dialog class="searchdlg" data-searchdlg>
@@ -146,6 +147,35 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     }
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.25 });
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    // Blöcke und ihre Elemente erscheinen beim Scrollen nacheinander
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const ITEM = 'h1,h2,h3,h4,p,li,figure,article,table,img,picture,dl,details,form,blockquote,.btn,.card,[data-rv-item]';
+      const SKIP = '.hx, .ldr, .ticker, .ph12 .illu, [data-rv-skip], dialog, svg';
+      const sections = [...document.querySelectorAll<HTMLElement>('main > section, main > div, main > article, footer.foot > div')].filter((s) => !s.matches(SKIP));
+      const rio = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const s = e.target as HTMLElement; rio.unobserve(s); s.classList.add('rv-in');
+        // nach dem Erscheinen die Verzögerung wieder entfernen, damit Hover sofort reagiert
+        setTimeout(() => s.querySelectorAll('.rv-i').forEach((el) => el.classList.remove('rv-i')), 1600);
+      }), { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+      sections.forEach((sec) => {
+        const items: HTMLElement[] = [];
+        const walk = (el: Element, depth: number) => {
+          for (const c of el.children) {
+            const h = c as HTMLElement;
+            if (h.matches(SKIP) || h.closest(SKIP)) continue;
+            if (h.matches(ITEM)) { items.push(h); continue; }
+            if (depth < 6) walk(h, depth + 1);
+          }
+        };
+        walk(sec, 0);
+        if (!items.length) return;
+        const r = sec.getBoundingClientRect();
+        if (r.top < innerHeight * 0.9 && r.bottom > 0) return; // schon sichtbar: nichts verstecken
+        items.slice(0, 40).forEach((el, i) => { el.classList.add('rv-i'); el.style.setProperty('--rd', `${Math.min(i, 12) * 70}ms`); });
+        rio.observe(sec);
+      });
+    }
   </script>
 </body>
 </html>

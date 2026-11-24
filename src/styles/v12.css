@@ -1180,3 +1180,30 @@ html.ldr-lock { overflow: hidden; }
 .ldr-bird { transform-box: fill-box; transform-origin: center; }
 .ldr[data-v="1"].go .ldr-wipe { transform-box: fill-box; transform-origin: top; }
 .ldr[data-v="1"].out { clip-path: inset(0 0 100% 0); opacity: 1; }
+
+/* ===== Erscheinen beim Scrollen + Mikroanimationen ===== */
+.rv-i { opacity: 0; translate: 0 22px; }
+.rv-in .rv-i { opacity: 1; translate: 0 0; transition: opacity .7s var(--ease) var(--rd, 0ms), translate .8s var(--ease) var(--rd, 0ms); }
+.rv-in img.rv-i, .rv-in figure.rv-i { translate: 0 0; clip-path: inset(0); transition: opacity .8s var(--ease) var(--rd), clip-path 1s var(--ease) var(--rd); }
+img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .2s, color .2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 -2px rgba(28,28,26,.9); }
+  .btn:active { transform: translateY(1px); box-shadow: none; }
+  .btn .ext, .btn svg { transition: transform .25s var(--ease); }
+  .btn:hover .ext, .btn:hover > svg:last-child { transform: translate(2px, -2px); }
+  main a:not(.btn) img { transition: transform .8s var(--ease); }
+  main a:not(.btn):hover img { transform: scale(1.04); }
+  main a:not(.btn):has(img) { overflow: hidden; }
+  .ico { transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+  a:hover > .ico, button:hover > .ico, li:hover > .ico, a:hover .ico:first-child { transform: rotate(-6deg) scale(1.08); }
+  .mainnav a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size .3s var(--ease); }
+  .mainnav a:hover { background-size: 100% 2px; }
+  details summary { transition: color .2s; }
+  .tools .search svg { transition: transform .3s var(--ease); }
+  .tools .search:hover svg { transform: rotate(-12deg) scale(1.1); }
+  .brand img { transition: transform .4s cubic-bezier(.3,1.6,.5,1); }
+  .brand:hover img { transform: rotate(-4deg); }
+}
+:lang(ru) .mainnav ul { gap: 0; }
+:lang(ru) .mainnav a, :lang(ru) .mainnav .soon { font-size: 14.5px; padding: 10px 8px; }

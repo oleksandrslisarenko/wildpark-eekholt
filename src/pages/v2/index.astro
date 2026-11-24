@@ -1,0 +1,153 @@
+---
+import L from '../../layouts/V12.astro';
+import Icon from '../../components/Icon.astro';
+import Ext from '../../components/Ext.astro';
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/nunito';
+import '../../styles/v2.css';
+import { img, highlights, prices, fmt, contact } from '../../data/site';
+import { upcoming, dayLabel, cleanTime, slotsToday, eventPhoto, flightSeason } from '../../data/helpers';
+const ev = upcoming(3);
+const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
+const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
+const pets = [
+  { name: 'Wildkatze', note: 'scheu, aber neugierig', f: 'katze-3', tall: true },
+  { name: 'Fischotter', note: 'immer in Bewegung', f: 'otter-2' },
+  { name: 'Uhu', note: 'unsere größte Eule', f: 'eule-2' },
+  { name: 'Rotfuchs', note: 'schlau und flink', f: 'fuchs-2', tall: true },
+  { name: 'Wolf', note: 'im großen Rudelgehege', f: 'wolf-2' },
+  { name: 'Seeadler', note: 'König der Lüfte', f: 'adler-2' },
+];
+---
+<L title="Wildpark Eekholt: 700 heimische Wildtiere auf 67 Hektar" variant="v2" active="">
+  <section class="w-hero pt-target">
+    <div class="w-hero-in">
+      <div class="w-text">
+        <p class="w-pill"><span class="dot"></span><span data-live="status">Täglich geöffnet</span></p>
+        <h1>Ein Tag voller Tiere, mitten im Grünen</h1>
+        <p class="lede">700 heimische Wildtiere auf 67 Hektar Wald, Wiese und Moor. Zwischen Bad Bramstedt und Bad Segeberg, eine knappe Stunde von Hamburg.</p>
+        <div class="w-cta">
+          <a class="w-btn lime" href="/v12/besuch/">Besuch planen</a>
+          <a class="w-btn line" href="/v12/tier/">Tiere entdecken</a>
+        </div>
+      </div>
+      <div class="w-photos" aria-hidden="true">
+        <img class="b1" src={P('katze-1', 1200)} alt="" fetchpriority="high" />
+        <img class="b2" src={P('otter-1')} alt="" />
+        <img class="b3" src={P('eule-1')} alt="" />
+        <svg class="w-badge" viewBox="0 0 200 200"><defs><path id="wcirc" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs><circle cx="100" cy="100" r="98" /><text><textPath href="#wcirc">NaturErlebnisse seit über 50 Jahren · Wildpark Eekholt ·</textPath></text></svg>
+        <span class="w-doodle d1"><Icon name="herz" set="h" /></span>
+        <span class="w-doodle d2"><Icon name="blatt" set="h" /></span>
+        <span class="w-doodle d3"><Icon name="pfote" set="h" /></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-today">
+    <div class="w-wrap">
+      <div class="w-head">
+        <h2>Heute im Park</h2>
+        <p>{flightSeason() ? 'Fütterungen und Flugvorführungen zum Zuschauen' : 'Öffentliche Fütterungen zum Zuschauen. Flugvorführungen wieder ab 14. März 2027.'}</p>
+      </div>
+      <ol class="w-slots">
+        {slotsToday().map((s) => <li data-slot={s.time} data-kind={s.kind}><span class="ic"><Icon name={feedIcon[s.time] || 'adler'} /></span><time>{s.time}</time><span class="what">{s.what}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="w-sec">
+    <div class="w-wrap">
+      <div class="w-head row">
+        <h2>Bald im Wildpark</h2>
+        <a class="w-more" href="/v12/veranstaltungen/">Alle 28 Termine 2026</a>
+      </div>
+      <div class="w-events">
+        {ev.map((e) => { const d = dayLabel(e.next); return (
+          <a href="/v12/veranstaltungen/">
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="w-date"><b>{d.day}</b><small data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.monLong}</small></span></figure>
+            <div>
+              <p class="when">{d.wd} · {cleanTime(e.time)}</p>
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
+            </div>
+          </a>
+        ); })}
+      </div>
+    </div>
+  </section>
+
+  <section class="w-sec soft">
+    <div class="w-wrap">
+      <div class="w-head row">
+        <h2>Unsere Lieblinge</h2>
+        <a class="w-more" href="/v12/tier/">Alle Tiere von A bis Z</a>
+      </div>
+      <div class="w-pets">
+        {pets.map((p) => (
+          <a class={p.tall ? 'tall' : ''} href="/v12/tier/">
+            <img src={P(p.f)} alt={p.name} loading="lazy" />
+            <span><b>{p.name}</b><small>{p.note}</small></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="w-sec">
+    <div class="w-wrap w-trio">
+      <article class="sage">
+        <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
+        <h2>Eekholter Wolfsmeile</h2>
+        <p>{highlights.wolfsmeile}</p>
+        <a class="w-btn ink" href="#">Zur Wolfsmeile</a>
+      </article>
+      <article class="peach">
+        <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
+        <h2>Vogelpflegestation</h2>
+        <p>{highlights.pflegestation}</p>
+        <p class="tel">{highlights.pflegeTel}</p>
+      </article>
+      <article class="lime">
+        <img src={img('wildkatzen', 1200)} alt="Junge Wildkatzen auf einem Baumstamm" loading="lazy" />
+        <h2>Tierpatenschaften</h2>
+        <p>{highlights.paten} Firmen können ebenfalls Pate werden.</p>
+        <a class="w-btn ink" href={contact.paten} rel="noopener" target="_blank">Pate werden <Ext /></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="w-sec soft">
+    <div class="w-wrap">
+      <div class="w-head row">
+        <h2>Eintritt</h2>
+        <a class="w-more" href="/v12/besuch/">Alle Preise, Gruppen und Grillplätze</a>
+      </div>
+      <div class="w-prices">
+        <div><Icon name="ticket" set="h" /><strong>{fmt(prices.single[0].price)}</strong><span>Erwachsene</span></div>
+        <div><Icon name="pfote" set="h" /><strong>{fmt(prices.single[2].price)}</strong><span>Kinder 4–16 Jahre</span></div>
+        <div><Icon name="herz" set="h" /><strong>{fmt(prices.family.price)}</strong><span>Familien-Tageskarte</span></div>
+        <div><Icon name="stern" set="h" /><strong>frei</strong><span>Kinder unter 4 Jahren</span></div>
+      </div>
+      <div class="w-annual">
+        <img src="/img/jahreskarten-2027.webp" alt="Die vier Jahreskarten 2027: Erwachsene, Familien, Großeltern, Kinder" loading="lazy" />
+        <div>
+          <h3>Jahreskarte 2027: 13 Monate zum Preis von 12</h3>
+          <p>{prices.annualNote}</p>
+          <a class="w-btn lime" href={contact.shopJk} rel="noopener" target="_blank">Im Onlineshop bestellen <Ext /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-sec">
+    <div class="w-wrap">
+      <div class="w-head"><h2>Für wen planen Sie?</h2></div>
+      <div class="w-paths">
+        <a href="#"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
+        <a href="#"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
+        <a href="#"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
+        <a href="#"><img src={img('grillkota', 640)} alt="" loading="lazy" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
+      </div>
+    </div>
+  </section>
+</L>

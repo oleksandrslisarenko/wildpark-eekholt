@@ -1,13 +1,14 @@
 ---
 // Entwurfs-Einstellungen: Hero-Variante und Hintergrundmuster der Startseite
+const { hero = true } = Astro.props;
 const heroes = [['3', '1'], ['4', '2'], ['8', '3']];
 const pats = [['none', 'Ohne'], ['topo', 'Topo'], ['holz', 'Holz'], ['ringe', 'Ringe']];
 ---
 <div class="langdd setdd" data-setdd>
   <button type="button" class="gear" aria-haspopup="true" aria-expanded="false" aria-label="Einstellungen" title="Einstellungen"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M10.3 2.6h3.4l.5 2.6 1.9.8 2.2-1.5 2.4 2.4-1.5 2.2.8 1.9 2.6.5v3.4l-2.6.5-.8 1.9 1.5 2.2-2.4 2.4-2.2-1.5-1.9.8-.5 2.6h-3.4l-.5-2.6-1.9-.8-2.2 1.5-2.4-2.4 1.5-2.2-.8-1.9-2.6-.5v-3.4l2.6-.5.8-1.9-1.5-2.2 2.4-2.4 2.2 1.5 1.9-.8z"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
   <div class="setmenu" role="group" aria-label="Einstellungen">
-    <p>Hero</p>
-    <div class="seg">{heroes.map(([v, l]) => <button type="button" data-hv={v} aria-pressed="false">{l}</button>)}</div>
+    {hero && <p>Hero</p>}
+    {hero && <div class="seg">{heroes.map(([v, l]) => <button type="button" data-hv={v} aria-pressed="false">{l}</button>)}</div>}
     <p>Hintergrund</p>
     <div class="seg">{pats.map(([v, l]) => <button type="button" data-pt={v} aria-pressed="false">{l}</button>)}</div>
     <p>Ladeanimation</p>

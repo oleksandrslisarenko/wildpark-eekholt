@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/v1", "destination": "/v12/", "permanent": false },
+    { "source": "/v1/:path*", "destination": "/v12/:path*", "permanent": false },
+    { "source": "/ru/v1/:path*", "destination": "/ru/v12/:path*", "permanent": false }
+  ]
+}
