@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://www.wildpark-eekholt.de',
-  build: { format: 'directory' },
+  build: { format: 'directory', inlineStylesheets: 'always' },
   trailingSlash: 'ignore',
 });
