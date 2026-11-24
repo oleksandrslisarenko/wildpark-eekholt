@@ -1063,3 +1063,12 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv4 .hx-eagle { top: -72px; }
 .hv1 .hx-eagle { right: calc(clamp(-120px, -7vw, -70px) + 100px); }
 .hv1 .hx-eagle { top: -40px; }
+.hx.pt-topo { background-image: url(/img/pattern-topo.svg); }
+.hx.pt-holz, .hx.pt-holzhell, .hx.pt-ringe, .hx.pt-ringehell { background-size: cover; background-position: center; }
+.hx.pt-holz { background-image: url(/img/pattern-holz.svg); }
+.hx.pt-holzhell { background-image: url(/img/pattern-holz-hell.svg); }
+.hx.pt-ringe { background-image: url(/img/pattern-ringe.svg); }
+.hx.pt-ringehell { background-image: url(/img/pattern-ringe-hell.svg); }
+/* 7: runde Tier-Navigation waagerecht unten rechts */
+.hv7 .hx-thumbs { flex-direction: row; align-items: center; align-self: end; justify-self: end; margin: 0 clamp(18px, 2.4vw, 36px) 26px 0; gap: 12px; }
+.hv7 .hx-cap { bottom: auto; top: 14px; left: 16px; }

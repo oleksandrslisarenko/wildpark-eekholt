@@ -122,9 +122,9 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
   </section>
   <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
     <div><span>Hero</span>
-    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}</div>
+    {[1, 3, 4, 7, 8].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}</div>
     <div><span>Muster</span>
-    {[['auto', 'Auto'], ['none', 'Ohne'], ['topo', 'Topo'], ['topohell', 'Topo hell'], ['schnitt', 'Schnitt'], ['folk', 'Folk'], ['toile', 'Linie'], ['doodle', 'Doodle']].map(([v, l]) => <button type="button" class="w" data-pt={v} aria-pressed={v === 'auto' ? 'true' : 'false'}>{l}</button>)}</div>
+    {[['none', 'Ohne'], ['topo', 'Topo'], ['topohell', 'Topo hell'], ['holz', 'Holz'], ['holzhell', 'Holz hell'], ['ringe', 'Ringe'], ['ringehell', 'Ringe hell']].map(([v, l]) => <button type="button" class="w" data-pt={v} aria-pressed="false">{l}</button>)}</div>
   </div>
 
   <section class="today" aria-labelledby="today-h">
@@ -319,20 +319,22 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     };
     const q = new URLSearchParams(location.search).get('hero');
     let saved: string | null = null; try { saved = localStorage.getItem('wp-hv'); } catch {}
-    setHv(q && /^[1-9]$/.test(q) ? q : saved && /^[1-9]$/.test(saved) ? saved : '1');
+    setHv(q && /^[13478]$/.test(q) ? q : saved && /^[13478]$/.test(saved) ? saved : '1');
     sw.querySelectorAll<HTMLButtonElement>('[data-hv]').forEach((b) => b.addEventListener('click', () => { setHv(b.dataset.hv!); applyPt(); }));
     // Hintergrundmuster (nur Entwurf): auto = Standard der Variante
     const ptDefault: Record<string, string> = { '8': 'topo', '9': 'schnitt' };
-    let pt = 'auto'; try { pt = localStorage.getItem('wp-pt') || 'auto'; } catch {}
+    const PTS = ['none', 'topo', 'topohell', 'holz', 'holzhell', 'ringe', 'ringehell'];
+    let pt = 'auto'; try { pt = localStorage.getItem('wp-pt2') || 'auto'; } catch {}
+    if (pt !== 'auto' && !PTS.includes(pt)) pt = 'auto';
     const qp = new URLSearchParams(location.search).get('muster'); if (qp) pt = qp;
     function applyPt() {
       hero.classList.remove(...[...hero.classList].filter((c) => c.startsWith('pt-')));
       const hv = [...hero.classList].find((c) => /^hv\d$/.test(c))!.slice(2);
       const eff = pt === 'auto' ? ptDefault[hv] || 'none' : pt;
       if (eff !== 'none') hero.classList.add('pt-' + eff);
-      sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
+      sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === eff)));
     }
-    sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt', pt); } catch {} applyPt(); }));
+    sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt2', pt); } catch {} applyPt(); }));
     applyPt();
   </script>
 </L>
