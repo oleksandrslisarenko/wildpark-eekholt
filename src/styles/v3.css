@@ -305,3 +305,69 @@ main .r-zoo2 a:hover img { transform: none; }
   .r-today li { align-items: center; }
 }
 .t-v3 .ev3 figure { aspect-ratio: auto !important; height: 250px; } .t-v3 .ev3 figure img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ===== Revier, Runde 4 ===== */
+/* Fotostreifen: doppelt so groß, ohne Abstände, bündig am Hero-Ende */
+.r-strip { padding: 0; }
+.r-strip .track { gap: 0; animation-duration: 120s; }
+.r-strip img { width: 200px; height: 200px; border-radius: 0 !important; }
+.r-strip img:hover { transform: none; filter: brightness(1.08); }
+/* Hero 2: Pfote aus sechs Fotos */
+.hvr2 .r-blobs { height: 500px; }
+.blob.b1 { width: 50%; height: 50%; left: 25%; top: 46%; border-radius: 50% 50% 46% 54% / 58% 58% 42% 42%; }
+.blob.b2 { width: 21%; height: 29%; left: 4%; top: 22%; border-radius: 50%; }
+.blob.b3 { width: 22%; height: 31%; left: 25%; top: 3%; border-radius: 50%; }
+.blob.b4 { width: 22%; height: 31%; left: 52%; top: 3%; border-radius: 50%; }
+.blob.b5 { width: 21%; height: 29%; left: 74%; top: 22%; border-radius: 50%; }
+.blob.b6 { width: 12%; height: 16%; left: 82%; top: 62%; border-radius: 50%; animation-delay: -5s, -3s; }
+.blob.b2, .blob.b3, .blob.b4, .blob.b5, .blob.b6 { animation-name: morph2, drift; }
+@keyframes morph2 { 50% { border-radius: 46% 54% 52% 48% / 55% 50% 50% 45%; } 100% { border-radius: 54% 46% 48% 52% / 46% 54% 46% 54%; } }
+/* Hero 2: Zahlen als einzelne Karten */
+.hvr2 .r-stats2 { gap: 12px; box-shadow: none; }
+.hvr2 .r-stats2 li { border: 0; padding: 24px 22px 22px; box-shadow: 0 16px 34px -16px rgba(0,0,0,.35); }
+/* Heute: über die volle Inhaltsbreite, quadratische Fotos */
+.r-today { display: flex; justify-content: space-between; gap: 12px; }
+.r-today li { flex: 0 0 auto; width: 150px; }
+.r-today li:first-child { align-items: flex-start; text-align: left; }
+.r-today li:last-child { align-items: flex-end; text-align: right; }
+.r-today::before { left: 60px; right: 60px; }
+.r-today .pic { border-radius: 22px; }
+/* Veranstaltungen: Datum senkrecht im Textblock */
+.t-v3 .ev3 .date { display: none; }
+.t-v3 .ev3 .body { display: grid; grid-template-columns: 74px 1fr; gap: 18px; padding: 22px 22px 24px; align-items: start; }
+.vdate { background: var(--lime); display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 6px 12px; line-height: 1.1; }
+.vdate i { font-style: normal; font-size: 13px; font-weight: 700; }
+.vdate b { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1; margin: 4px 0 2px; }
+.vdate small { font-size: 15px; font-weight: 700; }
+.vdate > span { font-size: 12px; font-weight: 600; margin-top: 8px; padding-top: 6px; border-top: 2px solid var(--ink); }
+.t-v3 .ev3 h3 { font-size: 22px; margin: 2px 0 8px; }
+/* Tiere: Etikett gerade und größer, Fix für Mehr anzeigen */
+.r-zoo2 em { rotate: 0deg; font-size: 13.5px; padding: 5px 10px; top: 6px; right: 0; box-shadow: none; border-radius: 999px; }
+.r-zoo2 li.xtra { display: none; }
+.r-zoo2.all li.xtra { display: block; animation: rise .5s var(--ease) both; }
+/* Alle Ecken gerundet */
+.t-v3 { --rr: 14px; }
+.t-v3 .btn, .t-v3 .langdd > button, .t-v3 .setmenu, .t-v3 .tools .tix { border-radius: 12px; }
+.t-v3 .r-pill { border-radius: 999px; }
+.t-v3 .r-stats2 li { border-radius: var(--rr); }
+.t-v3 .hvr1 .r-stats2 li { border-radius: var(--rr); }
+.t-v3 .mapview, .t-v3 .legend, .t-v3 .mapcard, .t-v3 .mapzoom button { border-radius: var(--rr); }
+.t-v3 .ev3 a { border-radius: var(--rr); overflow: hidden; }
+.t-v3 .vdate { border-radius: 10px; }
+.t-v3 .tk { border-radius: var(--rr); }
+.t-v3 .tk.jk, .t-v3 .tk.jk img { border-radius: var(--rr); }
+.t-v3 .r-tri article { border-radius: var(--rr); }
+.t-v3 .r-for img { border-radius: var(--rr); }
+.t-v3 .r-for .ico { border-radius: 50%; }
+.t-v3 .foot input, .t-v3 .foot .btn { border-radius: 10px; }
+.t-v3 .foot img { border-radius: 10px; }
+.t-v3 .r-cal .month, .t-v3 .r-evpanel { border-radius: var(--rr); }
+.t-v3 .more { border-radius: 0; }
+.t-v3 .r-mapinfo .ico { border-radius: 0; }
+@media (max-width: 900px) {
+  .r-strip img { width: 140px; height: 140px; }
+  .r-today { flex-wrap: wrap; justify-content: space-between; }
+  .r-today li { width: 30%; align-items: center !important; text-align: center !important; }
+  .r-today::before { display: none; }
+  .hvr2 .r-stats2 { gap: 8px; }
+}

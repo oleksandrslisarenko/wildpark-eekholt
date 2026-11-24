@@ -9,7 +9,7 @@ import { slotsToday, flightSeason, upcoming, dayLabel, cleanTime, eventPhoto } f
 import zoo from '../../data/zoo.json';
 const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
 // Hero 2: vier Foto-Wolken, die Fotos wechseln
-const blobs = [['wolf-1', 'wolf-3', 'wolf-2'], ['otter-1', 'otter-2', 'otter-3'], ['katze-1', 'katze-2', 'katze-3'], ['eule-1', 'eule-2', 'eule-3'], ['fuchs-1', 'adler-1', 'fuchs-2']];
+const blobs = [['wolf-1', 'wolf-3', 'wolf-2'], ['otter-1', 'otter-2', 'otter-3'], ['katze-1', 'katze-2', 'katze-3'], ['eule-1', 'eule-2', 'eule-3'], ['fuchs-1', 'fuchs-2', 'fuchs-3'], ['adler-1', 'adler-2', 'adler-3']];
 // Hero 1: Fotostreifen
 const strip = [...['wolf-1', 'otter-1', 'katze-2', 'adler-1', 'eule-2', 'fuchs-1', 'wolf-2', 'otter-3', 'katze-1', 'eule-1', 'adler-2', 'fuchs-3', 'wolf-3', 'eule-3'].map((f) => P(f)), '/img/weisses-rotwild-640.webp', '/img/stoerche-640.webp', '/img/wildschwein-640.webp'];
 const stats = [
@@ -104,10 +104,11 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
       <div class="ev3">
         {ev.map((e) => { const d = dayLabel(e.next); return (
           <a href="/v12/veranstaltungen/">
-            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="date"><i>{d.wd}</i><b data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.day}<small>{d.monLong}</small></b><span>{cleanTime(e.time)}</span></span></figure>
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /></figure>
             <div class="body">
-              <h3>{e.title}</h3>
-              <p>{e.text}</p>
+              <span class="vdate"><i>{d.wd}</i><b>{d.day}</b><small>{d.monLong.slice(0, 3)}</small><span>{cleanTime(e.time).replace(' Uhr', '')}</span></span>
+              <div><h3>{e.title}</h3>
+              <p>{e.text}</p></div>
             </div>
           </a>
         ); })}
@@ -124,7 +125,7 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
       </div>
       <ul class="r-zoo2" data-zoo>
         {grid.map((a, i) => (
-          <li class:list={[{ more: i >= 18 }]}>
+          <li class:list={[{ xtra: i >= 18 }]}>
             <a href={a.url} aria-label={a.name}>
               <span class="disc"><Icon name={a.icon} />{photo(a) && <img src={photo(a)} alt="" loading="lazy" />}</span>
               {i < popular.length && <em>Beliebt</em>}
