@@ -118,7 +118,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       {sets.map((s, i) => <button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><img src={hsrc(hp[s.id][0].f, 700)} style={`object-position:${hp[s.id][0].pos}`} alt="" loading="lazy" /><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bar" cx="50" cy="50" r="47" pathLength="100" /></svg></button>)}
       <a class="all" href="/v12/tier/">Alle Tiere</a>
     </div>
-    <p class="hx-note" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>Durchs Fernglas: {s.label}</span>)}</p>
+    <p class="hx-note" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
   </section>
   <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
     <div><span>Hero</span>

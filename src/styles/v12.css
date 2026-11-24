@@ -1036,3 +1036,10 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 @media (max-width: 900px) { .hvswitch { right: 8px; left: auto; top: auto; bottom: 8px; } }
 @media (max-width: 900px) { .hv2 .hx-cap, .hv9 .hx-cap { display: none; } }
 .hx.pt-topohell { background-image: url(/img/pattern-topo-hell.svg); background-size: cover; background-position: center; }
+/* 2: großes Foto im selben Stil wie die kleinen – weiße Rahmen, leicht gedreht */
+.hv2 .fr1 { clip-path: none; background: var(--lime-deep); left: 4%; right: clamp(40px, 5vw, 72px); top: 8%; aspect-ratio: 3 / 2; rotate: 1.6deg; box-shadow: 0 0 0 10px #fff, 0 16px 34px rgba(28,28,26,.22); }
+.hv2 .fr2 { bottom: 9%; }
+.hv2 .fr3 { bottom: 4%; }
+@media (max-width: 900px) { .hv2 .fr1 { left: 18px; right: 18px; top: 18px; } .hv2 .hx-frames { height: 100vw; } }
+.hv2 .fr3 { bottom: 8%; } .hv2 .fr2 { bottom: 12%; } .hv2 .hx-cap { bottom: 8px; }
+@media (max-width: 900px) { .hvswitch { left: 6px; right: 6px; padding: 4px 6px; } .hvswitch > div > span { display: none; } .hvswitch button.w { padding: 0 5px; font-size: 10.5px; white-space: nowrap; } .hvswitch > div { gap: 0; flex-wrap: nowrap; } }
