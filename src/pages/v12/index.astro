@@ -40,12 +40,12 @@ function edge(kind: string) {
 const edges = [edge('krone'), edge('wasser'), edge('huegel')];
 // Variante 6: Tiere als Kreise auf dem Parkplan (Kartenkoordinaten, viewBox 40 0 1660 1240)
 const pins = [
-  { set: 0, at: [772, 396], c: [560, 300], r: 150 },
-  { set: 1, at: [1080, 785], c: [1390, 840], r: 175 },
-  { set: 2, at: [1103, 566], c: [1010, 470], r: 112 },
-  { set: 3, at: [1306, 436], c: [1430, 250], r: 128 },
-  { set: 4, at: [744, 912], c: [560, 880], r: 140 },
-  { set: 5, at: [1052, 856], c: [1010, 1080], r: 104 },
+  { set: 0, at: [772, 396], c: [560, 300], r: 195 },
+  { set: 1, at: [1080, 785], c: [1390, 840], r: 225 },
+  { set: 2, at: [1103, 566], c: [1010, 470], r: 150 },
+  { set: 3, at: [1306, 436], c: [1430, 250], r: 165 },
+  { set: 4, at: [744, 912], c: [560, 880], r: 180 },
+  { set: 5, at: [1052, 856], c: [1010, 1080], r: 135 },
 ];
 const pct = (v: number, o: number, len: number) => `${(((v - o) / len) * 100).toFixed(2)}%`;
 const tiles = [
@@ -83,21 +83,19 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
       </ul>
     </div>
     <div class="hx-frames" data-frames>
-      {[0, 1, 2].map((slot) => (
+      {[0, 1, 2, 3].map((slot) => (
         <figure class={`fr fr${slot + 1}`} style={`--i:${slot}`}>
           {sets.map((s, k) => { const ph = hp[s.id][slot]; return (
             <img class={k === 0 ? 'on' : ''} data-set={k} src={hsrc(ph.f, slot === 0 ? 1200 : 700)} srcset={`${hsrc(ph.f, 700)} 700w, ${hsrc(ph.f, 1200)} 1200w`} sizes={slot === 0 ? '(max-width: 900px) 100vw, 45vw' : '(max-width: 900px) 50vw, 25vw'} style={`object-position:${ph.pos}`} alt={s.names[slot]} loading={k === 0 ? 'eager' : 'lazy'} fetchpriority={k === 0 && slot === 0 ? 'high' : undefined} />
           ); })}
         </figure>
       ))}
-      <svg class="hx-defs" width="0" height="0" aria-hidden="true"><defs>{edges.map((d, k) => <clipPath id={`edge${k + 1}`} clipPathUnits="objectBoundingBox"><path d={d} /></clipPath>)}</defs></svg>
+      <svg class="hx-defs" width="0" height="0" aria-hidden="true"><defs>{edges.map((d, k) => <clipPath id={`edge${k + 1}`} clipPathUnits="objectBoundingBox"><path d={d} /></clipPath>)}<clipPath id="fernglas" clipPathUnits="objectBoundingBox"><ellipse cx=".255" cy=".5" rx=".255" ry=".497" /><ellipse cx=".745" cy=".5" rx=".255" ry=".497" /><rect x=".36" y=".2" width=".28" height=".46" rx=".04" /></clipPath></defs></svg>
       <div class="hx-plan" aria-hidden="true">
         <svg viewBox="40 0 1660 1240" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <pattern id="bpgrid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" /></pattern>
             <pattern id="bphatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V14" /></pattern>
           </defs>
-          <rect class="grid" x="40" y="0" width="1660" height="1240" fill="url(#bpgrid)" />
           <path class="road" d="M330 358 L940 300 L1046 232" /><path class="road" d="M520 1225 C560 1060 640 990 760 958 L1565 850" />
           <path class="park" d={mapShapes.park} />
           <path class="moor" d={mapShapes.moor} />
@@ -112,15 +110,21 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
           </figure>
         ))}
       </div>
-      <svg class="hx-trail" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true"><path d="M339 202 C 360 180, 372 190, 393 173" /><path d="M286 352 C 300 410, 300 440, 328 454" /><path d="M50 462 C 38 425, 46 388, 66 362" /><path class="tip" d="M54 366 L66 361 L68 374" /></svg>
+      <svg class="hx-trail" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true"><path d="M50 462 C 38 425, 46 388, 66 362" /><path class="tip" d="M54 366 L66 361 L68 374" /></svg>
       <p class="hx-hand" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{s.label}</span>)}</p>
       <p class="hx-cap">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>{[...new Set(s.names)].join(', ')}</span>)}<span> · Fotos: Wildpark Eekholt</span></p>
     </div>
-    <img class="hx-perch" src="/img/eagle.svg" alt="" />
+    <div class="hx-thumbs" role="group" aria-label="Tiere im Wildpark">
+      {sets.map((s, i) => <button type="button" data-go={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={s.label} title={s.label}><img src={hsrc(hp[s.id][0].f, 700)} style={`object-position:${hp[s.id][0].pos}`} alt="" loading="lazy" /><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bar" cx="50" cy="50" r="47" pathLength="100" /></svg></button>)}
+      <a class="all" href="/v12/tier/">Alle Tiere</a>
+    </div>
+    <p class="hx-note" aria-hidden="true">{sets.map((s, k) => <span data-cap={k} hidden={k !== 0}>Durchs Fernglas: {s.label}</span>)}</p>
   </section>
   <div class="hvswitch" data-hvswitch role="group" aria-label="Hero-Variante (nur im Entwurf)">
-    <span>Hero</span>
-    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
+    <div><span>Hero</span>
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => <button type="button" data-hv={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}</div>
+    <div><span>Muster</span>
+    {[['auto', 'Auto'], ['none', 'Ohne'], ['topo', 'Topo'], ['schnitt', 'Schnitt'], ['folk', 'Folk'], ['toile', 'Linie'], ['doodle', 'Doodle']].map(([v, l]) => <button type="button" class="w" data-pt={v} aria-pressed={v === 'auto' ? 'true' : 'false'}>{l}</button>)}</div>
   </div>
 
   <section class="today" aria-labelledby="today-h">
@@ -259,7 +263,7 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     const caps = [...hero.querySelectorAll<HTMLElement>('[data-cap]')];
     const btns = [...hero.querySelectorAll<HTMLButtonElement>('[data-go]')];
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const N = btns.length, DUR = 6000;
+    const N = btns.length / 2, DUR = 6000;
     let cur = 0, timer: number | undefined;
     const pinEls = [...hero.querySelectorAll<HTMLElement>('[data-pin]')];
     const pinTurn = pinEls.map(() => 0);
@@ -286,13 +290,13 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
         }
         p.classList.toggle('act', on);
       });
-      btns.forEach((b, k) => { b.setAttribute('aria-current', String(k === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+      btns.forEach((b) => { b.setAttribute('aria-current', String(+b.dataset.go! === cur)); const bar = b.querySelector<HTMLElement>('.bar')!; bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
       // nächstes Set vorladen
       frames.forEach((f) => { const p = f.querySelector<HTMLImageElement>(`img[data-set="${(cur + 1) % N}"]`); if (p) p.loading = 'eager'; });
       restart();
     }
     function restart() { clearTimeout(timer); if (!reduce) timer = window.setTimeout(() => go(cur + 1), DUR); }
-    btns.forEach((b, k) => b.addEventListener('click', () => go(k)));
+    btns.forEach((b) => b.addEventListener('click', () => go(+b.dataset.go!)));
     go(0);
     if (!reduce) {
       hero.addEventListener('mousemove', (e) => {
@@ -306,13 +310,27 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     const sw = document.querySelector<HTMLElement>('[data-hvswitch]')!;
     const setHv = (n: string) => {
       hero.classList.remove(...[...hero.classList].filter((c) => /^hv\d$/.test(c)));
+      if (n === '7') hero.querySelectorAll<HTMLImageElement>('.hx-thumbs img').forEach((im) => (im.loading = 'eager'));
       if (n === '6') pinEls.forEach((p) => p.querySelectorAll('img').forEach((im) => (im.loading = 'eager'))); hero.classList.add('hv' + n);
-      sw.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hv === n)));
+      sw.querySelectorAll('[data-hv]').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.hv === n)));
       try { localStorage.setItem('wp-hv', n); } catch {}
     };
     const q = new URLSearchParams(location.search).get('hero');
     let saved: string | null = null; try { saved = localStorage.getItem('wp-hv'); } catch {}
     setHv(q && /^[1-9]$/.test(q) ? q : saved && /^[1-9]$/.test(saved) ? saved : '1');
-    sw.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => setHv(b.dataset.hv!)));
+    sw.querySelectorAll<HTMLButtonElement>('[data-hv]').forEach((b) => b.addEventListener('click', () => { setHv(b.dataset.hv!); applyPt(); }));
+    // Hintergrundmuster (nur Entwurf): auto = Standard der Variante
+    const ptDefault: Record<string, string> = { '8': 'topo', '9': 'schnitt' };
+    let pt = 'auto'; try { pt = localStorage.getItem('wp-pt') || 'auto'; } catch {}
+    const qp = new URLSearchParams(location.search).get('muster'); if (qp) pt = qp;
+    function applyPt() {
+      hero.classList.remove(...[...hero.classList].filter((c) => c.startsWith('pt-')));
+      const hv = [...hero.classList].find((c) => /^hv\d$/.test(c))!.slice(2);
+      const eff = pt === 'auto' ? ptDefault[hv] || 'none' : pt;
+      if (eff !== 'none') hero.classList.add('pt-' + eff);
+      sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pt === pt)));
+    }
+    sw.querySelectorAll<HTMLButtonElement>('[data-pt]').forEach((b) => b.addEventListener('click', () => { pt = b.dataset.pt!; try { localStorage.setItem('wp-pt', pt); } catch {} applyPt(); }));
+    applyPt();
   </script>
 </L>

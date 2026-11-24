@@ -770,18 +770,6 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv1 .hx-cap { right: 28px; bottom: 16px; }
 
 /* 2 Staffel: Text oben, drei Fotos treppab, unten angeschnitten */
-.hv2 { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plate" "nav" "frames"; }
-.hv2 .hx-plate { grid-area: plate; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; padding: clamp(44px, 5vw, 76px) clamp(24px, 5vw, 72px) 30px; }
-.hv2 .hx-plate h1 { font-size: clamp(44px, 5.4vw, 88px); max-width: 13ch; }
-.hv2 .hx-plate .lede { margin-top: 0; }
-.hv2 .hx-eagle { right: clamp(20px, 6vw, 110px); top: 16px; width: clamp(140px, 12vw, 190px); }
-.hv2 .hx-plate .hx-txt { padding-top: clamp(90px, 9vw, 150px); }
-.hv2 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 5vw, 72px); margin-bottom: 30px; }
-.hv2 .hx-frames { grid-area: frames; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; padding: 0 clamp(24px, 5vw, 72px); margin-bottom: -150px; }
-.hv2 .fr { aspect-ratio: 1 / 1.05; }
-.hv2 .fr2 { margin-top: 56px; }
-.hv2 .fr3 { margin-top: 112px; }
-.hv2 .hx-cap { right: clamp(24px, 5vw, 72px); top: -32px; }
 
 /* 3 Ausschnitte: Kreis, Bogen, kleiner Kreis, weiße Markerspur */
 .hv3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: min(calc(100vh - 78px), 820px); }
@@ -812,14 +800,6 @@ form[data-state="error"] .msg { color: #FFB4A0; }
   .hv1 .hx-frames { height: 108vw; padding: 12px 12px 34px; gap: 8px; }
   .hv1 .fr3 { margin-right: 0; }
   .hv1 .hx-cap, .hv3 .hx-cap { right: 14px; bottom: 10px; font-size: 12px; }
-  .hv2 .hx-plate { grid-template-columns: minmax(0, 1fr); padding: 30px 20px 22px; }
-  .hv2 .hx-plate .hx-txt { padding-top: 0; }
-  .hv2 .hx-eagle { width: 120px; right: 14px; top: 8px; }
-  .hv2 .hx-plate h1 { font-size: 40px; max-width: 9ch; }
-  .hv2 .hx-nav { padding: 0 20px; margin-bottom: 40px; }
-  .hv2 .hx-frames { padding: 0 12px; gap: 8px; margin-bottom: -70px; }
-  .hv2 .fr2 { margin-top: 26px; } .hv2 .fr3 { margin-top: 52px; }
-  .hv2 .hx-cap { right: 14px; top: -26px; font-size: 12px; }
   .hv3 .hx-frames { min-height: 0; height: 96vw; }
   .hv3 .fr3 { box-shadow: 0 0 0 6px var(--lime); }
   .hx-nav button, .hx-nav .all { width: 48px; height: 48px; }
@@ -877,14 +857,6 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv4 .hx-cap { right: 28px; bottom: 16px; }
 
 /* 5 Fenster: ein Bogen, drei Felder, der Adler sitzt obenauf */
-.hv5 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: min(calc(100vh - 78px), 820px); }
-.hv5 .hx-plate { grid-area: plate; align-self: center; padding: clamp(48px, 6vw, 88px) clamp(24px, 4vw, 64px) 28px; }
-.hv5 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 4vw, 64px) clamp(36px, 4vw, 60px); }
-.hv5 .hx-frames { grid-area: frames; display: grid; grid-template-columns: 1.55fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; margin: 150px clamp(24px, 4vw, 64px) 0 0; border-radius: 50% 50% 0 0 / 24% 24% 0 0; overflow: hidden; background: var(--lime); box-shadow: 0 0 0 10px #fff; }
-.hv5 .fr { background: var(--lime-deep); }
-.hv5 .fr1 { grid-row: span 2; }
-.hv5 .hx-eagle { left: auto; right: calc(clamp(24px, 4vw, 64px) + 22%); top: 34px; width: clamp(170px, 14vw, 220px); }
-.hv5 .hx-cap { left: 0; bottom: -28px; display: none; }
 
 /* 6 Parkplan als Blaupause, Tiere in Kreisen an ihrem Ort */
 .hv6 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: min(calc(100vh - 78px), 820px); }
@@ -917,87 +889,149 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hx-plan .pin.act figcaption { opacity: 1; translate: -50% 10px; }
 
 /* 7–9: kompakt, "Heute im Park" bleibt im ersten Bildschirm */
-.hv7, .hv8, .hv9 { height: var(--hc); min-height: 0; }
-.hv7 .hx-plate h1, .hv8 .hx-plate h1, .hv9 .hx-plate h1 { font-size: clamp(32px, 3.2vw, 52px); }
-.hv7 .hx-plate .lede, .hv8 .hx-plate .lede, .hv9 .hx-plate .lede { font-size: 17px; margin: 12px 0 20px; }
-.hv7 .hx-nav button, .hv8 .hx-nav button, .hv9 .hx-nav button, .hv7 .hx-nav .all, .hv8 .hx-nav .all, .hv9 .hx-nav .all { width: 52px; height: 52px; }
-.hv7 .hx-nav button .ico, .hv8 .hx-nav button .ico, .hv9 .hx-nav button .ico { --is: 34px; }
 
 /* 7 Breitbild mit zwei Kreisen auf der Kante */
-.hv7 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; }
-.hv7 .hx-plate { grid-area: plate; align-self: end; padding: 40px clamp(110px, 10vw, 160px) 22px clamp(24px, 4vw, 64px); }
-.hv7 .hx-nav { grid-area: nav; padding: 0 0 36px clamp(24px, 4vw, 64px); }
-.hv7 .hx-eagle { right: auto; left: clamp(24px, 4vw, 64px); top: 18px; width: 130px; }
-.hv7 .hx-plate h1 { margin-top: 60px; }
-.hv7 .hx-frames { grid-area: frames; position: relative; }
-.hv7 .fr1 { position: absolute; inset: 0; }
-.hv7 .fr2, .hv7 .fr3 { position: absolute; border-radius: 50%; box-shadow: 0 0 0 8px var(--lime); z-index: 2; }
-.hv7 .fr2 { width: clamp(170px, 15vw, 230px); aspect-ratio: 1; left: clamp(-120px, -8vw, -90px); bottom: 34px; }
-.hv7 .fr3 { width: clamp(110px, 9vw, 140px); aspect-ratio: 1; left: clamp(-70px, -4.5vw, -50px); top: 40px; }
-.hv7 .hx-cap { right: 16px; bottom: 12px; color: #fff; opacity: 1; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
 
 /* 8 Muster: Wald und Spuren auf Lime, drei Hochformate in Reihe */
-.hv8 { background: var(--lime) url(/img/pattern-wald.svg) 0 0 / 380px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; }
-.hv8 .hx-plate { grid-area: plate; align-self: end; padding: 40px clamp(24px, 4vw, 64px) 22px; }
-.hv8 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 4vw, 64px) 36px; }
-.hv8 .hx-eagle { right: clamp(-90px, -6vw, -60px); top: 14px; width: 150px; }
-.hv8 .hx-frames { grid-area: frames; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 36px clamp(24px, 4vw, 64px) 52px 10px; }
-.hv8 .fr { box-shadow: 0 0 0 6px #fff; }
-.hv8 .fr2 { translate: 0 -14px; }
-.hv8 .hx-cap { right: clamp(24px, 4vw, 64px); bottom: 18px; background: var(--lime); padding: 2px 6px; }
 
 /* 9 Text in der Mitte, Fotos links und rechts */
-.hv9 { grid-template-columns: minmax(0, .78fr) minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: 1fr auto; grid-template-areas: "a plate b" "a nav b"; }
-.hv9 .hx-frames { display: contents; }
-.hv9 .fr2 { grid-area: a; }
-.hv9 .fr1 { grid-area: b; margin: 24px 24px 0 0; }
-.hv9 .fr3 { display: none; }
-.hv9 .hx-plate { grid-area: plate; align-self: end; padding: 40px clamp(24px, 3.4vw, 56px) 22px; }
-.hv9 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 3.4vw, 56px) 36px; }
-.hv9 .hx-eagle { right: clamp(10px, 2vw, 40px); top: 22px; width: 130px; }
-.hv9 .hx-plate h1 { margin-top: 64px; }
-.hv9 .hx-cap { right: 26px; bottom: 10px; }
 
 @media (max-width: 900px) {
-  .hx.hv4, .hx.hv5, .hx.hv6, .hx.hv7, .hx.hv8, .hx.hv9 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "frames" "plate" "nav"; min-height: 0; height: auto; }
-  .hv4 .hx-plate, .hv5 .hx-plate, .hv6 .hx-plate, .hv7 .hx-plate, .hv8 .hx-plate, .hv9 .hx-plate { padding: 30px 20px 20px; }
-  .hv4 .hx-nav, .hv5 .hx-nav, .hv6 .hx-nav, .hv7 .hx-nav, .hv8 .hx-nav, .hv9 .hx-nav { padding: 0 20px 32px; }
-  .hv4 .hx-eagle, .hv5 .hx-eagle, .hv7 .hx-eagle, .hv8 .hx-eagle, .hv9 .hx-eagle, .hv6 .hx-eagle { left: auto; right: 14px; top: -50px; width: 120px; }
-  .hv6 .hx-plate h1, .hv7 .hx-plate h1, .hv9 .hx-plate h1 { margin-top: 0; }
   .hv4 .hx-frames { height: 108vw; padding: 12px 12px 34px; }
   .hv4 .fr3 { margin-right: 0; }
-  .hv5 .hx-frames { height: 112vw; margin: 40px 16px 0; }
-  .hv5 .hx-eagle { top: -2px; right: 50%; translate: 50% 0; }
   .hv6 .hx-frames { padding: 16px 10px 30px; }
   .hv6 .hx-plan { max-height: none; }
-  .hv7 .hx-frames { height: 78vw; margin-bottom: 40px; }
-  .hv7 .fr2 { left: 14px; bottom: -40px; width: 130px; }
-  .hv7 .fr3 { left: auto; right: 14px; top: auto; bottom: -26px; width: 90px; }
-  .hv7 .hx-cap { bottom: auto; top: 10px; }
-  .hv8 .hx-frames { height: 64vw; padding: 20px 14px 36px; gap: 8px; }
-  .hv9 .hx-frames { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; height: 80vw; padding: 12px 12px 34px; }
-  .hv9 .fr1, .hv9 .fr2 { grid-area: auto; margin: 0; }
-  .hv4 .hx-cap, .hv7 .hx-cap, .hv8 .hx-cap, .hv9 .hx-cap { left: 14px; right: auto; font-size: 12px; }
   .hvswitch button { width: 26px; height: 26px; font-size: 12px; }
   .hvswitch { padding-left: 10px; }
 }
 .hx-perch { display: none; }
-.hv5 .hx-plate .hx-eagle { display: none; }
-.hv5 .hx-perch { display: block; grid-area: frames; align-self: start; justify-self: center; z-index: 4; width: clamp(170px, 14vw, 220px); margin: 30px calc(clamp(24px, 4vw, 64px) + 40px) 0 0; pointer-events: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); animation: glide 1.4s var(--ease) both .4s; }
-.hv6 .hx-nav ul, .hv7 .hx-nav ul, .hv8 .hx-nav ul, .hv9 .hx-nav ul { flex-wrap: nowrap; gap: 6px; }
 .hv6 .hx-nav button, .hv6 .hx-nav .all { width: 54px; height: 54px; flex: none; }
 .hv6 .hx-nav button .ico { --is: 36px; }
-.hv7 .hx-eagle { top: auto; bottom: calc(100% - 78px); }
-.hv7 .hx-plate h1 { margin-top: 86px; }
-.hv9 .hx-cap { color: #fff; opacity: 1; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
-@media (max-width: 900px) { .hv5 .hx-perch { margin: 0; width: 120px; } .hv7 .hx-plate h1 { margin-top: 0; } .hv7 .hx-eagle { bottom: auto; top: -50px; } }
 @media (max-width: 900px) {
   .hx[class*="hv"] .hx-nav ul { flex-wrap: nowrap; gap: 6px; }
   .hx[class*="hv"] .hx-nav button, .hx[class*="hv"] .hx-nav .all { width: 44px; height: 44px; flex: none; }
   .hx[class*="hv"] .hx-nav button .ico { --is: 30px; }
-  .hv4 .hx-eagle, .hv6 .hx-eagle, .hv7 .hx-eagle, .hv8 .hx-eagle, .hv9 .hx-eagle { display: none; }
-  .hv5 .hx-perch { width: 96px; margin-top: 4px; }
-  .hv7 .hx-cap { display: none; }
 }
 .brand { flex: none; } .brand img { min-width: 48px; }
 :lang(ru) .nav12 a, :lang(ru) header nav a { font-size: 15px; }
+
+/* ===== Runde 5 ===== */
+.fr4, .hx-thumbs, .hx-note { display: none; }
+.hx { --hfull: min(calc(100vh - 78px), 820px); }
+/* gemeinsames Gerüst: Text links, Bild rechts */
+.hv2, .hv5, .hv7, .hv8, .hv9 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); grid-template-rows: 1fr auto; grid-template-areas: "plate frames" "nav frames"; min-height: var(--hfull); }
+.hv2 .hx-plate, .hv5 .hx-plate, .hv7 .hx-plate, .hv8 .hx-plate, .hv9 .hx-plate { grid-area: plate; align-self: center; padding: clamp(48px, 6vw, 88px) clamp(24px, 4vw, 64px) 28px; }
+.hv2 .hx-nav, .hv5 .hx-nav, .hv8 .hx-nav, .hv9 .hx-nav { grid-area: nav; padding: 0 clamp(24px, 4vw, 64px) clamp(36px, 4vw, 60px); }
+.hv2 .hx-frames, .hv5 .hx-frames, .hv7 .hx-frames, .hv8 .hx-frames, .hv9 .hx-frames { grid-area: frames; position: relative; }
+.hv2 .hx-eagle, .hv5 .hx-eagle, .hv8 .hx-eagle, .hv9 .hx-eagle { right: clamp(-110px, -7vw, -60px); top: 18px; }
+
+/* 2 Fernglas: großes Bild im Fernglas-Ausschnitt, zwei Notizfotos darunter */
+.hv2 .fr { position: absolute; }
+.hv2 .fr1 { left: 0; right: clamp(24px, 3vw, 48px); top: 9%; aspect-ratio: 1.9 / 1; clip-path: url(#fernglas); background: transparent; }
+.hv2 .fr2, .hv2 .fr3 { width: 30%; aspect-ratio: 4 / 3; box-shadow: 0 0 0 8px #fff, 0 12px 26px rgba(28,28,26,.22); z-index: 2; }
+.hv2 .fr2 { left: 12%; bottom: 13%; rotate: -4deg; }
+.hv2 .fr3 { left: 46%; bottom: 7%; rotate: 3deg; }
+.hv2 .hx-note { display: block; position: absolute; grid-area: frames; align-self: end; justify-self: end; margin: 0 clamp(24px, 3vw, 48px) 14% 0; font: 600 clamp(26px, 2.4vw, 38px)/1.05 'Caveat', cursive; color: var(--ink); max-width: 9ch; rotate: -4deg; z-index: 3; }
+.hv2 .hx-cap { right: clamp(24px, 3vw, 48px); bottom: 14px; }
+
+/* 3: vier Kreise, nur die Spur mit Beschriftung */
+.hv3 .fr2 { width: 30%; aspect-ratio: 1; right: 4%; top: 5%; border-radius: 50%; }
+.hv3 .fr4 { display: block; position: absolute; width: 19%; aspect-ratio: 1; right: 1%; top: 45%; border-radius: 50%; box-shadow: 0 0 0 8px var(--lime); }
+.hv3 .fr3 { right: 22%; }
+
+/* 4: alle drei Kanten wie Wasser */
+.hv4 .fr1, .hv4 .fr2, .hv4 .fr3 { clip-path: url(#edge2); }
+
+/* 5 Blätter: drei blattförmige Ausschnitte */
+.hv5 .fr { position: absolute; }
+.hv5 .fr1 { left: 2%; top: 9%; width: 52%; height: 80%; border-radius: 6px 72% 6px 72% / 6px 60% 6px 60%; }
+.hv5 .fr2 { right: 5%; top: 6%; width: 38%; height: 44%; border-radius: 72% 6px 72% 6px / 60% 6px 60% 6px; }
+.hv5 .fr3 { right: 12%; bottom: 7%; width: 33%; height: 38%; border-radius: 6px 72% 6px 72% / 6px 60% 6px 60%; }
+.hv5 .hx-cap { right: 24px; bottom: 10px; }
+
+/* 6: ruhigere Karte, größere Kreise */
+.hx-plan .park { fill: rgba(255,255,255,.08); stroke: rgba(255,255,255,.55); stroke-width: 2; }
+.hx-plan .moor { stroke: rgba(255,255,255,.3); stroke-width: 1; }
+.hx-plan #bphatch path { stroke: rgba(255,255,255,.25); }
+.hx-plan .water { fill: rgba(255,255,255,.22); stroke: none; }
+.hx-plan .paths { stroke: rgba(255,255,255,.45); stroke-width: 1.3; }
+.hx-plan .road { stroke: rgba(255,255,255,.3); }
+.hx-plan .lead path { stroke: rgba(28,28,26,.55); }
+
+/* 7: großes Foto, runde Tier-Navigation senkrecht am rechten Rand */
+.hv7 .hx-nav, .hv7 .fr2, .hv7 .fr3 { display: none; }
+.hv7 .hx-plate { grid-row: 1 / -1; }
+.hv7 .hx-eagle { right: clamp(-110px, -7vw, -60px); top: 18px; }
+.hv7 .fr1 { position: absolute; inset: 0; }
+.hv7 .hx-thumbs { display: flex; flex-direction: column; align-items: center; gap: 12px; grid-area: frames; align-self: center; justify-self: end; margin-right: clamp(18px, 2.4vw, 36px); z-index: 4; }
+.hx-thumbs button { position: relative; width: 66px; height: 66px; padding: 0; border: 0; border-radius: 50%; background: var(--lime); cursor: pointer; box-shadow: 0 0 0 3px #fff, 0 6px 16px rgba(0,0,0,.3); transition: width .4s var(--ease), height .4s var(--ease), box-shadow .3s; }
+.hx-thumbs button img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+.hx-thumbs button svg { position: absolute; inset: -7px; width: calc(100% + 14px); height: calc(100% + 14px); rotate: -90deg; pointer-events: none; }
+.hx-thumbs .bar { fill: none; stroke: var(--lime); stroke-width: 5; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.hx-thumbs button[aria-current="true"] { width: 88px; height: 88px; box-shadow: 0 0 0 3px var(--ink), 0 8px 20px rgba(0,0,0,.35); }
+.hx-thumbs button[aria-current="true"] .bar { animation: ring 6s linear forwards; }
+.hx-thumbs button:hover { box-shadow: 0 0 0 3px var(--lime), 0 6px 16px rgba(0,0,0,.3); }
+@keyframes ring { to { stroke-dashoffset: 0; } }
+.hx-thumbs .all { width: 66px; height: 66px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; text-align: center; font-size: 11px; font-weight: 700; line-height: 1.1; text-decoration: none; box-shadow: 0 0 0 3px #fff; }
+.hv7 .hx-cap { left: 16px; bottom: 12px; right: auto; color: #fff; opacity: 1; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+
+/* 8: Collage – großes Bild, zwei kleine überlappen die Ecken */
+.hv8 .fr { position: absolute; box-shadow: 0 0 0 10px var(--lime); }
+.hv8 .fr1 { left: 20%; right: 8%; top: 9%; bottom: 13%; }
+.hv8 .fr2 { left: 3%; top: 16%; width: 30%; aspect-ratio: 4 / 3; z-index: 2; }
+.hv8 .fr3 { right: 2%; bottom: 6%; width: 34%; aspect-ratio: 4 / 3; z-index: 2; }
+.hv8 .hx-cap { left: 3%; bottom: 14px; }
+
+/* 9: Bildkarte mit Passepartout */
+.hv9 .hx-frames { align-self: center; justify-self: center; width: min(600px, 80%); height: min(640px, calc(var(--hfull) - 90px)); background: #fff; padding: 14px 14px 58px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.5fr 1fr; gap: 10px; rotate: -1.6deg; box-shadow: 0 18px 40px rgba(28,28,26,.22); }
+.hv9 .fr1 { grid-column: 1 / -1; }
+.hv9 .hx-hand { display: block; position: absolute; left: 20px; bottom: 12px; margin: 0; font: 600 34px/1 'Caveat', cursive; color: var(--ink); }
+.hv9 .hx-cap { right: 16px; bottom: 18px; font-size: 12px; }
+
+/* Hintergrundmuster */
+.hx.pt-topo { background-image: url(/img/pattern-topo.svg); background-size: cover; background-position: center; }
+.hx.pt-schnitt { background-image: url(/img/pattern-schnitt.svg); background-size: 600px; }
+.hx.pt-folk { background-image: url(/img/pattern-folk.svg); background-size: 620px; }
+.hx.pt-toile { background-image: url(/img/pattern-toile.svg); background-size: 640px; }
+.hx.pt-doodle { background-image: url(/img/pattern-wald.svg); background-size: 380px; }
+
+/* Umschalter zweizeilig */
+.hvswitch { flex-direction: column; align-items: flex-start; gap: 2px; border-radius: 22px; padding: 6px 8px 6px 14px; }
+.hvswitch > div { display: flex; align-items: center; gap: 2px; }
+.hvswitch > div > span { width: 52px; margin: 0; }
+.hvswitch button.w { width: auto; padding: 0 9px; border-radius: 16px; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .hx.hv2, .hx.hv4, .hx.hv5, .hx.hv6, .hx.hv7, .hx.hv8, .hx.hv9 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "frames" "plate" "nav"; min-height: 0; }
+  .hv2 .hx-plate, .hv4 .hx-plate, .hv5 .hx-plate, .hv6 .hx-plate, .hv7 .hx-plate, .hv8 .hx-plate, .hv9 .hx-plate { padding: 30px 20px 20px; }
+  .hv2 .hx-nav, .hv4 .hx-nav, .hv5 .hx-nav, .hv6 .hx-nav, .hv8 .hx-nav, .hv9 .hx-nav { padding: 0 20px 32px; }
+  .hx[class*="hv"] .hx-eagle { display: none; }
+  .hv2 .hx-frames { height: 92vw; }
+  .hv2 .fr1 { right: 10px; left: 10px; }
+  .hv2 .hx-note { margin-bottom: 4%; font-size: 24px; }
+  .hv3 .fr4 { box-shadow: 0 0 0 5px var(--lime); }
+  .hv4 .hx-frames { height: 108vw; padding: 12px 12px 34px; }
+  .hv4 .fr3 { margin-right: 0; }
+  .hv5 .hx-frames { height: 100vw; }
+  .hv6 .hx-frames { padding: 16px 10px 30px; }
+  .hv6 .hx-plan { max-height: none; }
+  .hv7 .hx-plate { grid-row: auto; padding-bottom: 36px; }
+  .hv7 .hx-frames { height: 96vw; }
+  .hv7 .hx-thumbs { flex-direction: row; align-self: end; justify-self: center; margin: 0 0 14px; gap: 8px; }
+  .hx-thumbs button, .hx-thumbs .all { width: 42px; height: 42px; font-size: 9px; }
+  .hx-thumbs button[aria-current="true"] { width: 54px; height: 54px; }
+  .hv7 .hx-cap { bottom: auto; top: 10px; }
+  .hv8 .hx-frames { height: 96vw; }
+  .hv9 .hx-frames { width: calc(100% - 40px); height: 110vw; margin: 24px 0 8px; }
+  .hvswitch button.w { padding: 0 6px; font-size: 11px; }
+  .hvswitch > div > span { width: 44px; font-size: 11px; }
+}
+.hv6 .hx-nav ul { flex-wrap: nowrap; gap: 6px; }
+.hv6 .hx-nav button, .hv6 .hx-nav .all { width: 54px; height: 54px; flex: none; }
+.hv6 .hx-nav button .ico { --is: 36px; }
+.hx-plan .park { stroke: rgba(255,255,255,.75); }
+.hx-plan .paths { stroke: rgba(255,255,255,.6); }
+.hx-plan .water { fill: rgba(255,255,255,.3); }
+.hvswitch { left: auto; right: 16px; bottom: auto; top: 92px; }
+@media (max-width: 900px) { .hvswitch { right: 8px; left: auto; top: auto; bottom: 8px; } }
+@media (max-width: 900px) { .hv2 .hx-cap, .hv9 .hx-cap { display: none; } }
