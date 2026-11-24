@@ -2,7 +2,10 @@
 // Inline-SVG-Icons: set "a" = Tier-/Linien-Icons (OpenMoji, CC BY-SA 4.0 + eigene), set "d" = handgezeichnete Icons
 const icons = import.meta.glob('../icons/**/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 const { name, set = 'a', size, cls = '', label } = Astro.props;
-const raw = icons[`../icons/${set}/${name}.svg`] || '';
+// clipPath-Rahmen entfernen: gleiche IDs in versteckten Kopien (Mega-Menü) blenden sonst die Zeichnung in Chrome aus
+const raw = (icons[`../icons/${set}/${name}.svg`] || '')
+  .replace(/ clip-path="url\(#[^)]*\)"/g, '')
+  .replace(/<clipPath[\s\S]*?<\/clipPath>/g, '');
 const style = size ? `--is:${size}px` : undefined;
 ---
 <span class={`ico ico-${set} ${cls}`} style={style} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'} set:html={raw} />
