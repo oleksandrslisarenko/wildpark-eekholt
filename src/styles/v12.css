@@ -1058,3 +1058,4 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv3 .hx-nav .all { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); } .hv3 .hx-nav .all:hover { background: var(--ink); color: #fff; }
 .hx-eagle, .hx-perch { transition: translate .9s cubic-bezier(.2,.7,.2,1), rotate .9s cubic-bezier(.2,.7,.2,1); }
 .hv4 .hx-eagle { right: calc(clamp(-120px, -7vw, -70px) + 100px); }
+.hv3 .hx-eagle { left: calc(clamp(24px, 4vw, 64px) + 400px); width: 190px; top: 12px; }
