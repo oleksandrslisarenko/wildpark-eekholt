@@ -5,7 +5,7 @@ const v = [
   { n: '1', href: '/v12/', name: 'Schild', text: 'Die Hauptrichtung: kräftige Plaketten in Lindgrün, Tier-Hero mit Fotos und Muster, interaktiver Lageplan, Laufband aller Tiere, handgezeichnete Icons.', color: '#000', ink: '#C8C901', img: '/img/hero/wolf-1-700.webp', pages: true },
   { n: '2', href: '/v3/', name: 'Revier', text: 'Der Park als Karte: große Zahlen zu Fläche und Angebot, Lageplan über die ganze Breite, Fütterungen des Tages und alle Tiere im Raster.', color: '#C8C901', ink: '#000', img: '/img/hero/otter-1-700.webp', pages: false },
 ];
-const pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/', 'Alle Tiere'], ['inhaltsverzeichnis/', 'Alle Seiten'], ['besuch/', 'Preise und Öffnungszeiten'], ['veranstaltungen/', 'Veranstaltungen']];
+const _pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/', 'Alle Tiere'], ['inhaltsverzeichnis/', 'Alle Seiten'], ['besuch/', 'Preise und Öffnungszeiten'], ['veranstaltungen/', 'Veranstaltungen']];
 ---
 <!doctype html>
 <html lang="de">
@@ -15,11 +15,12 @@ const pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/
   <link rel="icon" href="/img/eagle.svg" />
   <style>
     body { margin: 0; font: 17px/1.5 'Schibsted Grotesk Variable', 'Golos Text Variable', system-ui, sans-serif; background: #F3F3EE; color: #000; }
-    header { padding: 48px clamp(16px, 4vw, 48px) 24px; display: flex; gap: 20px; align-items: center; }
+    body { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    header { padding: 48px 16px 24px; display: flex; gap: 20px; align-items: center; justify-content: center; text-align: left; }
     header img { width: 72px; }
     h1 { font-size: clamp(32px, 4vw, 52px); margin: 0; line-height: 1.05; letter-spacing: -.02em; }
     header p { margin: 6px 0 0; color: #55574E; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); gap: 20px; padding: 12px clamp(16px, 4vw, 48px) 64px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); gap: 20px; padding: 12px 16px 64px; justify-content: center; width: 100%; box-sizing: border-box; }
     .card { background: var(--c); color: var(--i); display: flex; flex-direction: column; }
     .card img { aspect-ratio: 16/10; object-fit: cover; width: 100%; }
     .card div { padding: 18px; flex: 1; display: flex; flex-direction: column; }
@@ -28,8 +29,11 @@ const pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/
     .card ul { list-style: none; padding: 0; margin: auto 0 0; }
     .card li a { display: block; padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--i) 30%, transparent); color: inherit; text-decoration: none; font-weight: 600; }
     .card li a:hover { text-decoration: underline; }
-    .note { padding: 0 clamp(16px, 4vw, 48px) 48px; color: #55574E; font-size: 15px; max-width: 80ch; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .note { padding: 0 16px 48px; text-align: center; color: #55574E; font-size: 15px; max-width: 80ch; }
+    @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 420px); } }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .two li a { border: 0 !important; background: color-mix(in srgb, var(--i) 12%, transparent); text-align: center; padding: 12px 8px !important; }
+    .two li a:hover { background: var(--i); color: var(--c); text-decoration: none !important; }
   </style>
 </head>
 <body>
@@ -41,11 +45,14 @@ const pages = [['', 'Startseite'], ['tiere/wolf/', 'Tierseite (Wolf)'], ['tiere/
         <div>
           <h2><span>{x.n}.</span> {x.name}</h2>
           <p>{x.text}</p>
-          <ul>{(x.pages ? pages : pages.slice(0, 1)).map(([p, l]) => <li><a href={`${x.href}${p}`} target="_blank" rel="noopener">{l}</a></li>)}</ul>
+          <ul class="two">
+            <li><a href={x.href} target="_blank" rel="noopener">Desktop-Version</a></li>
+            <li><a href={`/mobil/?u=${encodeURIComponent(x.href)}`} target="_blank" rel="noopener">Mobile Version</a></li>
+          </ul>
         </div>
       </section>
     ))}
   </main>
-  <p class="note">Live-Elemente: Öffnungsstatus und „Heute im Park“ rechnen mit der aktuellen Uhrzeit. Suche (Pagefind), Newsletter-Formular und Veranstaltungsfilter funktionieren. Navigationspunkte in Grau folgen nach der Auswahl.</p>
+  <p class="note">Die mobile Version öffnet sich am Computer in einem Telefonrahmen. Auf dem Smartphone einfach die Desktop-Version öffnen.</p>
 </body>
 </html>
