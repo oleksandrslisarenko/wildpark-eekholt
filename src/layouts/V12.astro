@@ -40,10 +40,10 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   <meta name="robots" content="noindex" />
   <link rel="icon" href="/img/eagle.svg" />
 </head>
-<body class={`v12 ${variant !== 'v12' ? 't-' + variant : 'bigbrand'}`}>
+<body class={`v12 ${variant !== 'v12' ? 't-' + variant : ''}`}>
   <Loader def={DEF.ld} k={DEF.k} />
   <a class="skip" href="#main">Zum Inhalt</a>
-  <header class={`top${variant === 'v12' ? ' big' : ''}`}>
+  <header class="top">
     <a class="brand" href={`/${variant}/`} aria-label="Wildpark Eekholt Startseite"><img src="/img/logo.svg" alt="Wildpark Eekholt" width="58" height="61" /></a>
     <nav class="mainnav" aria-label="Hauptnavigation">
       <ul>
@@ -75,7 +75,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
       <button class="search" type="button" aria-label="Suche öffnen" data-search><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <LangDD />
       <SettingsDD hero={variant === 'v12' || variant === 'v3'} variant={variant} />
-      <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets kaufen <Ext /></a>
+      <a class="btn plate tix" href={contact.shop} rel="noopener" target="_blank">Tickets <Ext /></a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" data-burger><span></span><span></span><span class="sr">Menü</span></button>
     </div>
   </header>
@@ -143,15 +143,6 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
   </dialog>
   <script>
     import { hydrate } from '../scripts/live';
-    // Entwurf 1: großes Logo auf weißer Plakette, beim Scrollen auf normale Headergröße
-    {
-      const top = document.querySelector('.bigbrand .top');
-      if (top) {
-        let on = true;
-        const upd = () => { const b = scrollY < 24; if (b !== on) { on = b; top.classList.toggle('big', b); } };
-        upd(); addEventListener('scroll', upd, { passive: true });
-      }
-    }
     import { wireForms } from '../scripts/forms';
     import { wireSearch } from '../scripts/search';
     hydrate(); setInterval(() => hydrate(), 60000);

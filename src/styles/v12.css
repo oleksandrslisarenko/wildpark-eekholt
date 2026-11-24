@@ -1431,48 +1431,32 @@ img.rv-i, figure.rv-i { translate: 0 0; clip-path: inset(12% 0 0 0); }
 }
 .pn a { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
 
-/* Entwurf 1: großes Logo auf weißer Plakette, die oben links in den Hero ragt; beim Scrollen normal */
-.bigbrand .brand { position: relative; flex: none; width: 58px; height: 61px; margin-right: 0; transition: margin .5s var(--ease); }
-.bigbrand .brand::before { content: ''; position: absolute; z-index: -1; left: 0; top: -8px; width: 58px; height: 78px; background: #fff; transition: width .5s var(--ease), height .5s var(--ease), box-shadow .5s; }
-.bigbrand .brand img { display: block; transform-origin: 0 0; translate: 0 0; scale: 1; transition: translate .5s var(--ease), scale .5s var(--ease), transform .4s var(--ease); }
-.bigbrand .mainnav a, .bigbrand .mainnav .soon { transition: padding .5s var(--ease); }
-.bigbrand .mainnav a::after { transition: transform .3s var(--ease), left .5s var(--ease), right .5s var(--ease); }
-@media (min-width: 1081px) {
-  .bigbrand .top.big .brand { margin-right: 80px; }
-  .bigbrand .top.big .brand::before { width: 144px; height: 164px; box-shadow: 0 18px 30px -24px rgba(0, 0, 0, .45); }
-  .bigbrand .top.big .brand img { translate: 18px 10px; scale: 2; }
-  .bigbrand .top.big .mainnav a, .bigbrand .top.big .mainnav .soon { padding-inline: 4px; }
-  .bigbrand .top.big .mainnav a::after { left: 4px; right: 4px; }
-}
-@media (max-width: 1080px) {
-  .bigbrand .brand { width: 46px; height: auto; }
-  .bigbrand .brand::before { width: 46px; height: 100%; top: 0; }
-  .bigbrand .top.big .brand::before { width: 108px; height: calc(100% + 71px); top: -10px; box-shadow: 0 16px 26px -22px rgba(0, 0, 0, .45); }
-  .bigbrand .top.big .brand img { translate: 14px 4px; scale: 1.75; }
-}
-@media (prefers-reduced-motion: reduce) { .bigbrand .brand, .bigbrand .brand::before, .bigbrand .brand img { transition: none; } }
-/* Platz unter der Logo-Plakette in den Seitenköpfen */
-@media (min-width: 1081px) { .bigbrand .ph12 .wrap { padding-top: 108px; } }
-@media (max-width: 1080px) { .bigbrand .ph12 .wrap { padding-top: 84px; } .bigbrand .page-hero { padding-top: 68px; } }
-@media (min-width: 1081px) and (max-width: 1560px) {
-  :lang(ru) .bigbrand .top.big .mainnav a { padding-inline: 3px; font-size: 13.5px; }
-  :lang(ru) .bigbrand .top.big .mainnav a::after { left: 3px; right: 3px; }
-}
-/* Hero-Text auf dieselbe Kante wie Logo-Plakette und Seitenköpfe */
-.bigbrand .hx .hx-plate { padding-left: var(--gut); }
-/* Header deckend weiß, damit er genau die Farbe der Plakette hat */
-.bigbrand .top { background: #fff; backdrop-filter: none; }
 @media (max-width: 800px) { .price-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } .price-strip strong { font-size: clamp(28px, 9vw, 44px); overflow-wrap: anywhere; } }
-@media (min-width: 1081px) { .bigbrand .hx .hx-plate { padding-top: calc(clamp(48px, 6vw, 88px) + 48px); } }
 
-/* Entwurf 1: Menüpunkte verteilen sich über den freien Platz zwischen Logo und Werkzeugen, Abstand wächst mit der Breite bis zu einer Obergrenze */
-@media (min-width: 1081px) {
-  .bigbrand .mainnav { flex: 1 1 auto; min-width: 0; max-width: 1040px; }
-  :lang(ru) .bigbrand .mainnav { max-width: 1120px; }
-  .bigbrand .mainnav > ul { justify-content: space-between; }
-  .bigbrand .mainnav a, .bigbrand .mainnav .soon, .bigbrand .top.big .mainnav a, .bigbrand .top.big .mainnav .soon,
-  :lang(ru) .bigbrand .mainnav a, :lang(ru) .bigbrand .top.big .mainnav a { padding-inline: 4px; }
-  .bigbrand .mainnav a::after, .bigbrand .top.big .mainnav a::after, :lang(ru) .bigbrand .mainnav a::after, :lang(ru) .bigbrand .top.big .mainnav a::after { left: 4px; right: 4px; }
+/* Hauptmenü: volles Menü auf allen Desktop-Breiten, Burger nur auf Tablet und Handy (bis 1199 px).
+   Die Punkte verteilen sich über den freien Platz zwischen Logo und Werkzeugen; Abstand und Schrift wachsen mit der Breite. */
+@media (min-width: 1200px) {
+  .v12 .mainnav { display: block; flex: 1 1 auto; min-width: 0; max-width: 1040px; }
+  :lang(ru) .v12 .mainnav { max-width: 1120px; }
+  .v12 .mainnav > ul { justify-content: space-between; }
+  .v12 .mainnav a, .v12 .mainnav .soon, :lang(ru) .v12 .mainnav a, :lang(ru) .v12 .mainnav .soon { padding-inline: 4px; font-size: clamp(12.5px, calc(12.5px + (100vw - 1180px) * .0096), 15px); }
+  :lang(ru) .v12 .mainnav a, :lang(ru) .v12 .mainnav .soon { font-size: clamp(12.5px, calc(12.5px + (100vw - 1180px) * .006), 15px); }
+  .v12 .mainnav a::after, :lang(ru) .v12 .mainnav a::after { left: 4px; right: 4px; }
+  .v12 .tools > .tix { display: inline-flex; }
+  .v12 .burger { display: none !important; }
+  .v12 .top { gap: clamp(12px, 1.3vw, 18px); }
 }
-@media (min-width: 1081px) and (max-width: 1560px) { .bigbrand .tools { gap: 8px; } }
-@media (min-width: 1081px) and (max-width: 1500px) { .bigbrand .top.big .mainnav a { font-size: 14.5px; transition: padding .5s var(--ease), font-size .5s var(--ease); } }
+@media (min-width: 1200px) and (max-width: 1560px) { .v12 .tools { gap: 8px; } }
+@media (max-width: 1199px) {
+  .v12 .mainnav, .v12 .tools > .tix { display: none; }
+  .v12 .burger { display: grid; place-content: center; gap: 6px; width: 44px; height: 44px; border: 0; background: var(--lime); cursor: pointer; }
+  .v12 .burger span:not(.sr) { width: 20px; height: 2px; background: var(--ink); transition: transform .3s var(--ease); }
+  .v12 .burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+  .v12 .burger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+}
+/* Lichtung (v2, nicht mehr in der Übersicht) hat breitere Schrift: Burger bis 1399 px wie bisher */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .t-v2 .mainnav, .t-v2 .tools > .tix { display: none; }
+  .t-v2 .burger { display: grid !important; place-content: center; gap: 6px; width: 44px; height: 44px; border: 0; background: var(--lime); cursor: pointer; }
+  .t-v2 .burger span:not(.sr) { width: 20px; height: 2px; background: var(--ink); }
+}
