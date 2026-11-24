@@ -298,13 +298,15 @@ const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', 
     function restart() { clearTimeout(timer); if (!reduce) timer = window.setTimeout(() => go(cur + 1), DUR); }
     btns.forEach((b) => b.addEventListener('click', () => go(+b.dataset.go!)));
     go(0);
+    const birds = [...hero.querySelectorAll<HTMLElement>('.hx-eagle, .hx-perch')];
     if (!reduce) {
       hero.addEventListener('mousemove', (e) => {
         const r = hero.getBoundingClientRect();
         const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
-        frames.forEach((f, k) => (f.style.translate = `${dx * -(8 + k * 7)}px ${dy * -(6 + k * 5)}px`));
+        // nur der Adler folgt der Maus, die Fotos bleiben ruhig
+        birds.forEach((b) => { b.style.translate = `${dx * 46}px ${dy * 30}px`; b.style.rotate = `${dx * 6}deg`; });
       });
-      hero.addEventListener('mouseleave', () => frames.forEach((f) => (f.style.translate = '')));
+      hero.addEventListener('mouseleave', () => birds.forEach((b) => { b.style.translate = ''; b.style.rotate = ''; }));
     }
     // Umschalter der Hero-Varianten (nur Entwurf)
     const sw = document.querySelector<HTMLElement>('[data-hvswitch]')!;
