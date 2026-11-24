@@ -9,6 +9,13 @@ import { img, highlights, prices, fmt, contact } from '../../data/site';
 import { upcoming, dayLabel, cleanTime, slotsToday, eventPhoto, flightSeason } from '../../data/helpers';
 const ev = upcoming(3);
 const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
+// Hero: je drei Fotos, wechseln automatisch
+const slides = [
+  [{ f: 'eule-1', alt: 'Bartkauz' }, { f: 'wolf-1', alt: 'Wolf' }, { f: 'otter-1', alt: 'Fischotter' }],
+  [{ f: 'katze-1', alt: 'Junge Wildkatze' }, { f: 'fuchs-1', alt: 'Rotfuchs' }, { f: 'adler-1', alt: 'Seeadler' }],
+  [{ f: 'wolf-3', alt: 'Wolf' }, { f: 'eule-2', alt: 'Uhu' }, { f: 'otter-2', alt: 'Fischotter' }],
+  [{ f: 'fuchs-2', alt: 'Rotfuchs' }, { f: 'katze-3', alt: 'Wildkatze' }, { f: 'eule-3', alt: 'Schleiereule' }],
+];
 const feedIcon: Record<string, string> = { '10:30': 'otter', '11:00': 'marder', '13:00': 'fuchs', '14:45': 'storch', '15:00': 'otter', '15:30': 'wolf' };
 const pets = [
   { name: 'Wildkatze', note: 'scheu, aber neugierig', f: 'katze-3', tall: true },
@@ -31,14 +38,21 @@ const pets = [
           <a class="w-btn line" href="/v12/tier/">Tiere entdecken</a>
         </div>
       </div>
-      <div class="w-photos" aria-hidden="true">
-        <img class="b1" src={P('katze-1', 1200)} alt="" fetchpriority="high" />
-        <img class="b2" src={P('otter-1')} alt="" />
-        <img class="b3" src={P('eule-1')} alt="" />
-        <svg class="w-badge" viewBox="0 0 200 200"><defs><path id="wcirc" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs><circle cx="100" cy="100" r="98" /><text><textPath href="#wcirc">NaturErlebnisse seit über 50 Jahren · Wildpark Eekholt ·</textPath></text></svg>
-        <span class="w-doodle d1"><Icon name="herz" set="h" /></span>
-        <span class="w-doodle d2"><Icon name="blatt" set="h" /></span>
-        <span class="w-doodle d3"><Icon name="pfote" set="h" /></span>
+      <div class="w-photos" data-wphotos>
+        {['b1', 'b2', 'b3'].map((cls, k) => (
+          <div class={`w-blob ${cls}`} data-depth={[14, 24, 20][k]}>
+            {slides.map((sl, i) => <img class={i === 0 ? 'on' : ''} src={P(sl[k].f, k === 0 ? 1200 : 700)} alt={sl[k].alt} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 && k === 0 ? 'high' : undefined} />)}
+          </div>
+        ))}
+        <span class="w-fact f1" data-depth="34"><b>50</b><small>Jahre</small></span>
+        <span class="w-fact f2" data-depth="40"><b>700</b><small>Tiere</small></span>
+        <span class="w-fact f3" data-depth="28"><b>67</b><small>Hektar</small></span>
+        <span class="w-doodle d1" aria-hidden="true"><Icon name="herz" set="h" /></span>
+        <span class="w-doodle d2" aria-hidden="true"><Icon name="blatt" set="h" /></span>
+        <span class="w-doodle d3" aria-hidden="true"><Icon name="pfote" set="h" /></span>
+        <div class="w-dots" role="group" aria-label="Fotos wechseln">
+          {slides.map((sl, i) => <button type="button" data-slide={i} aria-current={i === 0 ? 'true' : 'false'} aria-label={sl.map((x) => x.alt).join(', ')}></button>)}
+        </div>
       </div>
     </div>
   </section>
@@ -64,7 +78,7 @@ const pets = [
       <div class="w-events">
         {ev.map((e) => { const d = dayLabel(e.next); return (
           <a href="/v12/veranstaltungen/">
-            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="w-date"><b>{d.day}</b><small data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.monLong}</small></span></figure>
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="w-date"><b>{d.day}</b><small>{d.monLong.slice(0, 3)}</small></span></figure>
             <div>
               <p class="when">{d.wd} · {cleanTime(e.time)}</p>
               <h3>{e.title}</h3>
@@ -150,4 +164,33 @@ const pets = [
       </div>
     </div>
   </section>
+  <script>
+    const box = document.querySelector<HTMLElement>('[data-wphotos]')!;
+    const blobs = [...box.querySelectorAll<HTMLElement>('.w-blob')];
+    const dots = [...box.querySelectorAll<HTMLButtonElement>('[data-slide]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0, t: number | undefined;
+    const go = (n: number) => {
+      n = (n + dots.length) % dots.length;
+      blobs.forEach((b, k) => setTimeout(() => {
+        const ims = b.querySelectorAll('img');
+        ims.forEach((im, i) => im.classList.toggle('on', i === n));
+        (ims[(n + 1) % ims.length] as HTMLImageElement).loading = 'eager';
+      }, k * 180));
+      dots.forEach((d, i) => d.setAttribute('aria-current', String(i === n)));
+      cur = n; clearTimeout(t); if (!reduce) t = window.setTimeout(() => go(cur + 1), 5500);
+    };
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    go(0);
+    // Fotos und Kreise folgen leicht der Maus
+    if (!reduce) {
+      const hero = document.querySelector<HTMLElement>('.w-hero')!;
+      const movers = [...box.querySelectorAll<HTMLElement>('[data-depth]')];
+      hero.addEventListener('mousemove', (e) => {
+        const r = hero.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
+        movers.forEach((m) => { const k = +m.dataset.depth!; m.style.translate = `${dx * -k}px ${dy * -k}px`; });
+      });
+      hero.addEventListener('mouseleave', () => movers.forEach((m) => (m.style.translate = '')));
+    }
+  </script>
 </L>
