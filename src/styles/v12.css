@@ -1061,3 +1061,5 @@ form[data-state="error"] .msg { color: #FFB4A0; }
 .hv3 .hx-eagle { left: calc(clamp(24px, 4vw, 64px) + 400px); width: 190px; top: 12px; }
 .hv4 .hx-eagle { right: calc(clamp(-120px, -7vw, -70px) + 200px); }
 .hv4 .hx-eagle { top: -72px; }
+.hv1 .hx-eagle { right: calc(clamp(-120px, -7vw, -70px) + 100px); }
+.hv1 .hx-eagle { top: -40px; }
