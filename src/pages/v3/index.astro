@@ -10,6 +10,8 @@ import zoo from '../../data/zoo.json';
 const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
 // Hero 2: vier Foto-Wolken, die Fotos wechseln
 const blobs = [['wolf-1', 'wolf-3', 'wolf-2'], ['otter-1', 'otter-2', 'otter-3'], ['katze-1', 'katze-2', 'katze-3'], ['eule-1', 'eule-2', 'eule-3'], ['fuchs-1', 'fuchs-2', 'fuchs-3'], ['adler-1', 'adler-2', 'adler-3']];
+// Hero 3: ein Foto in einer Höhenlinie, die Form fließt zur nächsten Linie, wenn das Foto wechselt
+const topo = [['wolf-1', 'Wolf'], ['otter-1', 'Fischotter'], ['eule-2', 'Uhu'], ['fuchs-2', 'Rotfuchs'], ['katze-2', 'Wildkatze'], ['adler-1', 'Seeadler']];
 // Hero 1: Fotostreifen
 const strip = [...['wolf-1', 'otter-1', 'katze-2', 'adler-1', 'eule-2', 'fuchs-1', 'wolf-2', 'otter-3', 'katze-1', 'eule-1', 'adler-2', 'fuchs-3', 'wolf-3', 'eule-3'].map((f) => P(f)), '/img/weisses-rotwild-640.webp', '/img/stoerche-640.webp', '/img/wildschwein-640.webp'];
 const stats = [
@@ -51,6 +53,18 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
             {b.map((f, i) => <img class={i === 0 ? 'on' : ''} src={P(f, k === 0 ? 1200 : 700)} alt="" loading={i === 0 ? 'eager' : 'lazy'} />)}
           </div>
         ))}
+      </div>
+      <div class="r-topo" aria-hidden="true" data-topo data-names={topo.map((t) => t[1]).join('|')}>
+        <svg viewBox="0 0 600 540" preserveAspectRatio="xMidYMid meet">
+          <defs><clipPath id="rtopo-clip"><path data-tclip d="" /></clipPath></defs>
+          <g class="rings">{[6, 5, 4, 3, 2, 1].map((i) => <path data-tring={i} d="" />)}</g>
+          <path class="shade" data-tshade d="" />
+          <g clip-path="url(#rtopo-clip)">
+            {topo.map(([f], i) => <image href={P(f, 1200)} x="20" y="30" width="560" height="480" preserveAspectRatio="xMidYMid slice" class={i === 0 ? 'on' : ''} />)}
+          </g>
+          <path class="edge" data-tedge d="" />
+        </svg>
+        <p class="r-topo-name"><span data-tname>{topo[0][1]}</span></p>
       </div>
       <ul class="r-stats2">
         {stats.map((s, i) => <li style={`--d:${0.15 + i * 0.08}s`}><Icon name={s.icon} set="h" /><b data-count={s.n}>{s.n}</b><span>{s.l}</span></li>)}
@@ -198,6 +212,82 @@ const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').re
       const ims = [...b.querySelectorAll('img')], i = ims.findIndex((x) => x.classList.contains('on'));
       ims[i].classList.remove('on'); ims[(i + 1) % ims.length].classList.add('on');
     }, 1800);
+    // Hero 3: Höhenlinien-Maske. Die Form ist eine geschlossene Kurve r(θ) aus wenigen Wellen;
+    // sie atmet langsam, beim Fotowechsel fließt sie zur nächsten Linie, und sie wölbt sich leicht zum Mauszeiger.
+    {
+      const box = document.querySelector<HTMLElement>('[data-topo]');
+      if (box) {
+        const svg = box.querySelector('svg')!;
+        const clip = box.querySelector<SVGPathElement>('[data-tclip]')!, edge = box.querySelector<SVGPathElement>('[data-tedge]')!, shade = box.querySelector<SVGPathElement>('[data-tshade]')!;
+        const rings = [...box.querySelectorAll<SVGPathElement>('[data-tring]')];
+        const imgs = [...box.querySelectorAll<SVGImageElement>('image')];
+        const nameEl = box.querySelector<HTMLElement>('[data-tname]')!;
+        const names = imgs.map((_, i) => (box.dataset.names || '').split('|')[i]);
+        const CX = 300, CY = 270, R = 222, N = 96;
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Formen: je Wellenzahl k Amplitude und Phase. Benachbarte Formen unterscheiden sich wenig.
+        const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+        const mkShape = () => [2, 3, 4, 5, 7].map((k) => ({ k, a: rnd(.05, .14) / (k * .42), p: rnd(0, Math.PI * 2) }));
+        let from = mkShape(), to = from, mixT = 1, mix0 = 0;
+        const DUR = 1600;
+        let mx = 0, my = 0, pull = 0, pullT = 0;
+        const shapeAt = (t: number) => {
+          const e = mixT >= 1 ? 1 : mixT;
+          const k = e < .5 ? 4 * e * e * e : 1 - Math.pow(-2 * e + 2, 3) / 2;
+          return from.map((h, i) => ({ k: h.k, a: h.a + (to[i].a - h.a) * k, p: h.p + (to[i].p - h.p) * k + t * (.00005 * (i + 1)) }));
+        };
+        const radius = (sh: { k: number; a: number; p: number }[], th: number, extra: number, lvl: number) => {
+          let r = 1;
+          for (const h of sh) r += h.a * Math.sin(h.k * th + h.p + lvl * .35 * h.k * .2);
+          // Wölbung zum Mauszeiger
+          const d = Math.atan2(Math.sin(th - Math.atan2(my, mx)), Math.cos(th - Math.atan2(my, mx)));
+          r += pull * .09 * Math.exp(-(d * d) / .5);
+          return R * r + extra;
+        };
+        const pathFor = (sh: any, extra: number, lvl: number) => {
+          const pts: [number, number][] = [];
+          for (let i = 0; i < N; i++) { const th = (i / N) * Math.PI * 2; const r = radius(sh, th, extra, lvl); pts.push([CX + Math.cos(th) * r * 1.08, CY + Math.sin(th) * r * .86]); }
+          let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+          for (let i = 0; i < N; i++) {
+            const p0 = pts[(i - 1 + N) % N], p1 = pts[i], p2 = pts[(i + 1) % N], p3 = pts[(i + 2) % N];
+            const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+            d += `C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+          }
+          return d + 'Z';
+        };
+        const draw = (t: number) => {
+          const sh = shapeAt(t);
+          const d = pathFor(sh, 0, 0);
+          clip.setAttribute('d', d); edge.setAttribute('d', d); shade.setAttribute('d', d);
+          rings.forEach((r) => { const i = +r.dataset.tring!; r.setAttribute('d', pathFor(sh, i * 24 + i * i * 3, i)); });
+        };
+        let cur = 0;
+        const next = () => {
+          const t = performance.now();
+          from = shapeAt(t).map((h) => ({ ...h })); from.forEach((h) => { h.p -= t * .00005 * (from.indexOf(h) + 1); });
+          // nächste Linie: nahe an der jetzigen Form
+          to = from.map((h) => ({ k: h.k, a: Math.min(.16 / (h.k * .42), Math.max(.01, h.a + rnd(-.06, .06) / (h.k * .42))), p: h.p + rnd(-1.2, 1.2) }));
+          mix0 = t; mixT = 0;
+          imgs[cur].classList.remove('on'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('on');
+          nameEl.textContent = names[cur] || '';
+          nameEl.parentElement!.classList.remove('flip'); void nameEl.offsetWidth; nameEl.parentElement!.classList.add('flip');
+        };
+        const loop = (t: number) => {
+          if (mixT < 1) mixT = Math.min(1, (t - mix0) / DUR);
+          pull += (pullT - pull) * .06;
+          draw(t);
+          if (box.offsetParent) requestAnimationFrame(loop); else setTimeout(() => requestAnimationFrame(loop), 400);
+        };
+        if (still) draw(0);
+        else {
+          requestAnimationFrame(loop);
+          setInterval(() => { if (box.offsetParent && !document.hidden) next(); }, 4200);
+          svg.addEventListener('pointermove', (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width * 600 - CX; my = (e.clientY - r.top) / r.height * 540 - CY; pullT = 1; });
+          svg.addEventListener('pointerleave', () => { pullT = 0; });
+          svg.addEventListener('click', next);
+        }
+      }
+    }
     // Tiere: mehr anzeigen
     const zb = document.querySelector<HTMLButtonElement>('[data-zoomore]')!;
     zb.addEventListener('click', () => { document.querySelector('[data-zoo]')!.classList.add('all'); zb.parentElement!.remove(); });

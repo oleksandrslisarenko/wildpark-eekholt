@@ -156,7 +156,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
     // Entwurfs-Einstellungen: Hero-Variante + Muster (gespeichert, wirkt auf der Startseite)
     {
       const V3 = document.body.classList.contains('t-v3');
-      const HV = V3 ? ['r1', 'r2'] : ['3', '4', '8'], HVKEY = V3 ? 'wp-hv-v3b' : 'wp-hv-v1', K = document.documentElement.dataset.k, PT = ['none', 'topo', 'holz', 'ringe'];
+      const HV = V3 ? ['r1', 'r2', 'r3'] : ['3', '4', '8'], HVKEY = V3 ? 'wp-hv-v3b' : 'wp-hv-v1', K = document.documentElement.dataset.k, PT = ['none', 'topo', 'holz', 'ringe'];
       const get = (k: string, def: string, ok: string[]) => { try { const v = localStorage.getItem(k); return v && ok.includes(v) ? v : def; } catch { return def; } };
       const qs = new URLSearchParams(location.search);
       let hv = qs.get('hero') && HV.includes(qs.get('hero')!) ? qs.get('hero')! : get(HVKEY, V3 ? 'r2' : '4', HV);
@@ -166,6 +166,7 @@ const link = (h: string | null) => (h === null ? null : h.startsWith('#') ? h : 
         if (hero) {
           hero.classList.remove(...[...hero.classList].filter((c) => /^hv\w+$/.test(c) || c.startsWith('pt-')));
           hero.classList.add('hv' + hv);
+          if (hv === 'r3') hero.classList.add('hvr2');
           if (pt !== 'none') hero.classList.add('pt-' + pt);
         }
         const html = document.documentElement;

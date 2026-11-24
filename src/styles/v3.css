@@ -377,3 +377,26 @@ main .r-zoo2 a:hover img { transform: none; }
 .r-stats2 li:hover .ico { color: inherit; transform: none; }
 .tk { min-width: 0; }
 @media (max-width: 420px) { .tk strong { font-size: clamp(28px, 9vw, 44px); overflow-wrap: anywhere; } .tk span { overflow-wrap: anywhere; } }
+
+/* Hero 3: ein Foto in einer Höhenlinie (nutzt das Raster von Hero 2) */
+.r-topo { display: none; }
+.hvr3 .r-blobs { display: none; }
+.hvr3 .r-topo { display: block; grid-area: blobs; position: relative; height: 600px; margin: -40px -40px -150px -20px; z-index: 1; }
+.hvr3 .r-stats2 { z-index: 3; }
+.hvr3 .r-txt { position: relative; z-index: 2; }
+.r-topo svg { width: 100%; height: 100%; display: block; overflow: visible; cursor: pointer; }
+.r-topo .rings path { fill: none; stroke: rgba(0, 0, 0, .3); stroke-width: 1.5; }
+.r-topo .rings path[data-tring="1"] { stroke: rgba(0, 0, 0, .6); stroke-width: 2; }
+.r-topo .rings path[data-tring="2"] { stroke: rgba(0, 0, 0, .42); }
+.r-topo .rings path[data-tring="5"], .r-topo .rings path[data-tring="6"] { stroke: rgba(0, 0, 0, .18); }
+.r-topo .shade { fill: var(--ink); filter: drop-shadow(0 24px 34px rgba(0, 0, 0, .25)); }
+.r-topo image { opacity: 0; transition: opacity 1.1s ease; }
+.r-topo image.on { opacity: 1; }
+.r-topo .edge { fill: none; stroke: var(--ink); stroke-width: 3; }
+.r-topo-name { position: absolute; left: 10%; top: 16%; margin: 0; background: var(--ink); color: #fff; font-weight: 700; font-size: 15px; padding: 8px 14px; border-radius: 999px; pointer-events: none; z-index: 2; }
+.r-topo-name.flip span { display: inline-block; animation: rtname .6s var(--ease) both; }
+@keyframes rtname { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 900px) {
+  .hvr3 .r-topo { height: 92vw; margin: 0 -12px; }
+  .r-topo-name { top: 6%; left: 6%; }
+}
