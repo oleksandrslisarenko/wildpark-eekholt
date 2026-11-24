@@ -4,7 +4,7 @@ const zooSlugs = new Set((zooData as any[]).map((a) => a.slug));
 // Interaktiver Lageplan: Formen aus dem offiziellen Lageplan (PDF) vektorisiert, Punkte aus dessen Legende.
 import shapes from '../data/mapshapes.json';
 import { pois, cats } from '../data/mappois';
-const { base = '/v12' } = Astro.props;
+const { base = '/v12', pin = 1 } = Astro.props;
 const icons = import.meta.glob('../icons/a/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 const inner = (n: string) => (icons[`../icons/a/${n}.svg`] || '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
 const catOf = Object.fromEntries(cats.map((c) => [c.id, c]));
@@ -29,7 +29,7 @@ const VB = '40 0 1660 1240';
         return (
           <g class="poi" tabindex="0" role="button" data-cat={p.cat} data-feed={p.feed || ''} data-x={p.x} data-y={p.y}
              data-name={p.name} data-note={p.note || ''} data-catlabel={c.label} data-href={p.slug && zooSlugs.has(p.slug) ? `/v12/tiere/${p.slug.replace("_", "-")}/` : ''}
-             aria-label={p.name} transform={`translate(${p.x} ${p.y})`}>
+             aria-label={p.name} transform={`translate(${p.x} ${p.y})${pin !== 1 ? ` scale(${pin})` : ''}`}>
             <g class="pin">
               <circle r="22" fill={c.color} />
               <svg class="gl" x="-16" y="-16" width="32" height="32" viewBox="0 0 72 72" set:html={inner(p.icon)} />

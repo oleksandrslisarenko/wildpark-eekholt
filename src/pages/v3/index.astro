@@ -2,99 +2,59 @@
 import L from '../../layouts/V12.astro';
 import Icon from '../../components/Icon.astro';
 import Ext from '../../components/Ext.astro';
+import ParkMap from '../../components/ParkMap.astro';
 import '../../styles/v3.css';
-import { img, highlights, prices, fmt, contact, events, animals } from '../../data/site';
-import { slotsToday, flightSeason, cleanTime, TODAY } from '../../data/helpers';
-import mapShapes from '../../data/mapshapes.json';
-import { pois } from '../../data/mappois';
-import aIcons from '../../data/animalIcons.json';
+import { img, highlights, prices, fmt, contact, contact as c2 } from '../../data/site';
+import { slotsToday, flightSeason, upcoming, dayLabel, cleanTime, eventPhoto } from '../../data/helpers';
+import zoo from '../../data/zoo.json';
 const P = (f: string, w = 700) => `/img/hero/${f}-${w}.webp`;
-const shapes = mapShapes as Record<string, string>;
-
-// Hero: Tiere an ihrem Platz im Lageplan (Kartenkoordinaten)
-const pins = [
-  { name: 'Wolf', f: 'wolf-1', at: [1080, 785], c: [1330, 905], r: 150 },
-  { name: 'Fischotter', f: 'otter-1', at: [1103, 566], c: [1130, 400], r: 118 },
-  { name: 'Wildkatze', f: 'katze-1', at: [1306, 436], c: [1470, 280], r: 128 },
-  { name: 'Eulen', f: 'eule-1', at: [772, 396], c: [740, 215], r: 120 },
-  { name: 'Seeadler', f: 'adler-1', at: [744, 912], c: [690, 1000], r: 120 },
-  { name: 'Rotfuchs', f: 'fuchs-1', at: [1052, 856], c: [1010, 1030], r: 96 },
+const stats = [
+  { n: '700', l: 'Tiere aus über 100 Arten', icon: 'pfote' },
+  { n: '67', l: 'Hektar Wald, Wiese und Moor', icon: 'tanne' },
+  { n: '2', l: 'Rundwege: 1 oder 2,5 Stunden', icon: 'karte' },
+  { n: '9', l: 'Grillplätze und Grillhütten', icon: 'feuer' },
+  { n: '4', l: 'Restaurant und Kioske', icon: 'besteck' },
+  { n: '3', l: 'Spielplätze und Haustiere', icon: 'stern' },
 ];
-const infra = [
-  { cat: 'tiere', n: '700', l: 'Tiere aus über 100 Arten', icon: 'pfote' },
-  { cat: 'park', n: '67', l: 'Hektar Wald, Wiese und Moor', icon: 'tanne' },
-  { cat: 'wege', n: '2', l: 'Rundwege: 1 oder 2,5 Stunden', icon: 'karte' },
-  { cat: 'essen', n: '9', l: 'Grillplätze und Grillhütten', icon: 'feuer' },
-  { cat: 'kiosk', n: '4', l: 'Restaurant und Kioske', icon: 'besteck' },
-  { cat: 'spielen', n: '3', l: 'Spielplätze und Haustiere', icon: 'stern' },
-];
-const kioskNames = ['Restaurant Kiek-ut-Stuben', 'Kiosk', 'Kiosk an der Flugwiese', 'Kiosk an der Wolfsmeile'];
-const dots = pois.filter((p) => p.cat !== 'tiere').map((p) => ({ ...p, hl: kioskNames.includes(p.name) ? 'kiosk' : p.cat }));
-const animalDots = pois.filter((p) => p.cat === 'tiere');
-
-// Heute: Fütterungen mit Tierfoto
-const slotPhoto: Record<string, string> = { '10:30': P('otter-2'), '13:00': P('fuchs-2'), '14:45': img('stoerche', 640), '15:00': P('otter-3'), '15:30': P('wolf-2') };
-const slotIcon: Record<string, string> = { '11:00': 'marder' };
-
-// Kalender: aktueller und nächster Monat
-const MON = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-const todayIso = iso(TODAY);
-const byDay: Record<string, { title: string; time: string; text: string; img: string | null }[]> = {};
-for (const e of events) for (const d of e.dates.length ? e.dates : e.start ? [e.start] : []) (byDay[d] ||= []).push({ title: e.title, time: cleanTime(e.time), text: e.text, img: e.img });
-const months = [0, 1].map((k) => {
-  const first = new Date(TODAY.getFullYear(), TODAY.getMonth() + k, 1);
-  const lead = (first.getDay() + 6) % 7;
-  const days = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
-  const cells: (null | { d: number; iso: string })[] = Array(lead).fill(null);
-  for (let d = 1; d <= days; d++) cells.push({ d, iso: iso(new Date(first.getFullYear(), first.getMonth(), d)) });
-  return { name: `${MON[first.getMonth()]} ${first.getFullYear()}`, cells };
-});
-const firstUp = Object.keys(byDay).sort().find((d) => d >= todayIso)!;
-
-// Tiere nach Beliebtheit, die ersten sechs groß
-const icons = aIcons as Record<string, string>;
-const popular = ['wolf', 'otter', 'wildkatze', 'seeadler', 'uhu', 'rotfuchs', 'weisses_rotwild', 'waschbaer', 'wildschwein', 'storch', 'schneeeule', 'dachs', 'rotwild', 'reh', 'damwild', 'hauskaninchen', 'zwergziege', 'zwergesel', 'kolkrabe', 'graukranich', 'baummarder', 'steinmarder', 'maeusebussard', 'schwarzstorch', 'loeffler', 'schwarzspecht', 'auerhuhn', 'kampflaeufer', 'heidschnucke', 'sikawild', 'blesswild', 'ringelnatter', 'honigbiene'];
-const photoOf: Record<string, string> = { wolf: P('wolf-3'), otter: P('otter-1'), wildkatze: P('katze-2'), seeadler: P('adler-3'), uhu: P('eule-2'), rotfuchs: P('fuchs-3'), weisses_rotwild: img('weisses-rotwild', 640), wildschwein: img('wildschwein', 640), storch: img('stoerche', 640), rotwild: img('rotwild', 640), kampflaeufer: img('kampflaeufer', 640) };
-const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boolean);
+// Heute im Park: feste Uhrzeit 11:00 (Entwurf)
+const NOW = '11:00';
+const slots = slotsToday();
+const nextIdx = slots.findIndex((x) => x.time > NOW);
+const slotPhoto: Record<string, string> = { '10:30': P('otter-2'), '11:00': '/img/tiere/baummarder.webp', '13:00': P('fuchs-2'), '14:45': img('stoerche', 640), '15:00': P('otter-3'), '15:30': P('wolf-2') };
+const ev = upcoming(3);
+// Tiere nach Beliebtheit, die ersten sieben mit Etikett
+const popular = ['wolf', 'otter', 'wildkatze', 'seeadler', 'uhu', 'rotfuchs', 'weisses_rotwild'];
+const rest = ['waschbaer', 'wildschwein', 'storch', 'schneeeule', 'dachs', 'rotwild', 'reh', 'damwild', 'hauskaninchen', 'zwergziege', 'zwergesel', 'kolkrabe', 'graukranich', 'baummarder', 'steinmarder', 'maeusebussard', 'schwarzstorch', 'loeffler', 'schwarzspecht', 'auerhuhn', 'kampflaeufer', 'heidschnucke', 'sikawild', 'blesswild', 'ringelnatter', 'honigbiene', 'schleiereule', 'waldkautz', 'steinadler', 'rotmilan', 'schwarzmilan', 'birkhuhn', 'buntspecht', 'eichhoernchen', 'jagdfasan', 'skudde', 'aspis_viper'];
+const Z = zoo as any[];
+const grid = [...popular, ...rest].map((s) => Z.find((a) => a.slug === s)).filter(Boolean);
+const photo = (a: any) => (a.hero ? a.hero.replace('-1200.webp', '-700.webp').replace('/img/weisses-rotwild-700.webp', '/img/weisses-rotwild-640.webp').replace('/img/stoerche-700.webp', '/img/stoerche-640.webp') : a.thumb);
 ---
 <L title="Wildpark Eekholt: 700 Tiere auf 67 Hektar" variant="v3" active="">
-  <section class="r-hero pt-target" data-rhero>
-    <svg class="r-map" viewBox="-300 80 2000 1140" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
-      <defs>
-        {pins.map((p, i) => <clipPath id={`rc${i}`}><circle cx={p.c[0]} cy={p.c[1]} r={p.r} /></clipPath>)}
-        <pattern id="rhatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V16" /></pattern>
-      </defs>
-      <path class="park" d={shapes.park} />
-      <path class="moor" d={shapes.moor} />
-      <path class="water" d={shapes.water} />
-      <path class="paths" d={shapes.paths} />
-      {animalDots.map((p) => <circle class="adot" cx={p.x} cy={p.y} r="7" />)}
-      {dots.map((p) => <circle class="idot" data-hl={p.hl} cx={p.x} cy={p.y} r="10" />)}
-      {pins.map((p, i) => (
-        <g class="rpin" style={`--d:${0.5 + i * 0.12}s`}>
-          <path class="lead" d={`M${p.at[0]} ${p.at[1]} L${p.c[0]} ${p.c[1]}`} />
-          <circle class="at" cx={p.at[0]} cy={p.at[1]} r="11" />
-          <g class="ph">
-            <circle class="ring" cx={p.c[0]} cy={p.c[1]} r={p.r + 9} />
-            <image href={P(p.f)} x={p.c[0] - p.r} y={p.c[1] - p.r} width={p.r * 2} height={p.r * 2} preserveAspectRatio="xMidYMid slice" clip-path={`url(#rc${i})`} />
-            <g class="lbl" transform={`translate(${p.c[0]} ${p.c[1] + p.r + 14})`}><rect x="-95" y="0" width="190" height="52" rx="26" /><text x="0" y="35">{p.name}</text></g>
-          </g>
-        </g>
-      ))}
-    </svg>
-    <div class="r-card">
-      <p class="r-live" data-live="status">Täglich geöffnet</p>
-      <h1>700 Tiere auf 67&nbsp;Hektar</h1>
-      <p class="lede">Heimische Wildtiere in Wald, Wiese und Moor, zwischen Bad Bramstedt und Bad Segeberg. Fahren Sie über die Zahlen: der Plan zeigt, wo was ist.</p>
-      <ul class="r-stats">
-        {infra.map((s) => <li data-hl={s.cat} tabindex="0"><Icon name={s.icon} set="h" /><b data-count={s.n}>{s.n}</b><span>{s.l}</span></li>)}
+  <section class="r-hero2 pt-target">
+    <div class="r-wrap r-h2">
+      <div class="r-txt">
+        <p class="r-pill"><span class="dot"></span><span data-live="status">Täglich geöffnet</span></p>
+        <h1>700 Tiere auf 67&nbsp;Hektar</h1>
+        <p class="lede">Heimische Wildtiere in Wald, Wiese und Moor, zwischen Bad Bramstedt und Bad Segeberg. Eine knappe Stunde von Hamburg, täglich und ganzjährig geöffnet.</p>
+        <div class="r-cta">
+          <a class="btn ink" href="/v12/besuch/">Besuch planen</a>
+          <a class="btn line" href="#karte">Lageplan ansehen</a>
+        </div>
+      </div>
+      <ul class="r-stats2">
+        {stats.map((s, i) => <li style={`--d:${0.15 + i * 0.08}s`}><Icon name={s.icon} set="h" /><b data-count={s.n}>{s.n}</b><span>{s.l}</span></li>)}
       </ul>
-      <div class="r-cta">
-        <a class="btn plate" href="/v12/besuch/">Besuch planen</a>
-        <a class="btn ghost" href="/v12/#karte">Ganzer Lageplan</a>
+    </div>
+  </section>
+
+  <section class="mapsec r-map2" id="karte">
+    <div class="r-wrap">
+      <div class="r-head row">
+        <h2>Der Park auf einen Blick</h2>
+        <p>Zwei Rundwege, über 40 Gehege, Grillplätze und Spielplätze. Filtern Sie nach dem, was Sie suchen.</p>
       </div>
     </div>
+    <div class="r-mapfull"><ParkMap base="/v12" pin={2} /></div>
   </section>
 
   <section class="r-sec">
@@ -104,9 +64,9 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
         <p>{flightSeason() ? 'Fütterungen und Flugvorführungen' : 'Öffentliche Fütterungen. Flugvorführungen wieder ab 14. März 2027.'}</p>
       </div>
       <ol class="r-today">
-        {slotsToday().map((s) => (
-          <li data-slot={s.time} data-kind={s.kind}>
-            <span class="pic">{slotPhoto[s.time] ? <img src={slotPhoto[s.time]} alt="" loading="lazy" /> : <Icon name={slotIcon[s.time] || 'adler'} />}</span>
+        {slots.map((s, i) => (
+          <li data-state={s.time === NOW ? 'now' : i === nextIdx ? 'upcoming' : ''}>
+            <span class="pic"><img src={slotPhoto[s.time] || P('adler-2')} alt="" loading="lazy" /></span>
             <time>{s.time}</time>
             <span class="what">{s.what}</span>
             <span class="st" aria-hidden="true"></span>
@@ -119,30 +79,21 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
   <section class="r-sec mist">
     <div class="r-wrap">
       <div class="r-head row">
-        <h2>Veranstaltungskalender</h2>
+        <h2>Als Nächstes im Wildpark</h2>
         <a class="more" href="/v12/veranstaltungen/">Alle 28 Termine 2026</a>
       </div>
-      <div class="r-cal" data-cal>
-        {months.map((m) => (
-          <div class="month">
-            <h3>{m.name}</h3>
-            <div class="dow"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div>
-            <div class="days">
-              {m.cells.map((c) => c === null ? <span class="pad"></span> : (
-                <button type="button" class:list={['day', { ev: byDay[c.iso], past: c.iso < todayIso, today: c.iso === todayIso, sel: c.iso === firstUp }]} data-iso={c.iso} disabled={!byDay[c.iso]}>{c.d}</button>
-              ))}
+      <div class="ev3">
+        {ev.map((e) => { const d = dayLabel(e.next); return (
+          <a href="/v12/veranstaltungen/">
+            <figure><img src={eventPhoto[e.title] ? img(eventPhoto[e.title], 1200) : e.img} alt="" loading="lazy" /><span class="date"><i>{d.wd}</i><b data-i18n-daymonth={`${d.day}|${d.monLong}`}>{d.day}<small>{d.monLong}</small></b><span>{cleanTime(e.time)}</span></span></figure>
+            <div class="body">
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
             </div>
-          </div>
-        ))}
-        <div class="r-evpanel" aria-live="polite" data-panel>
-          <p class="pd" data-pd></p>
-          {Object.entries(byDay).filter(([d]) => d >= months[0].cells.find(Boolean)!.iso).map(([d, list]) => (
-            <div class="evp" data-for={d} hidden={d !== firstUp}>
-              {list.map((e) => <>{e.img && <img src={e.img} alt="" loading="lazy" />}<h3>{e.title}</h3><p class="pt">{e.time}</p><p>{e.text}</p></>)}
-            </div>
-          ))}
-        </div>
+          </a>
+        ); })}
       </div>
+      <p class="pnote">Alle Sonderveranstaltungen sind im Eintritt enthalten und auch mit der Jahreskarte nutzbar.</p>
     </div>
   </section>
 
@@ -152,13 +103,13 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
         <h2>Alle Tiere, die beliebtesten zuerst</h2>
         <a class="more" href="/v12/tiere/">Steckbriefe von A bis Z</a>
       </div>
-      <ul class="r-zoo">
+      <ul class="r-zoo2">
         {grid.map((a, i) => (
-          <li class:list={[{ top: i < 6 }]}>
-            <a href={`/v12/tiere/${a.slug.replace('_', '-')}/`} aria-label={a.name}>
-              <Icon name={icons[a.slug] || 'pfote'} />
-              {photoOf[a.slug] && <img src={photoOf[a.slug]} alt="" loading="lazy" />}
-              <span>{a.name}</span>
+          <li>
+            <a href={a.url} aria-label={a.name}>
+              <span class="disc"><Icon name={a.icon} />{photo(a) && <img src={photo(a)} alt="" loading="lazy" />}</span>
+              {i < popular.length && <em>Beliebt</em>}
+              <span class="nm">{a.name}</span>
             </a>
           </li>
         ))}
@@ -185,19 +136,24 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
     </div>
   </section>
 
-  <section class="r-trio">
-    <article>
-      <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
-      <div><h2>Eekholter Wolfsmeile</h2><p>{highlights.wolfsmeile}</p><a class="btn plate" href="/v12/wolfsmeile/">Zur Wolfsmeile</a></div>
-    </article>
-    <article>
-      <img src={img('uhu-untersuchung', 1200)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
-      <div><h2>Vogelpflegestation</h2><p>{highlights.pflegestation}</p><p class="tel">{highlights.pflegeTel}</p></div>
-    </article>
-    <article>
-      <img src={img('wildkatzen', 1200)} alt="Junge Wildkatzen auf einem Baumstamm" loading="lazy" />
-      <div><h2>Tierpatenschaften</h2><p>{highlights.paten} Firmen können ebenfalls Pate werden.</p><a class="btn plate" href={contact.paten} rel="noopener" target="_blank">Pate werden <Ext /></a></div>
-    </article>
+  <section class="r-sec r-trio2">
+    <div class="r-wrap">
+      <div class="r-head"><h2>Mehr als ein Ausflug</h2></div>
+      <div class="r-tri">
+        <article class="big">
+          <img src={img('woelfe', 1200)} alt="Zwei Wölfe im Gehege" loading="lazy" />
+          <div><span class="kick">Wolfsinformationszentrum</span><h3>Eekholter Wolfsmeile</h3><p>{highlights.wolfsmeile}</p><a class="btn plate" href="/v12/wolfsmeile/">Zur Wolfsmeile</a></div>
+        </article>
+        <article>
+          <img src={img('uhu-untersuchung', 640)} alt="Ein Uhu wird in der Vogelpflegestation untersucht" loading="lazy" />
+          <div><span class="kick">Seit fast 50 Jahren</span><h3>Vogelpflegestation</h3><p>{highlights.pflegeTel}</p><a class="more" href="/v12/vogelpflegestation/">Wildvogel gefunden?</a></div>
+        </article>
+        <article>
+          <img src={img('wildkatzen', 640)} alt="Junge Wildkatzen auf einem Baumstamm" loading="lazy" />
+          <div><span class="kick">Ab einem Jahr</span><h3>Tierpatenschaften</h3><p>{highlights.paten}</p><a class="more" href="/v12/unterstuetzen/tierpatenschaften/">Pate werden</a></div>
+        </article>
+      </div>
+    </div>
   </section>
 
   <section class="r-sec">
@@ -206,46 +162,23 @@ const grid = popular.map((s) => animals.find((a) => a.slug === s)!).filter(Boole
       <div class="r-for">
         <a href="/v12/besuch/familien/"><img src={img('bachlauf-kinder', 640)} alt="" loading="lazy" /><Icon name="gruppe" set="h" /><h3>Familien</h3><p>Spielplätze, Bollerwagen, Fütterungen zum Zuschauen.</p></a>
         <a href="/v12/bildung/"><img src={img('eule-kinder', 640)} alt="" loading="lazy" /><Icon name="buch" set="h" /><h3>Schulen und Kitas</h3><p>Betreute Programme ab 3,75 € pro Kind, BNE-zertifiziert.</p></a>
-        <a href="/v12/besuch/kindergeburtstag/"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><Icon name="geschenk" set="h" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
+        <a href="/v12/besuch/kindergeburtstag/"><img src={img('spielplatz', 640)} alt="" loading="lazy" /><Icon name="stern" set="h" /><h3>Kindergeburtstag</h3><p>1,5 Stunden mit Betreuung, 65 € zzgl. Eintritt.</p></a>
         <a href="/v12/besuch/essen-und-grillen/"><img src={img('grillkota', 640)} alt="" loading="lazy" /><Icon name="feuer" set="h" /><h3>Feiern und Grillen</h3><p>Grillplätze und Hütten ab 14 € für drei Stunden.</p></a>
       </div>
     </div>
   </section>
 
   <script>
-    // Zahlen markieren die passenden Orte im Plan
-    const hero = document.querySelector<HTMLElement>('[data-rhero]')!;
-    hero.querySelectorAll<HTMLElement>('.r-stats li').forEach((li) => {
-      const on = () => (hero.dataset.hl = li.dataset.hl!);
-      const off = () => delete hero.dataset.hl;
-      li.addEventListener('mouseenter', on); li.addEventListener('focus', on);
-      li.addEventListener('mouseleave', off); li.addEventListener('blur', off);
-    });
-    // Beschriftungen der Kreise an die Textlänge anpassen (auch für RU)
-    hero.querySelectorAll<SVGGElement>('.lbl').forEach((g) => {
-      const t = g.querySelector('text')!, r = g.querySelector('rect')!, w = t.getComputedTextLength() + 48;
-      r.setAttribute('width', String(w)); r.setAttribute('x', String(-w / 2));
-    });
-    // Zahlen zählen beim Laden hoch
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      hero.querySelectorAll<HTMLElement>('[data-count]').forEach((b, i) => {
-        const n = +b.dataset.count!, t0 = performance.now() + 300 + i * 90, D = 1200;
-        const tick = (t: number) => { const k = Math.max(0, Math.min(1, (t - t0) / D)); b.textContent = String(Math.round(n * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(tick); };
-        b.textContent = '0'; requestAnimationFrame(tick);
-      });
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return; io.disconnect();
+        document.querySelectorAll<HTMLElement>('[data-count]').forEach((b, i) => {
+          const n = +b.dataset.count!, t0 = performance.now() + i * 90, D = 1200;
+          const tick = (t: number) => { const k = Math.max(0, Math.min(1, (t - t0) / D)); b.textContent = String(Math.round(n * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(tick); };
+          b.textContent = '0'; requestAnimationFrame(tick);
+        });
+      }));
+      io.observe(document.querySelector('.r-stats2')!);
     }
-    // Kalender
-    const cal = document.querySelector<HTMLElement>('[data-cal]')!;
-    const panel = cal.querySelector<HTMLElement>('[data-panel]')!;
-    const RU = document.documentElement.lang === 'ru';
-    const show = (iso: string) => {
-      cal.querySelectorAll('.day.sel').forEach((d) => d.classList.remove('sel'));
-      cal.querySelector(`.day[data-iso="${iso}"]`)?.classList.add('sel');
-      panel.querySelector<HTMLElement>('[data-pd]')!.textContent = new Date(iso + 'T12:00').toLocaleDateString(RU ? 'ru-RU' : 'de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-      panel.querySelectorAll<HTMLElement>('.evp').forEach((e) => (e.hidden = e.dataset.for !== iso));
-      panel.classList.remove('flip'); void panel.offsetWidth; panel.classList.add('flip');
-    };
-    cal.querySelectorAll<HTMLButtonElement>('.day.ev').forEach((b) => { b.addEventListener('click', () => show(b.dataset.iso!)); b.addEventListener('mouseenter', () => show(b.dataset.iso!)); });
-    const sel = cal.querySelector<HTMLElement>('.day.sel'); if (sel) show(sel.dataset.iso!);
   </script>
 </L>
